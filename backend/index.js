@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const app = express();
+const pinRoute = require('./routes/pins');
 
 // .env 파일을 불러옴
 dotenv.config();
@@ -21,6 +22,8 @@ mongoose.connect(process.env.MONGO_URL, {
     .catch((error) => {
         console.log(error);
     });
+
+app.use('/api/pins/', pinRoute);
 
 // 포트 번호 1035로 연결
 app.listen(1035, () => {
