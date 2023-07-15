@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
-import Map from 'react-map-gl';
+import Map, {Marker} from 'react-map-gl';
+
+import {Room} from '@material-ui/icons'
 
 function App() {
   const [viewState, setViewState] = useState({
@@ -15,7 +17,15 @@ function App() {
         initialViewState={viewState}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
-      />
+      >
+        <Marker 
+          longitude={-122.4}
+          latitude={37.8}
+          anchor='bottom'
+        >
+          <Room></Room>
+        </Marker>
+      </Map>
     </div>
   );
 }
