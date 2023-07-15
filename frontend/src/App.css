@@ -1,0 +1,31 @@
+.card {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+label {
+    width: max-content;
+    color: darkcyan;
+    font-size: 12px;
+    border-bottom: 1px solid darkcyan;
+    margin: 3px 0;
+}
+
+.description {
+    font-size: 13px;
+}
+
+.star {
+    color: gold;
+}
+
+.username {
+    font-size: 13px;
+}
+
+.date {
+    font-size: 13px;
+}
