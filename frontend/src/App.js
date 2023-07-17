@@ -12,12 +12,8 @@ function App() {
   const [viewState, setViewState] = useState({
     longitude: -122.4,
     latitude: 37.8,
-    zoom: 5
+    zoom: 8
   });
-
-  const markerClickHandler = (pinId) => {
-    setCurrentPlaceId(pinId);
-  };
 
   // get all pins from database everytime refreshing the page
   useEffect(() => {
@@ -33,6 +29,10 @@ function App() {
     getPins();
   }, []);
 
+  const markerClickHandler = (id) => {
+    console.log(id);
+  }
+
   return (
     <div className='App'>
       <Map
@@ -41,42 +41,41 @@ function App() {
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf">
         {pins.map((pin) => (
-          <div>
+          <React.Fragment>
             <Marker
               longitude={pin.long}
               latitude={pin.lat}
               anchor='bottom'>
-              <Room 
+              <Room
                 style={{ fontSize: viewState.zoom * 6, color: 'red' }}
-                onClick={() => markerClickHandler(pin._id)}>  
+                onClick={() => markerClickHandler(pin._id)}
+                cursor='pointer'>
               </Room>
             </Marker>
-            {pin._id === currentPlaceId && (
-              <Popup
-                longitude={pin.long}
-                latitude={pin.lat}
-                anchor="left"
-                onClose={() => setShowPopup(false)}>
-                <div className='card'>
-                  <label>Place</label>
-                  <h4 className='place'>{pin.title}</h4>
-                  <label>Review</label>
-                  <p className='description'>{pin.discription}</p>
-                  <label>Rating</label>
-                  <div className='stars'>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                  </div>
-                  <label>Information</label>
-                  <span className='username'>Created by <b>{pin.username}</b></span>
-                  <span className='date'>{format(pin.createdAt)}</span>
+            <Popup
+              longitude={pin.long}
+              latitude={pin.lat}
+              anchor="left"
+              onClose={() => setShowPopup(false)}>
+              <div className='card'>
+                <label>Place</label>
+                <h4 className='place'>{pin.title}</h4>
+                <label>Review</label>
+                <p className='description'>{pin.discription}</p>
+                <label>Rating</label>
+                <div className='stars'>
+                  <Star className='star'></Star>
+                  <Star className='star'></Star>
+                  <Star className='star'></Star>
+                  <Star className='star'></Star>
+                  <Star className='star'></Star>
                 </div>
-              </Popup>
-            )}
-          </div>
+                <label>Information</label>
+                <span className='username'>Created by <b>{pin.username}</b></span>
+                <span className='date'>{format(pin.createdAt)}</span>
+              </div>
+            </Popup>
+          </React.Fragment>
         ))}
       </Map>
     </div>
