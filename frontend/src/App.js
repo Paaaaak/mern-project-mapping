@@ -6,7 +6,9 @@ import axios from 'axios';
 import {format} from 'timeago.js';
 
 function App() {
+  const currentUser = 'Megan';
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
+  const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
   const [viewState, setViewState] = useState({
     longitude: -122.4,
@@ -30,11 +32,20 @@ function App() {
 
   const markerClickHandler = (id) => {
     setCurrentPlaceId(id);
-  }
+  };
 
   const closePopupHandler = () => {
     setCurrentPlaceId(null);
-  }
+  };
+
+  const rightClickHandler = (event) => {
+    const longitude = event.lngLat.lng;
+    const latitude = event.lngLat.lat;
+    setNewPlace({
+      longitude: longitude,
+      latitude: latitude
+    });
+  };
 
   return (
     <div className='App'>
@@ -42,7 +53,8 @@ function App() {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         initialViewState={viewState}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
-        mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf">
+        mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
+        onContextMenu={rightClickHandler}>
         {pins.map((pin) => (
           <React.Fragment>
             <Marker
@@ -54,8 +66,11 @@ function App() {
               }}
               anchor='bottom'>
               <Room
-                style={{ fontSize: viewState.zoom * 6, color: 'red' }}
-                cursor='pointer'>
+                style={{ 
+                  fontSize: viewState.zoom * 6, 
+                  color: pin.username === currentUser ? 'blue' : 'red' ,
+                  cursor: 'pointer'
+                }}>
               </Room>
             </Marker>
             {currentPlaceId === pin._id && (
@@ -81,6 +96,15 @@ function App() {
                   <span className='username'>Created by <b>{pin.username}</b></span>
                   <span className='date'>{format(pin.createdAt)}</span>
                 </div>
+              </Popup>
+            )}
+            {newPlace && (
+              <Popup
+                longitude={newPlace.longitude}
+                latitude={newPlace.latitude}
+                anchor="left"
+                onClose={() => closePopupHandler}>
+                New Place
               </Popup>
             )}
           </React.Fragment>
