@@ -31,6 +31,7 @@ function App() {
   }, []);
 
   const markerClickHandler = (id) => {
+    console.log('Marker cliked: ' + id);
     setCurrentPlaceId(id);
   };
 
@@ -38,7 +39,11 @@ function App() {
     setCurrentPlaceId(null);
   };
 
-  const rightClickHandler = (event) => {
+  const mapClickHandler = () => {
+    setCurrentPlaceId(null);
+  };
+
+  const mapRightClickHandler = (event) => {
     const longitude = event.lngLat.lng;
     const latitude = event.lngLat.lat;
     console.log(longitude + ' ' + latitude);
@@ -55,7 +60,8 @@ function App() {
         initialViewState={viewState}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
-        onContextMenu={rightClickHandler}>
+        onClick={mapClickHandler}
+        onContextMenu={mapRightClickHandler}>
         {pins.map((pin) => (
           <div key={pin._id}>
             <Marker
@@ -104,7 +110,7 @@ function App() {
                 longitude={newPlace.longitude}
                 latitude={newPlace.latitude}
                 anchor="left"
-                onClose={() => closePopupHandler}>
+                onClose={() => setNewPlace(null)}>
                 New Place
               </Popup>
             )}
