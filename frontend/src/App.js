@@ -7,7 +7,6 @@ import {format} from 'timeago.js';
 
 function App() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
-  const [showPopup, setShowPopup] = useState(true);
   const [pins, setPins] = useState([]);
   const [viewState, setViewState] = useState({
     longitude: -122.4,
@@ -30,7 +29,11 @@ function App() {
   }, []);
 
   const markerClickHandler = (id) => {
-    console.log(id);
+    setCurrentPlaceId(id);
+  }
+
+  const closePopupHandler = () => {
+    setCurrentPlaceId(null);
   }
 
   return (
@@ -45,36 +48,41 @@ function App() {
             <Marker
               longitude={pin.long}
               latitude={pin.lat}
+              onClick={(e) => {
+                e.originalEvent.stopPropagation();
+                markerClickHandler(pin._id)
+              }}
               anchor='bottom'>
               <Room
                 style={{ fontSize: viewState.zoom * 6, color: 'red' }}
-                onClick={() => markerClickHandler(pin._id)}
                 cursor='pointer'>
               </Room>
             </Marker>
-            <Popup
-              longitude={pin.long}
-              latitude={pin.lat}
-              anchor="left"
-              onClose={() => setShowPopup(false)}>
-              <div className='card'>
-                <label>Place</label>
-                <h4 className='place'>{pin.title}</h4>
-                <label>Review</label>
-                <p className='description'>{pin.discription}</p>
-                <label>Rating</label>
-                <div className='stars'>
-                  <Star className='star'></Star>
-                  <Star className='star'></Star>
-                  <Star className='star'></Star>
-                  <Star className='star'></Star>
-                  <Star className='star'></Star>
+            {currentPlaceId === pin._id && (
+              <Popup
+                longitude={pin.long}
+                latitude={pin.lat}
+                anchor="left"
+                onClose={() => closePopupHandler}>
+                <div className='card'>
+                  <label>Place</label>
+                  <h4 className='place'>{pin.title}</h4>
+                  <label>Review</label>
+                  <p className='description'>{pin.discription}</p>
+                  <label>Rating</label>
+                  <div className='stars'>
+                    <Star className='star'></Star>
+                    <Star className='star'></Star>
+                    <Star className='star'></Star>
+                    <Star className='star'></Star>
+                    <Star className='star'></Star>
+                  </div>
+                  <label>Information</label>
+                  <span className='username'>Created by <b>{pin.username}</b></span>
+                  <span className='date'>{format(pin.createdAt)}</span>
                 </div>
-                <label>Information</label>
-                <span className='username'>Created by <b>{pin.username}</b></span>
-                <span className='date'>{format(pin.createdAt)}</span>
-              </div>
-            </Popup>
+              </Popup>
+            )}
           </React.Fragment>
         ))}
       </Map>
