@@ -113,7 +113,23 @@ function App() {
                 latitude={newPlace.latitude}
                 anchor="left"
                 onClose={() => setNewPlace(null)}>
-                New Place
+                <div>
+                  <form>
+                    <label>Title</label>
+                    <input placeholder='Enter a title'></input>
+                    <label>Review</label>
+                    <textarea placeholder='Leave your impression about this place!'></textarea>
+                    <label>Rating</label>
+                    <select>
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
+                      <option value='4'>4</option>
+                      <option value='5'>5</option>
+                    </select>
+                    <button className='submit-button' type='submit'>Add Pin</button>
+                  </form>
+                </div>
               </Popup>
             )}
           </div>
