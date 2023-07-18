@@ -35,10 +35,6 @@ function App() {
     setCurrentPlaceId(id);
   };
 
-  const closePopupHandler = () => {
-    setCurrentPlaceId(null);
-  };
-
   const mapClickHandler = () => {
     setCurrentPlaceId(null);
   };
@@ -85,7 +81,7 @@ function App() {
                 longitude={pin.long}
                 latitude={pin.lat}
                 anchor="left"
-                onClose={() => closePopupHandler}>
+                onClose={() => setCurrentPlaceId(null)}>
                 <div className='card'>
                   <label>Place</label>
                   <h4 className='place'>{pin.title}</h4>
