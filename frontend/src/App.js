@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Map, {Marker, Popup} from 'react-map-gl';
 import {Room, Star} from '@material-ui/icons'
 import './App.css';
@@ -10,6 +10,7 @@ function App() {
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
+  const mapRef = useRef();
   const [viewState, setViewState] = useState({
     longitude: -122.4,
     latitude: 37.8,
@@ -30,15 +31,19 @@ function App() {
     getPins();
   }, []);
 
-  const markerClickHandler = (id) => {
+  /* executed when clicking the marker */
+  const markerClickHandler = (id, long, lat) => {
     console.log('Marker cliked: ' + id);
     setCurrentPlaceId(id);
+    mapRef.current?.flyTo({center: [long, lat], duration: 1000});
   };
 
+  /* executed when clicking the map */
   const mapClickHandler = () => {
     setCurrentPlaceId(null);
   };
 
+  /* executed when clicking the map with right mouse */
   const mapRightClickHandler = (event) => {
     const longitude = event.lngLat.lng;
     const latitude = event.lngLat.lat;
@@ -52,6 +57,7 @@ function App() {
   return (
     <div className='App'>
       <Map
+        ref={mapRef}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         initialViewState={viewState}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
@@ -65,7 +71,7 @@ function App() {
               latitude={pin.lat}
               onClick={(e) => {
                 e.originalEvent.stopPropagation();
-                markerClickHandler(pin._id)
+                markerClickHandler(pin._id, pin.long, pin.lat)
               }}
               anchor='bottom'>
               <Room
