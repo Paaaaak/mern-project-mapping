@@ -41,6 +41,7 @@ function App() {
   const rightClickHandler = (event) => {
     const longitude = event.lngLat.lng;
     const latitude = event.lngLat.lat;
+    console.log(longitude + ' ' + latitude);
     setNewPlace({
       longitude: longitude,
       latitude: latitude
@@ -56,7 +57,7 @@ function App() {
         mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
         onContextMenu={rightClickHandler}>
         {pins.map((pin) => (
-          <React.Fragment>
+          <div key={pin._id}>
             <Marker
               longitude={pin.long}
               latitude={pin.lat}
@@ -107,7 +108,7 @@ function App() {
                 New Place
               </Popup>
             )}
-          </React.Fragment>
+          </div>
         ))}
       </Map>
     </div>
