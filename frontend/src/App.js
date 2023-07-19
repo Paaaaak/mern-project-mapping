@@ -16,6 +16,9 @@ function App() {
     latitude: 37.8,
     zoom: 8
   });
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [rating, setRating] = useState(0);
 
   // get all pins from database everytime refreshing the page
   useEffect(() => {
@@ -52,6 +55,22 @@ function App() {
       longitude: longitude,
       latitude: latitude
     });
+  };
+
+  const submitHandler = (event) => {
+    event.preventDefault();
+    console.log(title + ' ' + description + ' ' + rating);
+  };
+
+  const getStarsForRating = (rating) => {
+    let stars = [];
+    for (let i = 0; i < rating; i++) {
+      stars.push(<Star key={`star-gold-${i}`} className='star-gold'></Star>);
+    }
+    for (let i = 0; i < 5 - rating; i++) {
+      stars.push(<Star key={`star-${i}`} className='star'></Star>);
+    }
+    return stars;
   };
 
   return (
@@ -95,11 +114,7 @@ function App() {
                   <p className='description'>{pin.discription}</p>
                   <label>Rating</label>
                   <div className='stars'>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
-                    <Star className='star'></Star>
+                    {getStarsForRating(pin.rating)}
                   </div>
                   <label>Information</label>
                   <span className='username'>Created by <b>{pin.username}</b></span>
@@ -114,13 +129,13 @@ function App() {
                 anchor="left"
                 onClose={() => setNewPlace(null)}>
                 <div>
-                  <form>
+                  <form onSubmit={submitHandler}>
                     <label>Title</label>
-                    <input placeholder='Enter a title'></input>
+                    <input placeholder='Enter a title' onChange={(event) => setTitle(event.target.value)}></input>
                     <label>Review</label>
-                    <textarea placeholder='Leave your impression about this place!'></textarea>
+                    <textarea placeholder='Leave your impression about this place!' onChange={(event) => setDescription(event.target.value)}></textarea>
                     <label>Rating</label>
-                    <select>
+                    <select onChange={(event) => setRating(event.target.value)}>
                       <option value='1'>1</option>
                       <option value='2'>2</option>
                       <option value='3'>3</option>
