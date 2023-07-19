@@ -57,9 +57,26 @@ function App() {
     });
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    console.log(title + ' ' + description + ' ' + rating);
+    const longitude = newPlace.longitude;
+    const latitude = newPlace.latitude;
+    console.log(title + ' ' + description + ' ' + rating + ' long: ' + longitude + ' lat: ' + latitude);
+    const newPin = {
+      usename: currentUser,
+      title: title,
+      description: description,
+      rating: rating,
+      latitude: latitude,
+      longitude: longitude
+    }
+    try {
+      const res = await axios.post('/pins', newPin);
+      console.log(res);
+    }
+    catch (error) {
+      console.log(error);
+    }
   };
 
   const getStarsForRating = (rating) => {
@@ -122,33 +139,33 @@ function App() {
                 </div>
               </Popup>
             )}
-            {newPlace && (
-              <Popup
-                longitude={newPlace.longitude}
-                latitude={newPlace.latitude}
-                anchor="left"
-                onClose={() => setNewPlace(null)}>
-                <div>
-                  <form onSubmit={submitHandler}>
-                    <label>Title</label>
-                    <input placeholder='Enter a title' onChange={(event) => setTitle(event.target.value)}></input>
-                    <label>Review</label>
-                    <textarea placeholder='Leave your impression about this place!' onChange={(event) => setDescription(event.target.value)}></textarea>
-                    <label>Rating</label>
-                    <select onChange={(event) => setRating(event.target.value)}>
-                      <option value='1'>1</option>
-                      <option value='2'>2</option>
-                      <option value='3'>3</option>
-                      <option value='4'>4</option>
-                      <option value='5'>5</option>
-                    </select>
-                    <button className='submit-button' type='submit'>Add Pin</button>
-                  </form>
-                </div>
-              </Popup>
-            )}
           </div>
         ))}
+        {newPlace && (
+          <Popup
+            longitude={newPlace.longitude}
+            latitude={newPlace.latitude}
+            anchor="left"
+            onClose={() => setNewPlace(null)}>
+            <div>
+              <form onSubmit={submitHandler}>
+                <label>Title</label>
+                <input placeholder='Enter a title' onChange={(event) => setTitle(event.target.value)}></input>
+                <label>Review</label>
+                <textarea placeholder='Leave your impression about this place!' onChange={(event) => setDescription(event.target.value)}></textarea>
+                <label>Rating</label>
+                <select onChange={(event) => setRating(event.target.value)}>
+                  <option value='1'>1</option>
+                  <option value='2'>2</option>
+                  <option value='3'>3</option>
+                  <option value='4'>4</option>
+                  <option value='5'>5</option>
+                </select>
+                <button className='submit-button' type='submit'>Add Pin</button>
+              </form>
+            </div>
+          </Popup>
+        )}
       </Map>
     </div>
   );
