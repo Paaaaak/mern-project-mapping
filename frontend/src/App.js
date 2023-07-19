@@ -1,9 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
-import Map, {Marker, Popup} from 'react-map-gl';
-import {Room, Star} from '@material-ui/icons'
+import Map, {Popup} from 'react-map-gl';
+import {Star} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
 import {format} from 'timeago.js';
+import CustomMarker from './components/CustomMarker';
 
 function App() {
   const currentUser = 'Megan';
@@ -36,7 +37,7 @@ function App() {
 
   /* executed when clicking the marker */
   const markerClickHandler = (id, long, lat) => {
-    console.log('Marker cliked: ' + id);
+    console.log('Marker ID: ' + id + ', Long: ' + long + ', Lat: ' +lat);
     setCurrentPlaceId(id);
     mapRef.current?.flyTo({center: [long, lat], duration: 1000});
   };
@@ -101,22 +102,12 @@ function App() {
         onContextMenu={mapRightClickHandler}>
         {pins.map((pin) => (
           <div key={pin._id}>
-            <Marker
-              longitude={pin.long}
-              latitude={pin.lat}
-              onClick={(e) => {
-                e.originalEvent.stopPropagation();
-                markerClickHandler(pin._id, pin.long, pin.lat)
-              }}
-              anchor='bottom'>
-              <Room
-                style={{ 
-                  fontSize: viewState.zoom * 6, 
-                  color: pin.username === currentUser ? 'blue' : 'red' ,
-                  cursor: 'pointer'
-                }}>
-              </Room>
-            </Marker>
+            <CustomMarker 
+              user={currentUser} 
+              viewState={viewState}
+              onClick={markerClickHandler}
+              pin={pin}>
+            </CustomMarker>
             {currentPlaceId === pin._id && (
               <Popup
                 longitude={pin.long}
