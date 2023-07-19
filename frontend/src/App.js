@@ -156,6 +156,16 @@ function App() {
             </div>
           </Popup>
         )}
+        {currentUser ? (
+          <div className='button-container'>
+            <button className='button logout'>Logout</button>
+          </div>
+        ) : (
+          <div className='button-container'>
+            <button className='button login'>Login</button>
+            <button className='button register'>Register</button>
+          </div>
+        )}
       </Map>
     </div>
   );

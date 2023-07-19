@@ -59,3 +59,31 @@ input::placeholder, textarea::placeholder {
     background-color: darkcyan;
     cursor: pointer;
 }
+
+
+.button-container {
+    display: flex;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.button {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.logout {
+    background-color: lightcoral;
+}
+
+.login {
+    background-color: cadetblue;
+}
+
+.register {
+    background-color: firebrick;
+}
