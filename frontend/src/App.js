@@ -59,20 +59,19 @@ function App() {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    const longitude = newPlace.longitude;
-    const latitude = newPlace.latitude;
-    console.log(title + ' ' + description + ' ' + rating + ' long: ' + longitude + ' lat: ' + latitude);
     const newPin = {
-      usename: currentUser,
+      username: currentUser,
       title: title,
       description: description,
       rating: rating,
-      latitude: latitude,
-      longitude: longitude
+      lat: newPlace.latitude,
+      long: newPlace.longitude
     }
+
     try {
       const res = await axios.post('/pins', newPin);
-      console.log(res);
+      setPins(prev => [...prev, res.data]);
+      setNewPlace(null);
     }
     catch (error) {
       console.log(error);
@@ -128,7 +127,7 @@ function App() {
                   <label>Place</label>
                   <h4 className='place'>{pin.title}</h4>
                   <label>Review</label>
-                  <p className='description'>{pin.discription}</p>
+                  <p className='description'>{pin.description}</p>
                   <label>Rating</label>
                   <div className='stars'>
                     {getStarsForRating(pin.rating)}
