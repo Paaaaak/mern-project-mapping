@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react';
 import './Register.css';
 import Footprint from '../assets/footprint.png';
 import axios from 'axios';
+import {Cancel} from '@material-ui/icons'
 
 const Register = () => {
   const [success, setSuccess] = useState(false);
@@ -32,6 +33,10 @@ const Register = () => {
     }
   };
 
+  const cancelClickHandler = () => {
+    console.log('Cancel clicked!');
+  };
+
   return (
     <div className='register-container'>
       <div className='register-title'>
@@ -48,6 +53,7 @@ const Register = () => {
           {error && <span className='failure'>Something went wrong! Contact to administrator</span>}
         </div>
       </form>
+      <Cancel className='register-cancel' onClick={cancelClickHandler}></Cancel>
     </div>
   );
 }
