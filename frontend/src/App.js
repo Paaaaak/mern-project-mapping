@@ -5,9 +5,10 @@ import './App.css';
 import axios from 'axios';
 import {format} from 'timeago.js';
 import CustomMarker from './components/CustomMarker';
+import Register from './components/Register';
 
 function App() {
-  const currentUser = 'Megan';
+  const [currentUser, setCurrentUser] = 'Megan';
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
@@ -166,6 +167,7 @@ function App() {
             <button className='button register'>Register</button>
           </div>
         )}
+        <Register></Register>
       </Map>
     </div>
   );
