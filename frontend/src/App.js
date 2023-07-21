@@ -9,7 +9,8 @@ import Register from './components/Register';
 import Login from './components/Login';
 
 function App() {
-  const [currentUser, setCurrentUser] = '';
+  const localStorage = window.localStorage;
+  const [currentUser, setCurrentUser] = useState(localStorage.getItem('user'));
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
@@ -94,6 +95,11 @@ function App() {
     return stars;
   };
 
+  const logoutClickHandler = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('user');
+  };
+
   return (
     <div className='App'>
       <Map
@@ -162,7 +168,8 @@ function App() {
         )}
         {currentUser ? (
           <div className='button-container'>
-            <button className='button logout'>Logout</button>
+            <span>Welcome <b>{currentUser}!</b></span>
+            <button className='button logout' onClick={logoutClickHandler}>Logout</button>
           </div>
         ) : (
           <div className='button-container'>
@@ -170,8 +177,18 @@ function App() {
             <button className='button register' onClick={() => setShowRegister(true)}>Register</button>
           </div>
         )}
-        {showRegister && <Register cancelClick={() => setShowRegister(false)}></Register>};
-        {showLogin && <Login cancelClick={() => setShowLogin(false)}></Login>}
+        {showRegister && (
+          <Register 
+            cancelClick={() => setShowRegister(false)}>
+          </Register>
+        )};
+        {showLogin && (
+          <Login 
+            cancelClick={() => setShowLogin(false)} 
+            setShowLogin={setShowLogin}
+            setCurrentUser={setCurrentUser}
+            localStorage={localStorage}>
+          </Login>)}
       </Map>
     </div>
   );

@@ -21,6 +21,9 @@ const Login = (props) => {
       const res = await axios.post('/users/login', loginUser);
       console.log(res.data);
       setError(false);
+      props.setShowLogin(false);
+      props.setCurrentUser(res.data.username);
+      props.localStorage.setItem('user', res.data.username);
     }
     catch (error) {
       console.log(error);
