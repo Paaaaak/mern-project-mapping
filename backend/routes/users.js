@@ -28,11 +28,8 @@ router.post('/register', async (req, res) => {
 // login
 router.post('/login', async (req, res) => {
     try {
-        console.log('Login user name: ' + req.body.username);
-        
         // find user with username
         const user = await User.findOne({username: req.body.username});
-        console.log('User info: ' + user);
 
         // if there is no user corresponding to username
         if (!user) {
@@ -41,7 +38,6 @@ router.post('/login', async (req, res) => {
 
         // validate password
         const validPassword = await bcrypt.compare(req.body.password, user.password);
-        console.log('Is password valid: ' + validPassword);
 
         // if the password is not valid
         if (!validPassword) {
