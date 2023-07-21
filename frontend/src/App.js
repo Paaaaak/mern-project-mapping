@@ -6,9 +6,10 @@ import axios from 'axios';
 import {format} from 'timeago.js';
 import CustomMarker from './components/CustomMarker';
 import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
-  const [currentUser, setCurrentUser] = 'Megan';
+  const [currentUser, setCurrentUser] = '';
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
@@ -21,6 +22,8 @@ function App() {
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [rating, setRating] = useState(0);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
 
   // get all pins from database everytime refreshing the page
   useEffect(() => {
@@ -163,11 +166,12 @@ function App() {
           </div>
         ) : (
           <div className='button-container'>
-            <button className='button login'>Login</button>
-            <button className='button register'>Register</button>
+            <button className='button login' onClick={() => setShowLogin(true)}>Login</button>
+            <button className='button register' onClick={() => setShowRegister(true)}>Register</button>
           </div>
         )}
-        <Register></Register>
+        {showRegister && <Register cancelClick={() => setShowRegister(false)}></Register>};
+        {showLogin && <Login cancelClick={() => setShowLogin(false)}></Login>}
       </Map>
     </div>
   );

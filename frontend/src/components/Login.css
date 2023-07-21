@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
     height: 300px;
     width: 250px;
     padding: 20px;
@@ -17,7 +17,7 @@
     justify-content: space-between;
   }
   
-  .register-title {
+  .login-title {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -26,12 +26,12 @@
     width: 100%;
   }
   
-  .register-title img {
+  .login-title img {
     transform: scale(0.8);
     margin-left: -20px;
   }
 
-  .register-title span {
+  .login-title span {
     display: flex;
     align-items: center;
     font-size: 30px;
@@ -39,7 +39,7 @@
     margin-left: -10px;
   }
   
-  .register-button {
+  .login-button {
     border: none;
     border-radius: 5px;
     padding: 5px;
@@ -47,12 +47,6 @@
     color: white;
     background-color: black;
     cursor: pointer;
-  }
-  
-  .register-result {
-    width: 100%;
-    height: 20%;
-    text-align: center;
   }
 
   form {
@@ -62,19 +56,13 @@
     width: 80%;
   }
 
-  .success {
-    color: forestgreen;
-    font-size: 12px;
-    text-align: center;
-  }
-
   .failure {
     color: firebrick;
     font-size: 12px;
     text-align: center;
   }
 
-  .register-cancel {
+  .login-cancel {
     position: absolute;
     top: 0;
     right: 0;

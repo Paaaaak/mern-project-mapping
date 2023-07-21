@@ -4,7 +4,7 @@ import Footprint from '../assets/footprint.png';
 import axios from 'axios';
 import {Cancel} from '@material-ui/icons'
 
-const Register = () => {
+const Register = (props) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
@@ -34,6 +34,9 @@ const Register = () => {
   };
 
   const cancelClickHandler = () => {
+    props.cancelClick();
+    setSuccess(false);
+    setError(false);
     console.log('Cancel clicked!');
   };
 
