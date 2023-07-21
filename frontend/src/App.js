@@ -22,7 +22,7 @@ function App() {
   });
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
-  const [rating, setRating] = useState(0);
+  const [rating, setRating] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
@@ -73,6 +73,8 @@ function App() {
       lat: newPlace.latitude,
       long: newPlace.longitude
     }
+
+    console.log(newPin);
 
     try {
       const res = await axios.post('/pins', newPin);
@@ -147,7 +149,7 @@ function App() {
             latitude={newPlace.latitude}
             anchor="left"
             onClose={() => setNewPlace(null)}>
-            <div>
+            <div className='card'>
               <form onSubmit={submitHandler}>
                 <label>Title</label>
                 <input placeholder='Enter a title' onChange={(event) => setTitle(event.target.value)}></input>
@@ -155,7 +157,7 @@ function App() {
                 <textarea placeholder='Leave your impression about this place!' onChange={(event) => setDescription(event.target.value)}></textarea>
                 <label>Rating</label>
                 <select onChange={(event) => setRating(event.target.value)}>
-                  <option value='1'>1</option>
+                  <option defaultValue='1'>1</option>
                   <option value='2'>2</option>
                   <option value='3'>3</option>
                   <option value='4'>4</option>
