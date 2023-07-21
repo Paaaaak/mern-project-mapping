@@ -28,6 +28,7 @@ const Register = (props) => {
     }
     catch (error) {
       console.log(error);
+      console.log('Error message: ' + error.response.data);
       setSuccess(false);
       setError(true);
     }
@@ -49,7 +50,7 @@ const Register = (props) => {
       <form onSubmit={submitHandler}>
         <input type='text' placeholder='User name' ref={nameRef}></input>
         <input type='email' placeholder='Email' ref={emailRef}></input>
-        <input type='password' placeholder='Password' ref={passwordRef}></input>
+        <input type='password' placeholder='Password' minLength={6} ref={passwordRef}></input>
         <button className='register-button'>Register</button>
         <div className='register-result'>
           {success && <span className='success'>Successfull. You can login now!</span>}
