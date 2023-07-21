@@ -28,18 +28,24 @@ router.post('/register', async (req, res) => {
 // login
 router.post('/login', async (req, res) => {
     try {
+        console.log('Login user name: ' + req.body.username);
+        
         // find user with username
         const user = await User.findOne({username: req.body.username});
+        console.log('User info: ' + user);
+
         // if there is no user corresponding to username
         if (!user) {
-            res.status(400).json('Wrong username or password!');
+            return res.status(400).json('Wrong username or password!');
         }
 
         // validate password
-        const validPassword = bcrypt.compare(req.body.password, user.password);
+        const validPassword = await bcrypt.compare(req.body.password, user.password);
+        console.log('Is password valid: ' + validPassword);
+
         // if the password is not valid
         if (!validPassword) {
-            res.status(400).json('Wrong username or password!');
+            return res.status(400).json('Wrong username or password!');
         }
 
         res.status(200).json({_id: user._id, username: user.username});
