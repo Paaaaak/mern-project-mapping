@@ -26,17 +26,18 @@ function App() {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
+  const getPins = async () => {
+    try {
+      const res = await axios.get('/pins');
+      setPins(res.data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   // get all pins from database everytime refreshing the page
   useEffect(() => {
-    const getPins = async () => {
-      try {
-        const res = await axios.get('/pins');
-        setPins(res.data);
-      }
-      catch (error) {
-        console.log(error);
-      }
-    }
     getPins();
   }, []);
 
@@ -74,8 +75,6 @@ function App() {
       long: newPlace.longitude
     }
 
-    console.log(newPin);
-
     try {
       const res = await axios.post('/pins', newPin);
       setPins(prev => [...prev, res.data]);
@@ -102,8 +101,15 @@ function App() {
     localStorage.removeItem('user');
   };
 
-  const deleteClickHandler = () => {
-    console.log('Delete pin: ' + currentPlaceId);
+  const deleteClickHandler = async () => {
+    try {
+      const res = await axios.get('/pins/delete?id=' + currentPlaceId);
+      console.log(res.data);
+      getPins();
+    }
+    catch (error) {
+      console.log(error);
+    }
   };
 
   return (
