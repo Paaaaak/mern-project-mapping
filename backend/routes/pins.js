@@ -25,4 +25,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+// delete a pin
+router.get('/delete', async (req, res) => {
+    try {
+        const pinId = req.query.id;
+        const deletedPin = await Pin.findByIdAndDelete(pinId);
+        res.status(200).json(deletedPin);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;
