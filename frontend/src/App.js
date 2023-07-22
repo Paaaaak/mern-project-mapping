@@ -102,6 +102,10 @@ function App() {
   };
 
   const deleteClickHandler = async () => {
+    if (!window.confirm('Do you want to delete this pin?')) {
+      return;
+    } 
+
     try {
       const res = await axios.get('/pins/delete?id=' + currentPlaceId);
       console.log(res.data);
