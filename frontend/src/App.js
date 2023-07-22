@@ -102,6 +102,10 @@ function App() {
     localStorage.removeItem('user');
   };
 
+  const deleteClickHandler = () => {
+    console.log('Delete pin: ' + currentPlaceId);
+  };
+
   return (
     <div className='App'>
       <Map
@@ -138,6 +142,7 @@ function App() {
                   <label>Information</label>
                   <span className='username'>Created by <b>{pin.username}</b></span>
                   <span className='date'>{format(pin.createdAt)}</span>
+                  <span className='delete-pin' onClick={deleteClickHandler}>Delete this pin</span>
                 </div>
               </Popup>
             )}

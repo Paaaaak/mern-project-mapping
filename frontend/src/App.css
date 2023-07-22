@@ -34,6 +34,12 @@ label {
     font-size: 13px;
 }
 
+.delete-pin {
+    font-size: 10px;
+    color: brown;
+    cursor: pointer;
+}
+
 form {
     width: 250px;
     height: 250px;
