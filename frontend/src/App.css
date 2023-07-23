@@ -66,12 +66,6 @@ input::placeholder, textarea::placeholder {
     cursor: pointer;
 }
 
-.guideline {
-    position: absolute;
-    cursor: pointer;
-    padding: 5px;
-}
-
 .button-container {
     display: flex;
     position: absolute;

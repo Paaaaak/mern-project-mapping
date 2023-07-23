@@ -7,6 +7,7 @@ import {format} from 'timeago.js';
 import CustomMarker from './components/CustomMarker';
 import Register from './components/Register';
 import Login from './components/Login';
+import Guide from './components/Guide';
 
 function App() {
   const localStorage = window.localStorage;
@@ -51,6 +52,7 @@ function App() {
   /* executed when clicking the map */
   const mapClickHandler = () => {
     setCurrentPlaceId(null);
+    setGuideClick(null);
   };
 
   /* executed when clicking the map with right mouse */
@@ -116,8 +118,10 @@ function App() {
     }
   };
 
-  const helpClickHandler = () => {
-    alert('Help clicked!');
+  const [guideClick, setGuideClick] = useState(false);
+
+  const guideClickHandler = () => {
+    setGuideClick(prev => !prev);
   };
 
   return (
@@ -187,9 +191,12 @@ function App() {
             </div>
           </Popup>
         )}
-        <div className='guideline'>
-          <Help onClick={helpClickHandler} style={{color: 'white'}}></Help>
+        <div className='guide'>
+          <Help onClick={guideClickHandler} style={{color: 'white'}}></Help>
         </div>
+        {guideClick && (
+          <Guide></Guide>
+        )}
         {currentUser ? (
           <div className='button-container'>
             <span>Welcome <b>{currentUser}!</b></span>
