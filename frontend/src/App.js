@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Map, {Popup} from 'react-map-gl';
-import {Star} from '@material-ui/icons'
+import {Star, Help} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
 import {format} from 'timeago.js';
@@ -116,6 +116,10 @@ function App() {
     }
   };
 
+  const helpClickHandler = () => {
+    alert('Help clicked!');
+  };
+
   return (
     <div className='App'>
       <Map
@@ -183,6 +187,9 @@ function App() {
             </div>
           </Popup>
         )}
+        <div className='guideline'>
+          <Help onClick={helpClickHandler} style={{color: 'white'}}></Help>
+        </div>
         {currentUser ? (
           <div className='button-container'>
             <span>Welcome <b>{currentUser}!</b></span>
