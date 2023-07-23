@@ -93,3 +93,9 @@ input::placeholder, textarea::placeholder {
 .register {
     background-color: firebrick;
 }
+
+.guide-icon {
+    position: absolute;
+    cursor: pointer;
+    padding: 5px;
+}

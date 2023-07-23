@@ -191,7 +191,7 @@ function App() {
             </div>
           </Popup>
         )}
-        <div className='guide'>
+        <div className='guide-icon'>
           <Help onClick={guideClickHandler} style={{color: 'white'}}></Help>
         </div>
         {guideClick && (
