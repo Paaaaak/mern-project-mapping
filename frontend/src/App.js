@@ -25,7 +25,6 @@ function App() {
   const [description, setDescription] = useState(null);
   const [rating, setRating] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
 
   const getPins = async () => {
     try {
@@ -203,25 +202,17 @@ function App() {
             <button className='button logout' onClick={logoutClickHandler}>Logout</button>
           </div>
         ) : (
-          <div className='button-container'>
-            <button className='button login' onClick={() => setShowLogin(true)}>Login</button>
-            <button className='button register' onClick={() => setShowRegister(true)}>Register</button>
-          </div>
+          <Login 
+            setShowRegister={setShowRegister}
+            setCurrentUser={setCurrentUser}
+            localStorage={localStorage}>
+          </Login>
         )}
         {showRegister && (
           <Register 
             cancelClick={() => setShowRegister(false)}>
           </Register>
         )};
-        {showLogin && (
-          <Login 
-            cancelClick={() => setShowLogin(false)} 
-            setShowLogin={setShowLogin}
-            setShowRegister={setShowRegister}
-            setCurrentUser={setCurrentUser}
-            localStorage={localStorage}>
-          </Login>
-        )}
       </Map>
     </div>
   );

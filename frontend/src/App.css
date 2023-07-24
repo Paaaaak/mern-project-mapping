@@ -86,14 +86,6 @@ input::placeholder, textarea::placeholder {
     background-color: lightcoral;
 }
 
-.login {
-    background-color: cadetblue;
-}
-
-.register {
-    background-color: firebrick;
-}
-
 .guide-icon {
     position: absolute;
     cursor: pointer;

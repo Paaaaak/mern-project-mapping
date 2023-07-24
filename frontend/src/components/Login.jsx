@@ -2,7 +2,6 @@ import React, {useState, useRef} from 'react';
 import './Login.css';
 import Footprint from '../assets/footprint.png';
 import axios from 'axios';
-import {Cancel} from '@material-ui/icons'
 import ReactDom from 'react-dom';
 
 const Login = (props) => {
@@ -22,7 +21,6 @@ const Login = (props) => {
       const res = await axios.post('/users/login', loginUser);
       console.log(res.data);
       setError(false);
-      props.setShowLogin(false);
       props.setCurrentUser(res.data.username);
       props.localStorage.setItem('user', res.data.username);
     }
@@ -33,15 +31,8 @@ const Login = (props) => {
     }
   };
 
-  const cancelClickHandler = () => {
-    props.cancelClick();
-    setError(false);
-    console.log('Cancel clicked!');
-  };
-
   const registerClickHandler = () => {
     props.setShowRegister(true);
-    props.setShowLogin(false);
   }
 
   return (
@@ -67,7 +58,6 @@ const Login = (props) => {
           <div className='login-result'>
             {error && <span className='failure'>Something went wrong! Contact to administrator</span>}
           </div>
-          <Cancel className='login-cancel' onClick={cancelClickHandler}></Cancel>
         </div>,
         document.getElementById('overlay-root')
       )}
