@@ -217,6 +217,7 @@ function App() {
           <Login 
             cancelClick={() => setShowLogin(false)} 
             setShowLogin={setShowLogin}
+            setShowRegister={setShowRegister}
             setCurrentUser={setCurrentUser}
             localStorage={localStorage}>
           </Login>

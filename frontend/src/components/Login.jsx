@@ -39,6 +39,11 @@ const Login = (props) => {
     console.log('Cancel clicked!');
   };
 
+  const registerClickHandler = () => {
+    props.setShowRegister(true);
+    props.setShowLogin(false);
+  }
+
   return (
     <React.Fragment>
       {ReactDom.createPortal(
@@ -56,6 +61,9 @@ const Login = (props) => {
             <input type='password' placeholder='Password' ref={passwordRef}></input>
             <button className='login-button'>Login</button>
           </form>
+          <div className='login-register'>
+            <span>Not a member? </span><span onClick={registerClickHandler}><b>Register here!</b></span>
+          </div>
           <div className='login-result'>
             {error && <span className='failure'>Something went wrong! Contact to administrator</span>}
           </div>
