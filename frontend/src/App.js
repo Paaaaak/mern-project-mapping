@@ -8,6 +8,7 @@ import CustomMarker from './components/CustomMarker';
 import Register from './components/Register';
 import Login from './components/Login';
 import Guide from './components/Guide';
+import {motion} from 'framer-motion';
 
 function App() {
   const localStorage = window.localStorage;
@@ -199,7 +200,13 @@ function App() {
         {currentUser ? (
           <div className='button-container'>
             <span>Welcome <b>{currentUser}!</b></span>
-            <button className='button logout' onClick={logoutClickHandler}>Logout</button>
+            <motion.button 
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }} 
+              className='button logout' 
+              onClick={logoutClickHandler}>
+              Logout
+            </motion.button>
           </div>
         ) : (
           <Login 
@@ -209,9 +216,7 @@ function App() {
           </Login>
         )}
         {showRegister && (
-          <Register 
-            cancelClick={() => setShowRegister(false)}>
-          </Register>
+          <Register cancelClick={() => setShowRegister(false)}></Register>
         )};
       </Map>
     </div>
