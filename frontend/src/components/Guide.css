@@ -16,6 +16,15 @@
     gap: 1rem;
 }
 
+.guide-cancel {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .guide {
     display: flex;
     flex-direction: column;

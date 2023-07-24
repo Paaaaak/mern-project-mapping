@@ -195,7 +195,7 @@ function App() {
           <Help onClick={guideClickHandler} style={{color: 'white'}}></Help>
         </div>
         {guideClick && (
-          <Guide></Guide>
+          <Guide cancelClick={() => setGuideClick(null)}></Guide>
         )}
         {currentUser ? (
           <div className='button-container'>

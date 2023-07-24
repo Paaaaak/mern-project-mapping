@@ -1,12 +1,18 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
 import './Guide.css';
+import {Cancel} from '@material-ui/icons'
 import LeftClick from '../assets/left-click.png';
 import RightClick from '../assets/right-click.png';
 import MouseScrolling from '../assets/mouse-scrolling.png';
 
 const Guide = (props) => {
+  const cancelClickHandler = () => {
+    props.cancelClick();
+  };
+
   return (
     <div className='guide-modal'>
+      <Cancel className='guide-cancel' onClick={cancelClickHandler}></Cancel>
       <div className='guide'>
         <div className='guide-icon'>
           <img src={LeftClick}/>
