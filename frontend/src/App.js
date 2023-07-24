@@ -219,7 +219,8 @@ function App() {
             setShowLogin={setShowLogin}
             setCurrentUser={setCurrentUser}
             localStorage={localStorage}>
-          </Login>)}
+          </Login>
+        )}
       </Map>
     </div>
   );
