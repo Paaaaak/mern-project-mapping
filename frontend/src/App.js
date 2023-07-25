@@ -1,14 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Map, {Popup} from 'react-map-gl';
-import {Star, Help} from '@material-ui/icons'
+import {Help} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
-import {format} from 'timeago.js';
 import CustomMarker from './components/CustomMarker';
 import Register from './components/Register';
 import Login from './components/Login';
 import Guide from './components/Guide';
 import {motion} from 'framer-motion';
+import CustomPopup from './components/CustomPopup';
+import CustomNewPopup from './components/CustomNewPopup';
 
 function App() {
   const localStorage = window.localStorage;
@@ -87,17 +88,6 @@ function App() {
     }
   };
 
-  const getStarsForRating = (rating) => {
-    let stars = [];
-    for (let i = 0; i < rating; i++) {
-      stars.push(<Star key={`star-gold-${i}`} className='star-gold'></Star>);
-    }
-    for (let i = 0; i < 5 - rating; i++) {
-      stars.push(<Star key={`star-${i}`} className='star'></Star>);
-    }
-    return stars;
-  };
-
   const logoutClickHandler = () => {
     setCurrentUser(null);
     localStorage.removeItem('user');
@@ -143,53 +133,23 @@ function App() {
               pin={pin}>
             </CustomMarker>
             {currentPlaceId === pin._id && (
-              <Popup
-                longitude={pin.long}
-                latitude={pin.lat}
-                anchor="left"
-                onClose={() => setCurrentPlaceId(null)}>
-                <div className='card'>
-                  <label>Place</label>
-                  <h4 className='place'>{pin.title}</h4>
-                  <label>Review</label>
-                  <p className='description'>{pin.description}</p>
-                  <label>Rating</label>
-                  <div className='stars'>
-                    {getStarsForRating(pin.rating)}
-                  </div>
-                  <label>Information</label>
-                  <span className='username'>Created by <b>{pin.username}</b></span>
-                  <span className='date'>{format(pin.createdAt)}</span>
-                  <span className='delete-pin' onClick={deleteClickHandler}>Delete this pin</span>
-                </div>
-              </Popup>
+              <CustomPopup
+                pin={pin}
+                setCurrentPlaceId={setCurrentPlaceId}
+                deleteClickHandler={deleteClickHandler}>
+              </CustomPopup>
             )}
           </div>
         ))}
         {newPlace && (
-          <Popup
-            longitude={newPlace.longitude}
-            latitude={newPlace.latitude}
-            anchor="left"
-            onClose={() => setNewPlace(null)}>
-            <div className='card'>
-              <form onSubmit={submitHandler}>
-                <label>Title</label>
-                <input placeholder='Enter a title' onChange={(event) => setTitle(event.target.value)}></input>
-                <label>Review</label>
-                <textarea placeholder='Leave your impression about this place!' onChange={(event) => setDescription(event.target.value)}></textarea>
-                <label>Rating</label>
-                <select onChange={(event) => setRating(event.target.value)}>
-                  <option defaultValue='1'>1</option>
-                  <option value='2'>2</option>
-                  <option value='3'>3</option>
-                  <option value='4'>4</option>
-                  <option value='5'>5</option>
-                </select>
-                <button className='submit-button' type='submit'>Add Pin</button>
-              </form>
-            </div>
-          </Popup>
+          <CustomNewPopup
+            newPlace={newPlace}
+            setNewPlace={setNewPlace}
+            submitHandler={submitHandler}
+            setTitle={setTitle}
+            setDescription={setDescription}
+            setRating={setRating}>
+          </CustomNewPopup>
         )}
         <div className='guide-icon'>
           <Help onClick={guideClickHandler} style={{color: 'white'}}></Help>

@@ -1,0 +1,33 @@
+.card {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.star {
+    color: gray;
+}
+
+.star-gold {
+    color: gold;
+}
+
+.description {
+    font-size: 13px;
+}
+
+.username {
+    font-size: 13px;
+}
+
+.date {
+    font-size: 13px;
+}
+
+.delete-pin {
+    font-size: 10px;
+    color: brown;
+    cursor: pointer;
+}
