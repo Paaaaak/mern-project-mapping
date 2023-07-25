@@ -10,6 +10,7 @@ import Guide from './components/Guide';
 import {motion} from 'framer-motion';
 import CustomPopup from './components/CustomPopup';
 import CustomNewPopup from './components/CustomNewPopup';
+import UserPanel from './components/UserPanel';
 
 function App() {
   const localStorage = window.localStorage;
@@ -159,14 +160,7 @@ function App() {
         )}
         {currentUser ? (
           <div className='button-container'>
-            <span>Welcome <b>{currentUser}!</b></span>
-            <motion.button 
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }} 
-              className='button logout' 
-              onClick={logoutClickHandler}>
-              Logout
-            </motion.button>
+            <UserPanel currentUser={currentUser} logoutClick={logoutClickHandler}></UserPanel>
           </div>
         ) : (
           <Login 

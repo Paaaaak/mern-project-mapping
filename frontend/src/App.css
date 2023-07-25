@@ -48,10 +48,6 @@ input::placeholder, textarea::placeholder {
     cursor: pointer;
 }
 
-.logout {
-    background-color: lightcoral;
-}
-
 .guide-icon {
     position: absolute;
     cursor: pointer;
