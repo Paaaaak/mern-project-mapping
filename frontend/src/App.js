@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import Map, {Popup} from 'react-map-gl';
+import Map from 'react-map-gl';
 import {Help} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
@@ -7,7 +7,6 @@ import CustomMarker from './components/CustomMarker';
 import Register from './components/Register';
 import Login from './components/Login';
 import Guide from './components/Guide';
-import {motion} from 'framer-motion';
 import CustomPopup from './components/CustomPopup';
 import CustomNewPopup from './components/CustomNewPopup';
 import UserPanel from './components/UserPanel';
@@ -28,6 +27,7 @@ function App() {
   const [description, setDescription] = useState(null);
   const [rating, setRating] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
+  const [showFriend, setShowFriend] = useState(false);
 
   const getPins = async () => {
     try {
@@ -46,7 +46,6 @@ function App() {
 
   /* executed when clicking the marker */
   const markerClickHandler = (id, long, lat) => {
-    console.log('Marker ID: ' + id + ', Long: ' + long + ', Lat: ' +lat);
     setCurrentPlaceId(id);
     mapRef.current?.flyTo({center: [long, lat], duration: 1000});
   };
@@ -101,7 +100,6 @@ function App() {
 
     try {
       const res = await axios.get('/pins/delete?id=' + currentPlaceId);
-      console.log(res.data);
       getPins();
     }
     catch (error) {
@@ -160,7 +158,11 @@ function App() {
         )}
         {currentUser ? (
           <div className='button-container'>
-            <UserPanel currentUser={currentUser} logoutClick={logoutClickHandler}></UserPanel>
+            <UserPanel 
+              currentUser={currentUser} 
+              logoutClick={logoutClickHandler}
+              setShowFriend={setShowFriend}>
+            </UserPanel>
           </div>
         ) : (
           <Login 
@@ -172,6 +174,12 @@ function App() {
         {showRegister && (
           <Register cancelClick={() => setShowRegister(false)}></Register>
         )};
+        {showFriend && (
+          <div className='friend-list-panel'>
+            <span>Friends list</span>
+            <button>Add friend</button>            
+          </div>
+        )}
       </Map>
     </div>
   );

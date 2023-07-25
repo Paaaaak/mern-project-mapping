@@ -31,6 +31,17 @@ const UserPanel = (props) => {
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
           <span>Welcome <b>{props.currentUser}</b>!</span>
+          <div className='info-color'>
+            <span>Current pin color: </span>
+            <input type='color'></input>
+          </div>
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }} 
+            className='button friend-list'
+            onClick={() => props.setShowFriend(prev => !prev)}>
+              Friends
+          </motion.button>
           <motion.button 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }} 

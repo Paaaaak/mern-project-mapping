@@ -41,9 +41,34 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
+    font-size: 12px;
 }
 
+
+.info-color {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+input[type="color"] {
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-left: 5px;
+}
+  
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+.friend-list {
+    width: 70%;
+    background-color: rgb(126, 243, 161);
+}
+  
 .logout {
-    width: 50%;
+    width: 70%;
     background-color: lightcoral;
 }
