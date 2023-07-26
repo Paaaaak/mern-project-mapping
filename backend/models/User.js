@@ -19,6 +19,11 @@ const UserSchema = new mongoose.Schema(
             type: String,
             require: true,
             min: 6
+        },
+        color: {
+            type: String, 
+            require: false,
+            min: 6
         }
     },
     { timestamps: true }
