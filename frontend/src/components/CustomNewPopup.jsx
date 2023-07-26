@@ -10,7 +10,7 @@ const CustomNewPopup = (props) => {
     anchor="left"
     onClose={() => props.setNewPlace(null)}>
     <div className='card'>
-      <form onSubmit={props.submitHandler}>
+      <form onSubmit={props.submitHandler} className='popup-form'>
         <label>Title</label>
         <input placeholder='Enter a title' onChange={(event) => props.setTitle(event.target.value)}></input>
         <label>Review</label>

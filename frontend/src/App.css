@@ -6,14 +6,6 @@ label {
     margin: 3px 0;
 }
 
-form {
-    width: 250px;
-    height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 input, textarea {
     border: none;
     border-bottom: 1px solid gray;
@@ -68,4 +60,10 @@ input::placeholder, textarea::placeholder {
     display: flex;
     flex-direction: column;
     padding: 5px;
+    gap: 1rem;
+}
+
+.friend-form {
+    display: flex;
+    flex-direction: column;
 }

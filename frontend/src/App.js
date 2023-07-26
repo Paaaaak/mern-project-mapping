@@ -28,6 +28,9 @@ function App() {
   const [rating, setRating] = useState(1);
   const [showRegister, setShowRegister] = useState(false);
   const [showFriend, setShowFriend] = useState(false);
+  const [guideClick, setGuideClick] = useState(false);
+  const [findUsername, setFindUsername] = useState(null);
+  const [foundUser, setFoundUser] = useState(null);
 
   const getPins = async () => {
     try {
@@ -88,6 +91,28 @@ function App() {
     }
   };
 
+  const addFriendSubmitHandler = async (event) => {
+    event.preventDefault();
+    try {
+      const findingUser = {
+        username: findUsername
+      };
+      const res = await axios.post('/users/get', findingUser);
+      if (res.data) {
+        console.log(res.data);
+        setFoundUser(res.data.username);
+      }
+      else {
+        console.log('User does not exist!');
+        setFoundUser(null);
+      }
+    }
+    catch (error) {
+      console.log(error);
+      setFoundUser('User does not exist!');
+    }
+  };
+
   const logoutClickHandler = () => {
     setCurrentUser(null);
     localStorage.removeItem('user');
@@ -99,15 +124,13 @@ function App() {
     } 
 
     try {
-      const res = await axios.get('/pins/delete?id=' + currentPlaceId);
+      await axios.get('/pins/delete?id=' + currentPlaceId);
       getPins();
     }
     catch (error) {
       console.log(error);
     }
   };
-
-  const [guideClick, setGuideClick] = useState(false);
 
   const guideClickHandler = () => {
     setGuideClick(prev => !prev);
@@ -177,7 +200,11 @@ function App() {
         {showFriend && (
           <div className='friend-list-panel'>
             <span>Friends list</span>
-            <button>Add friend</button>            
+            {foundUser && <span>{foundUser}</span>}
+            <form onSubmit={addFriendSubmitHandler}>
+              <input type='text' className='friend-form' minLength={4} placeholder='Type username' onChange={(event) => setFindUsername(event.target.value)}></input>
+              <button className='submit-button' type='submit'>Add Friend</button>
+            </form>          
           </div>
         )}
       </Map>

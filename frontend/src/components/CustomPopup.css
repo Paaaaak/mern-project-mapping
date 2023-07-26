@@ -6,6 +6,14 @@
     justify-content: space-around;
 }
 
+.popup-form {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .star {
     color: gray;
 }

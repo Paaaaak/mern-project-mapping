@@ -51,4 +51,18 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// get user by username
+router.post('/get', async (req, res) => {
+    try {
+        const user = await User.findOne({username: req.body.username});
+        if (!user) {
+            return res.status(400).json('Username ' + req.body.username + ' does not exist!');
+        }
+        res.status(200).json({_id: user._id, username: user.username});
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+
 module.exports = router;
