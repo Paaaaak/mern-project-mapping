@@ -47,7 +47,7 @@ function App() {
   // get all pins from database everytime refreshing the page
   useEffect(() => {
     getPins();
-  }, []);
+  }, [currentUserId]);
 
   /* executed when clicking the marker */
   const markerClickHandler = (id, long, lat) => {

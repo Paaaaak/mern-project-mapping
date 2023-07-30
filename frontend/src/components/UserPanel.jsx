@@ -36,6 +36,11 @@ const UserPanel = (props) => {
     }
   }, [props.color]);
 
+  const logoutClickHandler = () => {
+    props.logoutClick();
+    setShowUser(false);
+  };
+
   return (
     <div className='user-panel'>
       <motion.button
@@ -63,7 +68,7 @@ const UserPanel = (props) => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }} 
             className='button logout' 
-            onClick={props.logoutClick}>
+            onClick={logoutClickHandler}>
               Logout
           </motion.button>
         </div>
