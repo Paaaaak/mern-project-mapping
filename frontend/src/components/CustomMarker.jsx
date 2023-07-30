@@ -16,7 +16,7 @@ const CustomMarker = (props) => {
         style={{
           fontSize: props.viewState.zoom * 4,
           transform: `translate(0, ${props.viewState.zoom}px)`,
-          color: props.pin.username === props.user ? 'SeaGreen' : 'IndianRed',
+          color: props.color,
           cursor: 'pointer'
         }}>
       </Room>

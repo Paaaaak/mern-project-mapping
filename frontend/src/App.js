@@ -154,6 +154,7 @@ function App() {
               user={currentUser} 
               viewState={viewState}
               onClick={markerClickHandler}
+              color={color}
               pin={pin}>
             </CustomMarker>
             {currentPlaceId === pin._id && (
