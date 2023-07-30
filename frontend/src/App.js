@@ -181,18 +181,7 @@ function App() {
         {guideClick && (
           <Guide cancelClick={() => setGuideClick(null)}></Guide>
         )}
-        {currentUser ? (
-          <div className='button-container'>
-            <UserPanel 
-              currentUser={currentUser} 
-              currentUserId={currentUserId}
-              logoutClick={logoutClickHandler}
-              setShowFriend={setShowFriend}
-              setColor={setColor}
-              color={color}>
-            </UserPanel>
-          </div>
-        ) : (
+        {currentUser ? '' : (
           <Login 
             setShowRegister={setShowRegister}
             setCurrentUser={setCurrentUser}
@@ -201,6 +190,14 @@ function App() {
             localStorage={localStorage}>
           </Login>
         )}
+        <UserPanel
+          currentUser={currentUser}
+          currentUserId={currentUserId}
+          logoutClick={logoutClickHandler}
+          setShowFriend={setShowFriend}
+          setColor={setColor}
+          color={color}>
+        </UserPanel>
         {showRegister && (
           <Register cancelClick={() => setShowRegister(false)}></Register>
         )};
