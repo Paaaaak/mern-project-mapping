@@ -36,7 +36,7 @@ function App() {
 
   const getPins = async () => {
     try {
-      const res = await axios.get('/pins');
+      const res = await axios.get('/pins/' + currentUserId);
       setPins(res.data);
     }
     catch (error) {
@@ -76,6 +76,7 @@ function App() {
     event.preventDefault();
     const newPin = {
       username: currentUser,
+      userId: currentUserId,
       title: title,
       description: description,
       rating: rating,

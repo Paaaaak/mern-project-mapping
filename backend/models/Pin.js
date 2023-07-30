@@ -6,6 +6,10 @@ const PinSchema = new mongoose.Schema(
             type: String,
             require: true
         },
+        userId: {
+            type: String,
+            require: true
+        },
         title: {
             type: String,
             require: true,
