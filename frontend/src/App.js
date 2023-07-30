@@ -14,6 +14,8 @@ import UserPanel from './components/UserPanel';
 function App() {
   const localStorage = window.localStorage;
   const [currentUser, setCurrentUser] = useState(localStorage.getItem('user'));
+  const [currentUserId, setCurrentUserId] = useState(localStorage.getItem('userId'));
+  const [color, setColor] = useState(localStorage.getItem('color'));
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
@@ -183,14 +185,19 @@ function App() {
           <div className='button-container'>
             <UserPanel 
               currentUser={currentUser} 
+              currentUserId={currentUserId}
               logoutClick={logoutClickHandler}
-              setShowFriend={setShowFriend}>
+              setShowFriend={setShowFriend}
+              setColor={setColor}
+              color={color}>
             </UserPanel>
           </div>
         ) : (
           <Login 
             setShowRegister={setShowRegister}
             setCurrentUser={setCurrentUser}
+            setCurrentUserId={setCurrentUserId}
+            setColor={setColor}
             localStorage={localStorage}>
           </Login>
         )}

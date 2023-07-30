@@ -22,7 +22,11 @@ const Login = (props) => {
       console.log(res.data);
       setError(false);
       props.setCurrentUser(res.data.username);
+      props.setCurrentUserId(res.data._id);
+      props.setColor(res.data.color);
       props.localStorage.setItem('user', res.data.username);
+      props.localStorage.setItem('userId', res.data._id);
+      props.localStorage.setItem('color', res.data.color);
     }
     catch (error) {
       console.log(error);

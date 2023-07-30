@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import './UserPanel.css';
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import User from '../assets/user.png';
+import axios from 'axios';
 
 const UserPanel = (props) => {
   const show = {
@@ -18,19 +19,22 @@ const UserPanel = (props) => {
   };
 
   const [showUser, setShowUser] = useState(false);
-  const [color, setColor] = useState(null);
+  const colorRef = useRef(null);
 
   useEffect(() => {
     // 0.5초 뒤에 실행
-    const identifier = setTimeout(() => {
-      console.log(color);
+    const identifier = setTimeout(async () => {
+      console.log(props.currentUserId);
+      colorRef.current.value = props.color;
+      console.log('Changed color: ' + colorRef.current.value);
       // 색상 업데이트 axios 호출문 추가
+      await axios.put('/users/' + props.currentUserId, { color: colorRef.current.value });
     }, 500);
     
     return () => {
       clearTimeout(identifier);
     }
-  }, [color]);
+  }, [props.color]);
 
   return (
     <div className='user-panel'>
@@ -46,7 +50,7 @@ const UserPanel = (props) => {
           <span>Welcome <b>{props.currentUser}</b>!</span>
           <div className='info-color'>
             <span>Current pin color: </span>
-            <input type='color' onChange={(event) => setColor(event.target.value)}></input>
+            <input type='color' ref={colorRef} onChange={(event) => props.setColor(event.target.value)}></input>
           </div>
           <motion.button 
             whileHover={{ scale: 1.1 }}
