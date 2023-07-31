@@ -60,7 +60,7 @@ const UserPanel = (props) => {
           <motion.button 
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }} 
-            className='button friend-list'
+            className='button friends'
             onClick={() => props.setShowFriend(prev => !prev)}>
               Friends
           </motion.button>

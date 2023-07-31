@@ -33,6 +33,7 @@ function App() {
   const [guideClick, setGuideClick] = useState(false);
   const [findUsername, setFindUsername] = useState(null);
   const [foundUser, setFoundUser] = useState(null);
+  const [friends, setFriends] = useState(['david', 'rooney', 'alex', 'poatan']);
 
   const getPins = async () => {
     try {
@@ -143,6 +144,7 @@ function App() {
     try {
       const res = await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
       console.log(res.data);
+      setFriends((prev) => [...prev, res.data.username]);
     }
     catch (error) {
       console.log(error);
@@ -225,7 +227,6 @@ function App() {
         )};
         {showFriend && (
           <div className='friend-list-panel'>
-            <span>Friends list</span>
             {foundUser && (
               <div className='friend-info'>
                 <span>{foundUser.username}</span>
@@ -236,7 +237,13 @@ function App() {
             <form onSubmit={searchFriendSubmitHandler}>
               <input type='text' className='friend-form' minLength={4} placeholder='Type username' onChange={(event) => setFindUsername(event.target.value)}></input>
               <button className='submit-button' type='submit'>Search Friend</button>
-            </form>          
+            </form>    
+            <span>Friends list</span>
+            <div className='friend-list'>
+              {friends.map((friend) => {
+                return <span>{friend}</span>
+              })}
+            </div>      
           </div>
         )}
       </Map>

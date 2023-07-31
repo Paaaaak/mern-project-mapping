@@ -73,3 +73,10 @@ input::placeholder, textarea::placeholder {
     display: flex;
     flex-direction: column;
 }
+
+.friend-list {
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    height: max-content;
+}
