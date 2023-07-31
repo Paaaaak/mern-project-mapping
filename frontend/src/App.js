@@ -21,7 +21,7 @@ function App() {
   const [pins, setPins] = useState([]);
   const mapRef = useRef();
   const [viewState, setViewState] = useState({
-    longitude: -122.4,
+    longitude: -150.4,
     latitude: 37.8,
     zoom: 8
   });
@@ -33,7 +33,7 @@ function App() {
   const [guideClick, setGuideClick] = useState(false);
   const [findUsername, setFindUsername] = useState(null);
   const [foundUser, setFoundUser] = useState(null);
-  const [friends, setFriends] = useState(['david', 'rooney', 'alex', 'poatan']);
+  const [friends, setFriends] = useState([]);
 
   const getPins = async () => {
     try {
@@ -45,9 +45,25 @@ function App() {
     }
   }
 
+  const getFollowings = async () => {
+    try {
+      const res = await axios.get('/users/' + currentUserId + '/followings');
+      console.log(res.data);
+      const followings = [];
+      res.data.map((data) => {
+        followings.push(data.username);
+      });
+      setFriends(followings);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   // get all pins from database everytime refreshing the page
   useEffect(() => {
     getPins();
+    getFollowings();
   }, [currentUserId]);
 
   /* executed when clicking the marker */
@@ -144,7 +160,7 @@ function App() {
     try {
       const res = await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
       console.log(res.data);
-      setFriends((prev) => [...prev, res.data.username]);
+      getFollowings();
     }
     catch (error) {
       console.log(error);
@@ -155,6 +171,7 @@ function App() {
     try {
       const res = await axios.put('/users/' + foundUser._id + '/unfollow', { userId: currentUserId });
       console.log(res.data);
+      getFollowings();
     }
     catch (error) {
       console.log(error);
@@ -241,7 +258,7 @@ function App() {
             <span>Friends list</span>
             <div className='friend-list'>
               {friends.map((friend) => {
-                return <span>{friend}</span>
+                return <span key={friend}>{friend}</span>
               })}
             </div>      
           </div>
