@@ -94,7 +94,7 @@ function App() {
     }
   };
 
-  const addFriendSubmitHandler = async (event) => {
+  const searchFriendSubmitHandler = async (event) => {
     event.preventDefault();
     try {
       const findingUser = {
@@ -103,7 +103,7 @@ function App() {
       const res = await axios.post('/users/get', findingUser);
       if (res.data) {
         console.log(res.data);
-        setFoundUser(res.data.username);
+        setFoundUser(res.data);
       }
       else {
         console.log('User does not exist!');
@@ -137,6 +137,26 @@ function App() {
 
   const guideClickHandler = () => {
     setGuideClick(prev => !prev);
+  };
+
+  const followClickHandler = async () => {
+    try {
+      const res = await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
+      console.log(res.data);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  };
+
+  const unfollowClickHandler = async () => {
+    try {
+      const res = await axios.put('/users/' + foundUser._id + '/unfollow', { userId: currentUserId });
+      console.log(res.data);
+    }
+    catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -206,10 +226,16 @@ function App() {
         {showFriend && (
           <div className='friend-list-panel'>
             <span>Friends list</span>
-            {foundUser && <span>{foundUser}</span>}
-            <form onSubmit={addFriendSubmitHandler}>
+            {foundUser && (
+              <div className='friend-info'>
+                <span>{foundUser.username}</span>
+                <button onClick={followClickHandler}>Follow</button>
+                <button onClick={unfollowClickHandler}>Unfollow</button>
+              </div>
+            )}
+            <form onSubmit={searchFriendSubmitHandler}>
               <input type='text' className='friend-form' minLength={4} placeholder='Type username' onChange={(event) => setFindUsername(event.target.value)}></input>
-              <button className='submit-button' type='submit'>Add Friend</button>
+              <button className='submit-button' type='submit'>Search Friend</button>
             </form>          
           </div>
         )}
