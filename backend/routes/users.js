@@ -60,9 +60,9 @@ router.post('/get', async (req, res) => {
 });
 
 // update user information
-router.put('/:user_id', async (req, res) => {
+router.put('/:userId', async (req, res) => {
     try {
-        const updatedUser = await User.findOneAndUpdate({ _id: req.params.user_id}, req.body, {
+        const updatedUser = await User.findOneAndUpdate({ _id: req.params.userId}, req.body, {
             new: true,
             upsert: true
         });
@@ -77,17 +77,23 @@ router.put('/:user_id', async (req, res) => {
 });
 
 // follow a user
-router.put('/:user_id/follow', async (req, res) => {
-    try {
-
+router.put('/:userId/follow', async (req, res) => {
+    if (req.params.user_id !== req.body.userId) {
+        try {
+            const userToFollow = await User.findById(req.params.user_id);
+            const currentUser = await User.findById(req.body.userId);
+        }
+        catch (error) {
+            res.status(500).json(error);
+        }
     }
-    catch (error) {
-        res.status(500).json(error);
+    else {
+        return res.status(403).json('You cannot follow yourself!');
     }
 });
 
 // unfollow a user
-router.put('/:user_id/unfollow', async (req, res) => {
+router.put('/:userId/unfollow', async (req, res) => {
     try {
 
     }

@@ -15,9 +15,9 @@ router.post('/', async (req, res) => {
 });
 
 // get all pins
-router.get('/:user_id', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     try {
-        const pins = await Pin.find({userId: req.params.user_id})
+        const pins = await Pin.find({userId: req.params.userId})
         res.status(200).json(pins);
     }
     catch (error) {
