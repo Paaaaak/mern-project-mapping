@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Map from 'react-map-gl';
-import {Help} from '@material-ui/icons'
+import {Help, Cancel} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
 import CustomMarker from './components/CustomMarker';
@@ -76,6 +76,7 @@ function App() {
   const mapClickHandler = () => {
     setCurrentPlaceId(null);
     setGuideClick(null);
+    setShowFriend(false);
   };
 
   /* executed when clicking the map with right mouse */
@@ -244,6 +245,7 @@ function App() {
         )};
         {showFriend && (
           <div className='friend-list-panel'>
+            <Cancel className='friend-cancel' onClick={() => setShowFriend(false)}></Cancel>
             {foundUser && (
               <div className='friend-info'>
                 <span>{foundUser.username}</span>

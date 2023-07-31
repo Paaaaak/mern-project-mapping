@@ -69,6 +69,15 @@ input::placeholder, textarea::placeholder {
     gap: 1rem;
 }
 
+.friend-cancel {
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 5px;
+    cursor: pointer;
+}
+
 .friend-form {
     display: flex;
     flex-direction: column;
