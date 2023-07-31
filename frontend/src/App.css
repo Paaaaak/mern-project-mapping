@@ -88,4 +88,23 @@ input::placeholder, textarea::placeholder {
     flex-direction: column;
     background-color: aquamarine;
     height: max-content;
+    gap: 1rem;
+}
+
+.friend {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.friend-profile {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: brown;
+}
+
+.friend-name {
+    font-size: 15px;
+    font-weight: bold;
 }

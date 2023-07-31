@@ -125,17 +125,19 @@ function App() {
       }
       else {
         console.log('User does not exist!');
-        setFoundUser(null);
+        setFoundUser(false);
       }
     }
     catch (error) {
       console.log(error);
-      setFoundUser('User does not exist!');
+      alert(error.response.data);
+      setFoundUser(false);
     }
   };
 
   const logoutClickHandler = () => {
     setCurrentUser(null);
+    setShowFriend(false);
     localStorage.removeItem('user');
   };
 
@@ -162,6 +164,7 @@ function App() {
       const res = await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
       console.log(res.data);
       getFollowings();
+      setFoundUser(false);
     }
     catch (error) {
       console.log(error);
@@ -173,6 +176,7 @@ function App() {
       const res = await axios.put('/users/' + foundUser._id + '/unfollow', { userId: currentUserId });
       console.log(res.data);
       getFollowings();
+      setFoundUser(false);
     }
     catch (error) {
       console.log(error);
@@ -248,7 +252,7 @@ function App() {
             <Cancel className='friend-cancel' onClick={() => setShowFriend(false)}></Cancel>
             {foundUser && (
               <div className='friend-info'>
-                <span>{foundUser.username}</span>
+                <span>{foundUser.username}</span>                
                 <button onClick={followClickHandler}>Follow</button>
                 <button onClick={unfollowClickHandler}>Unfollow</button>
               </div>
@@ -260,7 +264,13 @@ function App() {
             <span>Friends list</span>
             <div className='friend-list'>
               {friends.map((friend) => {
-                return <span key={friend}>{friend}</span>
+                return (
+                  <div className='friend'>
+                    <span className='friend-profile'></span>
+                    <span className='friend-name' key={friend}>{friend}</span>
+                    <span>Color</span>
+                  </div>
+                );
               })}
             </div>      
           </div>
