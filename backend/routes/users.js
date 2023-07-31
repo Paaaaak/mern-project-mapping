@@ -76,4 +76,24 @@ router.put('/:user_id', async (req, res) => {
     }
 });
 
+// follow a user
+router.put('/:user_id/follow', async (req, res) => {
+    try {
+
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// unfollow a user
+router.put('/:user_id/unfollow', async (req, res) => {
+    try {
+
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;
