@@ -78,7 +78,7 @@ router.put('/:userId', async (req, res) => {
 
 // follow a user
 router.put('/:userId/follow', async (req, res) => {
-    if (req.params.user_id !== req.body.userId) {
+    if (req.params.userId !== req.body.userId) {
         try {
             const userToFollow = await User.findById(req.params.userId);
             const currentUser = await User.findById(req.body.userId);
@@ -102,7 +102,7 @@ router.put('/:userId/follow', async (req, res) => {
 
 // unfollow a user
 router.put('/:userId/unfollow', async (req, res) => {
-    if (req.params.user_id !== req.body.userId) {
+    if (req.params.userId !== req.body.userId) {
         try {
             const userToUnfollow = await User.findById(req.params.userId);
             const currentUser = await User.findById(req.body.userId);

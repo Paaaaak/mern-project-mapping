@@ -27,20 +27,20 @@ const FriendPanel = (props) => {
   return (
     <div className='friend-list-panel'>
       <Cancel className='friend-cancel' onClick={() => props.setShowFriend(false)}></Cancel>
-      <form onSubmit={props.searchFriendSubmitHandler}>
-        <input type='text' className='friend-form' minLength={4} placeholder='Type username' onChange={(event) => props.setFindUsername(event.target.value)}></input>
+      <form className='friend-form' onSubmit={props.searchFriendSubmitHandler}>
+        <input type='text' minLength={4} placeholder='Type username' onChange={(event) => props.setFindUsername(event.target.value)}></input>
         <button className='submit-button' type='submit'>Search Friend</button>
       </form>
-      <div className='friend-info'>
+      <div style={{height: '50px'}}>
         {props.foundUser && (
-          <div>
-            <span>{props.foundUser.username}</span>
+          <div className='friend-info'>
+            <span style={{fontSize: '15px', fontWeight: 'bold'}}>{props.foundUser.username}</span>
             <button onClick={props.followClickHandler}>Follow</button>
             <button onClick={props.unfollowClickHandler}>Unfollow</button>
           </div>
         )}
       </div>
-      <span>Friends list</span>
+      <span style={{fontSize: '15px', fontWeight: 'bold'}}>Friends list</span>
       <div className="ag-theme-alpine" style={{ height: '200px', width: '100%' }}>
         <AgGridReact
           rowData={rowData}
