@@ -11,6 +11,9 @@ import CustomPopup from './components/CustomPopup';
 import CustomNewPopup from './components/CustomNewPopup';
 import UserPanel from './components/UserPanel';
 
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
+
 function App() {
   const localStorage = window.localStorage;
   const [currentUser, setCurrentUser] = useState(localStorage.getItem('user'));
@@ -183,6 +186,19 @@ function App() {
     }
   };
 
+  // friends grid
+  const [rowData] = useState([
+    { make: "Toyota", model: "Celica", price: 35000 },
+    { make: "Ford", model: "Mondeo", price: 32000 },
+    { make: "Porsche", model: "Boxster", price: 72000 }
+  ]);
+
+  const [columnDefs] = useState([
+    { field: 'make' },
+    { field: 'model' },
+    { field: 'price' }
+  ]);
+
   return (
     <div className='App'>
       <Map
@@ -272,7 +288,13 @@ function App() {
                   </div>
                 );
               })}
-            </div>      
+            </div>  
+            <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
+              <AgGridReact
+                rowData={rowData}
+                columnDefs={columnDefs}>
+              </AgGridReact>
+            </div>
           </div>
         )}
       </Map>

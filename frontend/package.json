@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.0.0",
     "@types/mapbox-gl": "^2.7.11",
     "ag-grid-community": "^30.0.6",
+    "ag-grid-react": "^30.0.6",
     "axios": "^1.4.0",
     "framer-motion": "^4.1.18-rc.17",
     "http-proxy-middleware": "^2.0.6",
