@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Map from 'react-map-gl';
-import {Help, Cancel} from '@material-ui/icons'
+import {Help} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
 import CustomMarker from './components/CustomMarker';
@@ -10,9 +10,7 @@ import Guide from './components/Guide';
 import CustomPopup from './components/CustomPopup';
 import CustomNewPopup from './components/CustomNewPopup';
 import UserPanel from './components/UserPanel';
-
-import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css'; // Core grid CSS, always needed
+import FriendPanel from './components/FriendPanel';
 
 function App() {
   const localStorage = window.localStorage;
@@ -186,19 +184,6 @@ function App() {
     }
   };
 
-  // friends grid
-  const [rowData] = useState([
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 }
-  ]);
-
-  const [columnDefs] = useState([
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' }
-  ]);
-
   return (
     <div className='App'>
       <Map
@@ -264,38 +249,15 @@ function App() {
           <Register cancelClick={() => setShowRegister(false)}></Register>
         )};
         {showFriend && (
-          <div className='friend-list-panel'>
-            <Cancel className='friend-cancel' onClick={() => setShowFriend(false)}></Cancel>
-            {foundUser && (
-              <div className='friend-info'>
-                <span>{foundUser.username}</span>                
-                <button onClick={followClickHandler}>Follow</button>
-                <button onClick={unfollowClickHandler}>Unfollow</button>
-              </div>
-            )}
-            <form onSubmit={searchFriendSubmitHandler}>
-              <input type='text' className='friend-form' minLength={4} placeholder='Type username' onChange={(event) => setFindUsername(event.target.value)}></input>
-              <button className='submit-button' type='submit'>Search Friend</button>
-            </form>    
-            <span>Friends list</span>
-            <div className='friend-list'>
-              {friends.map((friend) => {
-                return (
-                  <div className='friend'>
-                    <span className='friend-profile'></span>
-                    <span className='friend-name' key={friend}>{friend}</span>
-                    <span>Color</span>
-                  </div>
-                );
-              })}
-            </div>  
-            <div className="ag-theme-alpine" style={{ height: 400, width: 600 }}>
-              <AgGridReact
-                rowData={rowData}
-                columnDefs={columnDefs}>
-              </AgGridReact>
-            </div>
-          </div>
+          <FriendPanel
+            setShowFriend={setShowFriend}
+            foundUser={foundUser}
+            followClickHandler={followClickHandler}
+            unfollowClickHandler={unfollowClickHandler}
+            searchFriendSubmitHandler={searchFriendSubmitHandler}
+            setFindUsername={setFindUsername}
+            friends={friends}>
+          </FriendPanel>
         )}
       </Map>
     </div>
