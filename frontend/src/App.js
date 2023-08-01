@@ -54,7 +54,7 @@ function App() {
       res.data.map((data) => {
         followings.push(data.username);
       });
-      setFriends(followings);
+      setFriends(res.data);
     }
     catch (error) {
       console.log(error);
