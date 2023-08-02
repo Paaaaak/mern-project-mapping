@@ -172,9 +172,9 @@ function App() {
     }
   };
 
-  const unfollowClickHandler = async () => {
+  const unfollowClickHandler = async (userId) => {
     try {
-      const res = await axios.put('/users/' + foundUser._id + '/unfollow', { userId: currentUserId });
+      const res = await axios.put('/users/' + userId + '/unfollow', { userId: currentUserId });
       console.log(res.data);
       getFollowings();
       setFoundUser(false);
