@@ -9,6 +9,7 @@ import User from '../assets/user.png';
 const FriendPanel = (props) => {
   // friends list grid data
   const [rowData, setRowData] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
   const gridRef = useRef();
   const [selectedUserId, setSelectedUserId] = useState(null);
 
@@ -49,7 +50,6 @@ const FriendPanel = (props) => {
       }
     }
   ]);
-
   
   useEffect(() => {
     const followingList = [];
@@ -59,6 +59,13 @@ const FriendPanel = (props) => {
     });
     setRowData(followingList);
   }, [props.friends]);
+
+  // 유저 검색 시 이미 팔로우중인 유저일경우 Following 버튼으로 전환
+  useEffect(() => {
+    // 배열 요소의 하나라도 조건을 만족한다면 true 반환
+    const isFollowing = rowData.some((following) => following.id === props.foundUser._id);
+    setIsFollowing(isFollowing);
+  }, [props.foundUser]);
 
   return (
     <div className='friend-list-panel'>
@@ -71,8 +78,7 @@ const FriendPanel = (props) => {
         {props.foundUser && (
           <div className='friend-info'>
             <span style={{fontSize: '15px', fontWeight: 'bold'}}>{props.foundUser.username}</span>
-            <button className='follow-button' onClick={props.followClickHandler}>Follow</button>
-            {/* <button onClick={props.unfollowClickHandler}>Unfollow</button> */}
+            <button className={`follow-button ${isFollowing ? 'following' : ''}`} onClick={props.followClickHandler} disabled={isFollowing}>{isFollowing ? 'Following' : 'Follow'}</button>
           </div>
         )}
       </div>

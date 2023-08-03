@@ -72,6 +72,12 @@
     cursor: pointer;
 }
 
+.following {
+    background-color: white;
+    border: 1px solid darkcyan;
+    color: darkcyan;
+}
+
 .unfollow-button {
     border: none;
     padding: 5px;

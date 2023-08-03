@@ -60,9 +60,10 @@ function App() {
     }
   }
 
-  // get all pins from database everytime refreshing the page
   useEffect(() => {
+    // get all pins from database everytime refreshing the page
     getPins();
+    // get all follow from database everytime refreshing the page
     getFollowings();
   }, [currentUserId]);
 
