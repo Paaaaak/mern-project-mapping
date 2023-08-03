@@ -36,10 +36,12 @@ function App() {
   const [foundUser, setFoundUser] = useState(null);
   const [friends, setFriends] = useState([]);
 
-  const getPins = async () => {
+  const getPinsByUserId = async (userId) => {
     try {
-      const res = await axios.get('/pins/' + currentUserId);
-      setPins(res.data);
+      const res = await axios.get('/pins/' + userId);
+      // 기존에 존재하던 Pin들에 추가로 다른 유저의 Pin 값들을 추가
+      const updatedPins = [...pins, ...res.data];
+      setPins(updatedPins);
     }
     catch (error) {
       console.log(error);
@@ -62,7 +64,7 @@ function App() {
 
   useEffect(() => {
     // get all pins from database everytime refreshing the page
-    getPins();
+    getPinsByUserId(currentUserId);
     // get all follow from database everytime refreshing the page
     getFollowings();
   }, [currentUserId]);
@@ -147,7 +149,7 @@ function App() {
 
     try {
       await axios.get('/pins/delete?id=' + currentPlaceId);
-      getPins();
+      getPinsByUserId(currentUserId);
     }
     catch (error) {
       console.log(error);
@@ -248,6 +250,7 @@ function App() {
           <FriendPanel
             setShowFriend={setShowFriend}
             foundUser={foundUser}
+            getPinsByUserId={getPinsByUserId}
             followClickHandler={followClickHandler}
             unfollowClickHandler={unfollowClickHandler}
             searchFriendSubmitHandler={searchFriendSubmitHandler}

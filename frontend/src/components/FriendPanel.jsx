@@ -11,10 +11,10 @@ const FriendPanel = (props) => {
   const [rowData, setRowData] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const gridRef = useRef();
-  const [selectedUserId, setSelectedUserId] = useState(null);
 
   const visibleClickHandler = (e) => {
     console.log(e.data.id);
+    props.getPinsByUserId(e.data.id);
   };
 
   const unfollowClickHandler = (e) => {
