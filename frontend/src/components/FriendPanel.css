@@ -1,7 +1,6 @@
-
 .friend-list-panel {
     position: absolute;
-    width: 450px;
+    width: 500px;
     height: 500px;
     left: 0;
     right: 0;
@@ -62,4 +61,22 @@
 .friend-name {
     font-size: 15px;
     font-weight: bold;
+}
+
+.follow-button {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: darkcyan;
+    cursor: pointer;
+}
+
+.unfollow-button {
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    background-color: darkcyan;
+    cursor: pointer;
 }

@@ -49,7 +49,6 @@ function App() {
   const getFollowings = async () => {
     try {
       const res = await axios.get('/users/' + currentUserId + '/followings');
-      console.log(res.data);
       const followings = [];
       res.data.map((data) => {
         followings.push(data.username);
@@ -84,7 +83,6 @@ function App() {
   const mapRightClickHandler = (event) => {
     const longitude = event.lngLat.lng;
     const latitude = event.lngLat.lat;
-    console.log(longitude + ' ' + latitude);
     setNewPlace({
       longitude: longitude,
       latitude: latitude
@@ -121,7 +119,6 @@ function App() {
       };
       const res = await axios.post('/users/get', findingUser);
       if (res.data) {
-        console.log(res.data);
         setFoundUser(res.data);
       }
       else {
@@ -163,7 +160,6 @@ function App() {
   const followClickHandler = async () => {
     try {
       const res = await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
-      console.log(res.data);
       getFollowings();
       setFoundUser(false);
     }
@@ -175,7 +171,6 @@ function App() {
   const unfollowClickHandler = async (userId) => {
     try {
       const res = await axios.put('/users/' + userId + '/unfollow', { userId: currentUserId });
-      console.log(res.data);
       getFollowings();
       setFoundUser(false);
     }

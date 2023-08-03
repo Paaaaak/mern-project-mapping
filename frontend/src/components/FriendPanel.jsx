@@ -4,6 +4,7 @@ import {Cancel, PanoramaFishEye} from '@material-ui/icons'
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
+import User from '../assets/user.png';
 
 const FriendPanel = (props) => {
   // friends list grid data
@@ -16,29 +17,35 @@ const FriendPanel = (props) => {
   };
 
   const unfollowClickHandler = (e) => {
-    console.log(e.data.id);
+    props.unfollowClickHandler(e.data.id);
   };
 
   // friends list grid columns
   const [columnDefs] = useState([
-    { headerName: 'Profile', field: 'profile', width: 80 },
+    { 
+      headerName: '', 
+      field: 'profile', 
+      width: 70,
+      cellRenderer: function(e) {
+        return (<img src={User} style={{transform: 'scale(1)'}}></img>);
+      }
+    },
     { headerName: 'Id', field: 'id', hide: true},
-    { headerName: 'Name', field: 'name', width: 80 },
-    { headerName: 'Color',field: 'color', width: 90 },
+    { headerName: 'Name', field: 'name', width: 100 },
+    { headerName: 'Color', field: 'color', width: 90 },
     { 
       headerName: 'Pin visible', 
       field: 'visible', 
       width: 100, 
       cellRenderer: function(e) {
-        return (<button onClick={() => console.log('Toggle: ' + e.data.id)}>Toggle</button>);
+        return (<button onClick={() => visibleClickHandler(e)}>Toggle</button>);
       }
     },
     { 
       headerName: 'Following', 
       field: 'following', 
-      width: 100, 
       cellRenderer: function(e) {
-        return (<button onClick={() => console.log('Unfollow: ' + e.data.id)}>Click</button>);
+        return (<button className='unfollow-button' onClick={() => unfollowClickHandler(e)}>Unfollow</button>);
       }
     }
   ]);
@@ -64,7 +71,7 @@ const FriendPanel = (props) => {
         {props.foundUser && (
           <div className='friend-info'>
             <span style={{fontSize: '15px', fontWeight: 'bold'}}>{props.foundUser.username}</span>
-            <button onClick={props.followClickHandler}>Follow</button>
+            <button className='follow-button' onClick={props.followClickHandler}>Follow</button>
             {/* <button onClick={props.unfollowClickHandler}>Unfollow</button> */}
           </div>
         )}
