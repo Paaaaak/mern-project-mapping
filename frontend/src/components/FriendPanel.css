@@ -63,6 +63,12 @@
     font-weight: bold;
 }
 
+.friend-color {
+    border-radius: 10px;
+    height: 40px;
+    width: auto;
+}
+
 .follow-button {
     border: none;
     padding: 5px;

@@ -21,6 +21,15 @@ const FriendPanel = (props) => {
     props.unfollowClickHandler(e.data.id);
   };
 
+  const colorCellRenderer = (params) => {
+    const color = params.value;
+    return (
+      <div className='friend-color' style={{ backgroundColor: color}}>
+        <span>{color}</span>
+      </div>
+    );
+  };
+
   // friends list grid columns
   const [columnDefs] = useState([
     { 
@@ -33,7 +42,12 @@ const FriendPanel = (props) => {
     },
     { headerName: 'Id', field: 'id', hide: true},
     { headerName: 'Name', field: 'name', width: 100 },
-    { headerName: 'Color', field: 'color', width: 90 },
+    { 
+      headerName: 'Color', 
+      field: 'color', 
+      width: 90, 
+      cellRenderer: colorCellRenderer
+    },
     { 
       headerName: 'Pin visible', 
       field: 'visible', 
@@ -45,6 +59,7 @@ const FriendPanel = (props) => {
     { 
       headerName: 'Following', 
       field: 'following', 
+      width: 130, 
       cellRenderer: function(e) {
         return (<button className='unfollow-button' onClick={() => unfollowClickHandler(e)}>Unfollow</button>);
       }
