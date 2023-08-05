@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// get all pins
+// get all pins by user id
 router.get('/:userId', async (req, res) => {
     try {
         const pins = await Pin.find({userId: req.params.userId})
@@ -38,6 +38,21 @@ router.get('/delete/:pinId', async (req, res) => {
 });
 
 // update pin information
+router.put('/update/:pinId', async (req, res) => {
+    try {
+        const pinId = req.params.pinId;
+        const updatedPin = await Pin.findByIdAndUpdate({ _id: pinId }, req.body);
+        if (!updatedPin) {
+            return res.status(400).json('Pin is not found!');
+        }
+        res.status(200).json(updatedPin);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// update certain user's pins information
 router.put('/:userId', async (req, res) => {
     try {
         const updatedPin = await Pin.updateMany({ userId: req.params.userId }, req.body);
