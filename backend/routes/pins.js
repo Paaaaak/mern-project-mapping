@@ -37,4 +37,18 @@ router.get('/delete', async (req, res) => {
     }
 });
 
+// update pin information
+router.put('/:userId', async (req, res) => {
+    try {
+        const updatedPin = await Pin.updateMany({ userId: req.params.userId }, req.body);
+        if (!updatedPin) {
+            return res.status(400).json('Pin is not found!');
+        }
+        res.status(200).json(updatedPin);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 module.exports = router;

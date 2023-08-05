@@ -21,7 +21,7 @@ function App() {
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
   const mapRef = useRef();
-  const [viewState, setViewState] = useState({
+  const [viewState] = useState({
     longitude: -150.4,
     latitude: 37.8,
     zoom: 8
@@ -40,13 +40,23 @@ function App() {
     try {
       const res = await axios.get('/pins/' + userId);
       // 기존에 존재하던 Pin들에 추가로 다른 유저의 Pin 값들을 추가
-      const updatedPins = [...pins, ...res.data];
-      setPins(updatedPins);
+      setPins(prev => [...prev, ...res.data.map(pin => pin)]);
     }
     catch (error) {
       console.log(error);
     }
   }
+
+  useEffect(() => {
+    const combinedArray = [];
+
+    friends.forEach((friend) => {
+      const friendPins = pins.filter((pin) => pin.userId === friend._id);
+      combinedArray.push({ friend, pins: friendPins });
+    });
+
+    console.log(combinedArray);
+  }, [pins, friends]);
 
   const getFollowings = async () => {
     try {
@@ -62,11 +72,14 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    // get all pins from database everytime refreshing the page
-    getPinsByUserId(currentUserId);
-    // get all follow from database everytime refreshing the page
-    getFollowings();
+  useEffect(async () => {
+    const fetchData = async () => {
+      // get all pins from database everytime refreshing the page
+      await getPinsByUserId(currentUserId);
+      // get all follow from database everytime refreshing the page
+      await getFollowings();
+    }
+    fetchData();
   }, [currentUserId]);
 
   /* executed when clicking the marker */
@@ -162,7 +175,7 @@ function App() {
 
   const followClickHandler = async () => {
     try {
-      const res = await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
+      await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
       getFollowings();
       setFoundUser(false);
     }
@@ -173,7 +186,7 @@ function App() {
 
   const unfollowClickHandler = async (userId) => {
     try {
-      const res = await axios.put('/users/' + userId + '/unfollow', { userId: currentUserId });
+      await axios.put('/users/' + userId + '/unfollow', { userId: currentUserId });
       getFollowings();
       setFoundUser(false);
     }

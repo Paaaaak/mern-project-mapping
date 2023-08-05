@@ -33,6 +33,11 @@ const PinSchema = new mongoose.Schema(
         long: {
             type: Number,
             require: true
+        },
+        color: {
+            type: String, 
+            require: false,
+            min: 6
         }
     },
     { timestamps: true }
