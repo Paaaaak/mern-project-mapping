@@ -1,7 +1,19 @@
-.card {
+.new-card {
     width: 250px;
-    height: 250px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+.new-card .popup-form {
+    width: 250px;
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.new-card textarea {
+    height: 100px;
 }

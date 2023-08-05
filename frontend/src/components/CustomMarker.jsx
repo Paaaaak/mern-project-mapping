@@ -12,7 +12,6 @@ const CustomMarker = (props) => {
         latitude={props.pin.lat}
         onClick={(event) => {
           event.originalEvent.stopPropagation();
-          console.log(props.pin);
           props.onClick(props.pin._id, props.pin.long, props.pin.lat);
         }}>
         <Room

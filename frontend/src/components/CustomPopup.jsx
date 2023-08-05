@@ -25,7 +25,7 @@ const CustomPopup = (props) => {
       anchor="left"
       onClose={() => props.setCurrentPlaceId(null)}>
       <div className='card'>
-        <label>Place</label>
+        <label>Title</label>
         <h4 className='place'>{props.pin.title}</h4>
         <label>Review</label>
         <p className='description'>{props.pin.description}</p>
