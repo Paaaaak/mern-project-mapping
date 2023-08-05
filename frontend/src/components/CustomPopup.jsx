@@ -3,6 +3,8 @@ import {Star} from '@material-ui/icons';
 import {Popup} from 'react-map-gl';
 import {format} from 'timeago.js';
 import './CustomPopup.css';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const CustomPopup = (props) => {
   const getStarsForRating = (rating) => {
@@ -34,7 +36,16 @@ const CustomPopup = (props) => {
         <label>Information</label>
         <span className='username'>Created by <b>{props.pin.username}</b></span>
         <span className='date'>{format(props.pin.createdAt)}</span>
-        <span className='delete-pin' onClick={props.deleteClickHandler}>Delete this pin</span>
+        <div className='pin-button-container'>
+          <div className='edit-pin'>
+            <ModeEditIcon style={{fontSize: '14px'}}></ModeEditIcon>
+            <span onClick={props.editClickHandler}>Edit this pin</span>
+          </div>
+          <div className='delete-pin'>
+            <DeleteOutlineIcon style={{fontSize: '14px'}}></DeleteOutlineIcon>
+            <span onClick={props.deleteClickHandler}>Delete this pin</span>
+          </div>
+        </div>
       </div>
     </Popup>
   );

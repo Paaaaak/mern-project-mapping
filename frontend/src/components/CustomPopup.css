@@ -34,8 +34,25 @@
     font-size: 13px;
 }
 
+.pin-button-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    gap: 1rem;
+}
+
+.edit-pin {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    color: rgb(29, 141, 39);
+    cursor: pointer;
+}
+
 .delete-pin {
-    font-size: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
     color: brown;
     cursor: pointer;
 }

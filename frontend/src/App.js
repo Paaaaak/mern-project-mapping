@@ -150,6 +150,10 @@ function App() {
     localStorage.removeItem('user');
   };
 
+  const editClickHandler = async () => {
+    console.log('Edit button clicked!', currentPlaceId);
+  }
+
   const deleteClickHandler = async () => {
     if (!window.confirm('Do you want to delete this pin?')) {
       return;
@@ -214,6 +218,7 @@ function App() {
               <CustomPopup
                 pin={pin}
                 setCurrentPlaceId={setCurrentPlaceId}
+                editClickHandler={editClickHandler}
                 deleteClickHandler={deleteClickHandler}>
               </CustomPopup>
             )}
