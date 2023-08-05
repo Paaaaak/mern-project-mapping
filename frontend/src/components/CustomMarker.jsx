@@ -10,13 +10,14 @@ const CustomMarker = (props) => {
       latitude={props.pin.lat}
       onClick={(event) => {
         event.originalEvent.stopPropagation();
+        console.log(props.pin);
         props.onClick(props.pin._id, props.pin.long, props.pin.lat);
       }}>
       <Room
         style={{
           fontSize: props.viewState.zoom * 4,
           transform: `translate(0, ${props.viewState.zoom}px)`,
-          color: props.pin.color,
+          color: props.color,
           cursor: 'pointer'
         }}>
       </Room>

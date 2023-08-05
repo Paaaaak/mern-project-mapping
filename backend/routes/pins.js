@@ -26,9 +26,9 @@ router.get('/:userId', async (req, res) => {
 });
 
 // delete a pin
-router.get('/delete', async (req, res) => {
+router.get('/delete/:pinId', async (req, res) => {
     try {
-        const pinId = req.query.id;
+        const pinId = req.params.pinId;
         const deletedPin = await Pin.findByIdAndDelete(pinId);
         res.status(200).json(deletedPin);
     }

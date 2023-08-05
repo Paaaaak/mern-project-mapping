@@ -24,11 +24,13 @@ const UserPanel = (props) => {
   useEffect(() => {
     // 0.5초 뒤에 실행
     const identifier = setTimeout(async () => {
-      console.log(props.currentUserId);
       colorRef.current.value = props.color;
-      console.log('Changed color: ' + colorRef.current.value);
-      // 색상 업데이트 axios 호출문 추가
-      await axios.put('/users/' + props.currentUserId, { color: colorRef.current.value });
+      if (props.currentUserId) {
+        // 색상 업데이트 axios 호출문 추가
+        await axios.put('/users/' + props.currentUserId, { color: colorRef.current.value });
+        await axios.put('/pins/' + props.currentUserId, { color: colorRef.current.value });
+        props.setColor(colorRef.current.value);
+      }
     }, 500);
     
     return () => {

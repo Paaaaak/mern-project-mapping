@@ -40,23 +40,14 @@ function App() {
     try {
       const res = await axios.get('/pins/' + userId);
       // 기존에 존재하던 Pin들에 추가로 다른 유저의 Pin 값들을 추가
-      setPins(prev => [...prev, ...res.data.map(pin => pin)]);
+      // setPins(prev => [...prev, ...res.data.map(pin => pin)]);
+      console.log('Pins list:', res.data);
+      setPins(res.data);
     }
     catch (error) {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    const combinedArray = [];
-
-    friends.forEach((friend) => {
-      const friendPins = pins.filter((pin) => pin.userId === friend._id);
-      combinedArray.push({ friend, pins: friendPins });
-    });
-
-    console.log(combinedArray);
-  }, [pins, friends]);
 
   const getFollowings = async () => {
     try {
@@ -77,7 +68,9 @@ function App() {
       // get all pins from database everytime refreshing the page
       await getPinsByUserId(currentUserId);
       // get all follow from database everytime refreshing the page
-      await getFollowings();
+      if (currentUserId) {
+        await getFollowings();
+      }
     }
     fetchData();
   }, [currentUserId]);
@@ -114,10 +107,12 @@ function App() {
       description: description,
       rating: rating,
       lat: newPlace.latitude,
-      long: newPlace.longitude
+      long: newPlace.longitude,
+      color: color
     }
 
     try {
+      // create new pin
       const res = await axios.post('/pins', newPin);
       setPins(prev => [...prev, res.data]);
       setNewPlace(null);
@@ -161,7 +156,8 @@ function App() {
     } 
 
     try {
-      await axios.get('/pins/delete?id=' + currentPlaceId);
+      const res = await axios.get('/pins/delete/' + currentPlaceId);
+      console.log('Deleted pin:', res);
       getPinsByUserId(currentUserId);
     }
     catch (error) {
