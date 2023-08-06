@@ -42,7 +42,11 @@
     cursor: pointer;
 }
 
-.save-pin {
+.edit-description {
+    height: 100px;
+}
+
+.update-pin {
     display: flex;
     align-items: center;
     font-size: 12px;

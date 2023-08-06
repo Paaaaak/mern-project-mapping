@@ -10,6 +10,8 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 const CustomPopup = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const titleRef = useRef(null);
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
 
   const getStarsForRating = (rating) => {
     let stars = [];
@@ -24,8 +26,19 @@ const CustomPopup = (props) => {
 
   const editClickHandler = () => {
     setIsEdit(prev => !prev);
-    props.editClickHandler();
-  }
+  };
+
+  const updateClickHandler = () => {
+    setIsEdit(prev => !prev);
+    const popupInfo = {};
+    if (title) {
+      popupInfo.title = title;
+    }
+    if (description) {
+      popupInfo.description = description;
+    }
+    props.updateClickHandler(popupInfo);
+  };
 
   useEffect(() => {
     if (isEdit && titleRef.current) {
@@ -41,9 +54,17 @@ const CustomPopup = (props) => {
       onClose={() => props.setCurrentPlaceId(null)}>
       <div className='card'>
         <label>Title</label>
-        {isEdit ? (<input type='text' ref={titleRef} value={props.pin.title} className='edit-place'></input>) : (<h4 className='place'>{props.pin.title}</h4>)}
+        {isEdit ? (
+          <input className='edit-place' type='text' ref={titleRef} defaultValue={props.pin.title} onChange={(e) => setTitle(e.target.value)}></input>
+        ) : (
+          <h4 className='place'>{props.pin.title}</h4>
+        )}
         <label>Review</label>
-        {isEdit ? (<textarea className='edit-description' value={props.pin.description}></textarea>) : (<p className='description'>{props.pin.description}</p>)}
+        {isEdit ? (
+          <textarea className='edit-description' defaultValue={props.pin.description} onChange={(e) => setDescription(e.target.value)}></textarea>
+        ) : (
+          <p className='description'>{props.pin.description}</p>
+        )}
         <label>Rating</label>
         <div className='stars'>
           {getStarsForRating(props.pin.rating)}
@@ -53,15 +74,15 @@ const CustomPopup = (props) => {
         <span className='date'>{format(props.pin.createdAt)}</span>
         <div className='pin-button-container'>
           {isEdit ? (
-            <div className='save-pin' onClick={() => editClickHandler()}>
-            <SaveAltIcon style={{fontSize: '14px', marginRight: '2px'}}></SaveAltIcon>
-            <span>Save this pin</span>
-          </div>
+            <div className='update-pin' onClick={() => updateClickHandler()}>
+              <SaveAltIcon style={{fontSize: '14px', marginRight: '2px'}}></SaveAltIcon>
+              <span>Update this pin</span>
+            </div>
           ) : (
             <div className='edit-pin' onClick={() => editClickHandler()}>
-            <ModeEditIcon style={{fontSize: '14px', marginRight: '2px'}}></ModeEditIcon>
-            <span>Edit this pin</span>
-          </div>
+              <ModeEditIcon style={{fontSize: '14px', marginRight: '2px'}}></ModeEditIcon>
+              <span>Edit this pin</span>
+            </div>
           )}
           <div className='delete-pin'>
             <DeleteOutlineIcon style={{fontSize: '14px'}}></DeleteOutlineIcon>

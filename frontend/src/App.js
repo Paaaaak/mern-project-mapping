@@ -22,9 +22,9 @@ function App() {
   const [pins, setPins] = useState([]);
   const mapRef = useRef();
   const [viewState] = useState({
-    longitude: -150.4,
+    longitude: -280.4,
     latitude: 37.8,
-    zoom: 8
+    zoom: 7
   });
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
@@ -150,8 +150,14 @@ function App() {
     localStorage.removeItem('user');
   };
 
-  const editClickHandler = async () => {
-    console.log('Edit button clicked!', currentPlaceId);
+  const updateClickHandler = async (popupInfo) => {
+    try {
+      const updatedPopup = await axios.put('/pins/update/' + currentPlaceId, popupInfo);
+      getPinsByUserId(currentUserId);
+    }
+    catch (error) {
+      console.log(error);
+    }
   }
 
   const deleteClickHandler = async () => {
@@ -218,7 +224,7 @@ function App() {
               <CustomPopup
                 pin={pin}
                 setCurrentPlaceId={setCurrentPlaceId}
-                editClickHandler={editClickHandler}
+                updateClickHandler={updateClickHandler}
                 deleteClickHandler={deleteClickHandler}>
               </CustomPopup>
             )}
