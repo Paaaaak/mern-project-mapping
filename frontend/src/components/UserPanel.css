@@ -33,6 +33,7 @@
     width: 200px;
     margin-top: 70px;
     border-radius: 10px;
+    border: 1px solid gray;
     background-color: white;
     position: relative;
     padding: 10px;

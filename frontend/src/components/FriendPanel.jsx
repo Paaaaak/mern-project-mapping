@@ -68,7 +68,7 @@ const FriendPanel = (props) => {
       field: 'profile', 
       width: 70,
       cellRenderer: function(e) {
-        return (<img src={User} style={{transform: 'scale(1)'}}></img>);
+        return (<img src={User} style={{transform: 'scale(1)', border: '1px solid gray', borderRadius: '50%', marginTop: '5px'}}></img>);
       }
     },
     { headerName: 'Id', field: 'id', hide: true},
@@ -84,7 +84,13 @@ const FriendPanel = (props) => {
       field: 'visible', 
       width: 100, 
       cellRenderer: function(e) {
-        return (<button onClick={() => visibleClickHandler(e)}>Toggle</button>);
+        return (
+          <label class="toggle-container">
+            <input type="checkbox" onClick={() => visibleClickHandler(e)}/>
+            <div class="toggle-switch">
+              <div class="toggle-handle"></div>
+            </div>
+          </label>);
       }
     },
     { 
