@@ -39,8 +39,9 @@ const FriendPanel = (props) => {
       const req = {
         userId: uniqueArray
       }
-      const pins = await axios.post('/pins/get/pinList', req);
-      console.log(pins);
+      const res = await axios.post('/pins/get/pinList', req);
+      console.log(res.data);
+      props.setPins(res.data);
     }
     catch (error) {
       console.log(error);

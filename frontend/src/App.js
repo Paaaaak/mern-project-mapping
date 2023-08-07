@@ -218,7 +218,7 @@ function App() {
               user={currentUser} 
               viewState={viewState}
               onClick={markerClickHandler}
-              color={color}
+              color={pin.color}
               pin={pin}>
             </CustomMarker>
             {currentPlaceId === pin._id && (
@@ -277,7 +277,8 @@ function App() {
             setUserIdList={setUserIdList}
             userIdList={userIdList}
             setFindUsername={setFindUsername}
-            friends={friends}>
+            friends={friends}
+            setPins={setPins}>
           </FriendPanel>
         )}
       </Map>
