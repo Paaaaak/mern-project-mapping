@@ -35,6 +35,7 @@ function App() {
   const [findUsername, setFindUsername] = useState(null);
   const [foundUser, setFoundUser] = useState(null);
   const [friends, setFriends] = useState([]);
+  const [userIdList, setUserIdList] = useState([localStorage.getItem('userId')]);
 
   const getPinsByUserId = async (userId) => {
     try {
@@ -270,10 +271,11 @@ function App() {
           <FriendPanel
             setShowFriend={setShowFriend}
             foundUser={foundUser}
-            getPinsByUserId={getPinsByUserId}
             followClickHandler={followClickHandler}
             unfollowClickHandler={unfollowClickHandler}
             searchFriendSubmitHandler={searchFriendSubmitHandler}
+            setUserIdList={setUserIdList}
+            userIdList={userIdList}
             setFindUsername={setFindUsername}
             friends={friends}>
           </FriendPanel>

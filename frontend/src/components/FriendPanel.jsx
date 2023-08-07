@@ -5,17 +5,47 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import User from '../assets/user.png';
+import axios from 'axios';
 
 const FriendPanel = (props) => {
   // friends list grid data
   const [rowData, setRowData] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [userId, setUserId] = useState(null);
   const gridRef = useRef();
 
   const visibleClickHandler = (e) => {
-    console.log(e.data.id);
-    props.getPinsByUserId(e.data.id);
+    setUserId(e.data.id);
+    props.setUserIdList(prev => {
+      if (prev.includes(e.data.id)) {
+        return prev.filter(id => id !== e.data.id);
+      } 
+      else {
+        return [...prev, e.data.id];
+      }
+    });
   };
+  
+  useEffect(async () => {
+    var uniqueArray = [...new Set(props.userIdList)];
+    if (props.userIdList.includes(userId)) {
+      const userIdCount = props.userIdList.filter(id => id === userId).length;
+      if (userIdCount >= 2) {
+        uniqueArray = uniqueArray.filter(item => item !== userId);
+      }
+    }
+
+    try {
+      const req = {
+        userId: uniqueArray
+      }
+      const pins = await axios.post('/pins/get/pinList', req);
+      console.log(pins);
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }, [props.userIdList, userId]);
 
   const unfollowClickHandler = (e) => {
     props.unfollowClickHandler(e.data.id);
