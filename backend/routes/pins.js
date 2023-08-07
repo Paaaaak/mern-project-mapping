@@ -25,6 +25,17 @@ router.get('/:userId', async (req, res) => {
     }
 });
 
+// get pin list by array of user id
+router.post('/get/pinList', async (req, res) => {
+    try {
+        const pins = await Pin.find({ userId: { $in: req.body.userId } });
+        res.status(200).json(pins);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
 // delete a pin
 router.get('/delete/:pinId', async (req, res) => {
     try {
