@@ -72,7 +72,7 @@ const CustomPopup = (props) => {
         <label>Information</label>
         <span className='username'>Created by <b>{props.pin.username}</b></span>
         <span className='date'>{format(props.pin.createdAt)}</span>
-        <div className='pin-button-container'>
+        <div className='pin-button-container' style={{display: props.currentUserId === props.pin.userId ? '' : 'none'}}>
           {isEdit ? (
             <div className='update-pin' onClick={() => updateClickHandler()}>
               <SaveAltIcon style={{fontSize: '14px', marginRight: '2px'}}></SaveAltIcon>
@@ -85,7 +85,7 @@ const CustomPopup = (props) => {
             </div>
           )}
           <div className='delete-pin'>
-            <DeleteOutlineIcon style={{fontSize: '14px'}}></DeleteOutlineIcon>
+            <DeleteOutlineIcon style={{ fontSize: '14px' }}></DeleteOutlineIcon>
             <span onClick={props.deleteClickHandler}>Delete this pin</span>
           </div>
         </div>

@@ -224,6 +224,7 @@ function App() {
             {currentPlaceId === pin._id && (
               <CustomPopup
                 pin={pin}
+                currentUserId={currentUserId}
                 setCurrentPlaceId={setCurrentPlaceId}
                 updateClickHandler={updateClickHandler}
                 deleteClickHandler={deleteClickHandler}>
