@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import Map from 'react-map-gl';
+import Map, {GeolocateControl} from 'react-map-gl';
 import {Help} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
@@ -242,6 +242,7 @@ function App() {
             setRating={setRating}>
           </CustomNewPopup>
         )}
+        <GeolocateControl position='top-left' trackUserLocation></GeolocateControl>
         <div className='guide-icon'>
           <Help onClick={guideClickHandler} style={{color: 'white'}}></Help>
         </div>
