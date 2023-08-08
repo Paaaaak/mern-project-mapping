@@ -19,7 +19,14 @@
 .friend-info {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    position: relative;
+    border: none;
+    border-radius: 5px;
+    align-items: center;
+    width: 240px;
+    padding: 10px;
+    background-color: rgb(224, 224, 224);
+    gap: 1rem;
 }
 
 .friend-cancel {
@@ -35,6 +42,7 @@
     display: flex;
     flex-direction: column;
     margin-top: 20px;
+    width: 300px;
     gap: 0.5rem;
 }
 
@@ -66,7 +74,8 @@
 
 .friend-color {
     border-radius: 10px;
-    height: 40px;
+    margin-top: 10px;
+    height: 30px;
     width: auto;
 }
 
@@ -77,6 +86,8 @@
     color: white;
     background-color: darkcyan;
     cursor: pointer;
+    position: absolute;
+    right: 10px;
 }
 
 .following {

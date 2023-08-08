@@ -126,9 +126,10 @@ const FriendPanel = (props) => {
         <input type='text' minLength={4} placeholder='Type username' onChange={(event) => props.setFindUsername(event.target.value)}></input>
         <button className='submit-button' type='submit'>Search Friend</button>
       </form>
-      <div style={{height: '50px'}}>
+      <div className='friend-info-container' style={{height: '50px'}}>
         {props.foundUser && (
           <div className='friend-info'>
+            <img src={User} style={{transform: 'scale(1)', border: '1px solid gray', borderRadius: '50%', marginTop: '5px'}}></img>
             <span style={{fontSize: '15px', fontWeight: 'bold'}}>{props.foundUser.username}</span>
             <button className={`follow-button ${isFollowing ? 'following' : ''}`} onClick={props.followClickHandler} disabled={isFollowing}>{isFollowing ? 'Following' : 'Follow'}</button>
           </div>
