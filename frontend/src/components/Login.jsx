@@ -1,6 +1,8 @@
 import React, {useState, useRef} from 'react';
 import './Login.css';
 import Footprint from '../assets/footprint.png';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 import axios from 'axios';
 import ReactDom from 'react-dom';
 
@@ -52,13 +54,26 @@ const Login = (props) => {
             <img src={Footprint}></img>
             <span>Footprint</span>
           </div>
-          <form onSubmit={submitHandler}>
-            <input type='text' placeholder='User name' ref={nameRef}></input>
-            <input type='password' placeholder='Password' ref={passwordRef}></input>
+          <form className='login-form' onSubmit={submitHandler}>
+            <div>
+              <label for='username'>Username</label>
+              <div className='input-container'>
+                <SupervisedUserCircleIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></SupervisedUserCircleIcon>
+                <input id='username' type='text' placeholder='Type your ID' ref={nameRef}></input>
+              </div>
+            </div>
+            <div>
+              <label for='password'>Password</label>
+              <div className='input-container'>
+                <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
+                <input id='password' type='password' placeholder='Type your password' ref={passwordRef}></input>
+              </div>
+            </div>
             <button className='login-button'>Login</button>
           </form>
           <div className='login-register'>
-            <span>Not a member? </span><span onClick={registerClickHandler}><b>Register here!</b></span>
+            <span>Not a member? </span>
+            <span onClick={registerClickHandler}><b>Register here!</b></span>
           </div>
           <div className='login-result'>
             {error && <span className='failure'>Something went wrong! Contact to administrator</span>}
