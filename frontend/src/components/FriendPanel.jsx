@@ -85,10 +85,10 @@ const FriendPanel = (props) => {
       width: 100, 
       cellRenderer: function(e) {
         return (
-          <label class="toggle-container">
+          <label className="toggle-container">
             <input type="checkbox" onClick={() => visibleClickHandler(e)}/>
-            <div class="toggle-switch">
-              <div class="toggle-handle"></div>
+            <div className="toggle-switch">
+              <div className="toggle-handle"></div>
             </div>
           </label>);
       }

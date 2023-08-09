@@ -1,16 +1,18 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useContext} from 'react';
 import './Login.css';
 import Footprint from '../assets/footprint.png';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 import axios from 'axios';
 import ReactDom from 'react-dom';
+import { UserContext } from '../context/UserContext';
 
 const Login = (props) => {
+  const localStorage = window.localStorage;
   const [error, setError] = useState(false);
-
   const nameRef = useRef();
   const passwordRef = useRef();
+  const {updateUser} = useContext(UserContext);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -21,15 +23,10 @@ const Login = (props) => {
 
     try {
       const res = await axios.post('/users/login', loginUser);
-      console.log(res.data);
       setError(false);
-      props.setCurrentUser(res.data.username);
-      props.setCurrentUserId(res.data._id);
-      console.log(res.data.color);
+      updateUser(res.data.username, res.data._id);
       props.setColor(res.data.color);
-      props.localStorage.setItem('user', res.data.username);
-      props.localStorage.setItem('userId', res.data._id);
-      props.localStorage.setItem('color', res.data.color);
+      localStorage.setItem('color', res.data.color);
     }
     catch (error) {
       console.log(error);

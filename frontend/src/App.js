@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useContext} from 'react';
 import Map, {GeolocateControl} from 'react-map-gl';
 import {Help} from '@material-ui/icons'
 import './App.css';
@@ -11,11 +11,11 @@ import CustomPopup from './components/CustomPopup';
 import CustomNewPopup from './components/CustomNewPopup';
 import UserPanel from './components/UserPanel';
 import FriendPanel from './components/FriendPanel';
+import { UserContext } from './context/UserContext';
 
 function App() {
   const localStorage = window.localStorage;
-  const [currentUser, setCurrentUser] = useState(localStorage.getItem('user'));
-  const [currentUserId, setCurrentUserId] = useState(localStorage.getItem('userId'));
+  const {currentUser, currentUserId, updateUser} = useContext(UserContext);
   const [color, setColor] = useState(localStorage.getItem('color'));
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
@@ -40,9 +40,6 @@ function App() {
   const getPinsByUserId = async (userId) => {
     try {
       const res = await axios.get('/pins/' + userId);
-      // 기존에 존재하던 Pin들에 추가로 다른 유저의 Pin 값들을 추가
-      // setPins(prev => [...prev, ...res.data.map(pin => pin)]);
-      console.log('Pins list:', res.data);
       setPins(res.data);
     }
     catch (error) {
@@ -66,10 +63,10 @@ function App() {
 
   useEffect(async () => {
     const fetchData = async () => {
-      // get all pins from database everytime refreshing the page
-      await getPinsByUserId(currentUserId);
-      // get all follow from database everytime refreshing the page
-      if (currentUserId) {
+      if (currentUserId !== 'null') {
+        // get all pins from database everytime refreshing the page
+        await getPinsByUserId(currentUserId);
+        // get all follow from database everytime refreshing the page
         await getFollowings();
       }
     }
@@ -146,7 +143,7 @@ function App() {
   };
 
   const logoutClickHandler = () => {
-    setCurrentUser(null);
+    updateUser(null, null);
     setShowFriend(false);
     localStorage.removeItem('user');
   };
@@ -215,7 +212,6 @@ function App() {
         {pins.map((pin) => (
           <div key={pin._id}>
             <CustomMarker 
-              user={currentUser} 
               viewState={viewState}
               onClick={markerClickHandler}
               color={pin.color}
@@ -224,7 +220,6 @@ function App() {
             {currentPlaceId === pin._id && (
               <CustomPopup
                 pin={pin}
-                currentUserId={currentUserId}
                 setCurrentPlaceId={setCurrentPlaceId}
                 updateClickHandler={updateClickHandler}
                 deleteClickHandler={deleteClickHandler}>
@@ -250,17 +245,12 @@ function App() {
           <Guide cancelClick={() => setGuideClick(null)}></Guide>
         )}
         {currentUser ? '' : (
-          <Login 
+          <Login
             setShowRegister={setShowRegister}
-            setCurrentUser={setCurrentUser}
-            setCurrentUserId={setCurrentUserId}
-            setColor={setColor}
-            localStorage={localStorage}>
+            setColor={setColor}>
           </Login>
         )}
         <UserPanel
-          currentUser={currentUser}
-          currentUserId={currentUserId}
           logoutClick={logoutClickHandler}
           setShowFriend={setShowFriend}
           setColor={setColor}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import {Star} from '@material-ui/icons';
 import {Popup} from 'react-map-gl';
 import {format} from 'timeago.js';
@@ -6,12 +6,14 @@ import './CustomPopup.css';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import { UserContext } from '../context/UserContext';
 
 const CustomPopup = (props) => {
   const [isEdit, setIsEdit] = useState(false);
   const titleRef = useRef(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
+  const {currentUserId} = useContext(UserContext);
 
   const getStarsForRating = (rating) => {
     let stars = [];
@@ -72,7 +74,7 @@ const CustomPopup = (props) => {
         <label>Information</label>
         <span className='username'>Created by <b>{props.pin.username}</b></span>
         <span className='date'>{format(props.pin.createdAt)}</span>
-        <div className='pin-button-container' style={{display: props.currentUserId === props.pin.userId ? '' : 'none'}}>
+        <div className='pin-button-container' style={{display: currentUserId === props.pin.userId ? '' : 'none'}}>
           {isEdit ? (
             <div className='update-pin' onClick={() => updateClickHandler()}>
               <SaveAltIcon style={{fontSize: '14px', marginRight: '2px'}}></SaveAltIcon>
