@@ -51,6 +51,7 @@ const Login = (props) => {
             <img src={Footprint}></img>
             <span>Footprint</span>
           </div>
+          <h1>Login</h1>
           <form className='login-form' onSubmit={submitHandler}>
             <div>
               <label for='username'>Username</label>

@@ -2,8 +2,10 @@ import React, {useState, useRef} from 'react';
 import './Register.css';
 import Footprint from '../assets/footprint.png';
 import axios from 'axios';
-import {Cancel} from '@material-ui/icons'
 import ReactDom from 'react-dom';
+import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
 
 const Register = (props) => {
   const [success, setSuccess] = useState(false);
@@ -20,6 +22,8 @@ const Register = (props) => {
       email: emailRef.current.value,
       password: passwordRef.current.value
     };
+
+    console.log(newUser);
 
     try {
       const res = await axios.post('/users/register', newUser);
@@ -45,26 +49,52 @@ const Register = (props) => {
   return (
     <React.Fragment>
       {ReactDom.createPortal(
-        <div className='backdrop'></div>,
-        document.getElementById('backdrop-root')
-      )}
-      {ReactDom.createPortal(
         <div className='register-container'>
           <div className='register-title'>
             <img src={Footprint}></img>
             <span>Footprint</span>
           </div>
-          <form onSubmit={submitHandler}>
-            <input type='text' placeholder='User name' ref={nameRef}></input>
-            <input type='email' placeholder='Email' ref={emailRef}></input>
-            <input type='password' placeholder='Password' minLength={6} ref={passwordRef}></input>
+          <h1>Register</h1>
+          <form className='register-form' onSubmit={submitHandler}>
+            {/* <input type='text' placeholder='User name' ref={nameRef}></input> */}
+            <div>
+              <label for='username'>Username</label>
+              <div className='input-container'>
+                <SupervisedUserCircleIcon style={{ transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)' }}></SupervisedUserCircleIcon>
+                <input id='username' type='text' placeholder='User name' ref={nameRef}></input>
+              </div>
+            </div>
+            <p className='register-warning'>※ Username can only contain lowercase alphabets and numbers</p>
+            <div>
+              <label for='email'>Email</label>
+              <div className='input-container'>
+                <MailOutlineIcon style={{ transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)' }}></MailOutlineIcon>
+                <input type='email' placeholder='Email' ref={emailRef}></input>
+              </div>
+            </div>
+            {/* <input type='password' placeholder='Password' minLength={6} ref={passwordRef}></input>
+            <input type='password' placeholder='Confirm password' minLength={6}></input> */}
+            <div>
+              <label for='password'>Password</label>
+              <div className='input-container'>
+                <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
+                <input id='password' type='password' placeholder='Type your password' ref={passwordRef}></input>
+              </div>
+            </div>
+            <div>
+              <label for='password-confirm'>Password Confirm</label>
+              <div className='input-container'>
+                <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
+                <input id='password-confirm' type='password' placeholder='Confirm your password' ref={passwordRef}></input>
+              </div>
+            </div>
             <button className='register-button'>Register</button>
+            <button className='register-cancel' onClick={cancelClickHandler}>Cancel</button>
             <div className='register-result'>
               {success && <span className='success'>Successfull. You can login now!</span>}
               {error && <span className='failure'>Something went wrong! Contact to administrator</span>}
             </div>
           </form>
-          <Cancel className='register-cancel' onClick={cancelClickHandler}></Cancel>
         </div>,
         document.getElementById('overlay-root')
       )}

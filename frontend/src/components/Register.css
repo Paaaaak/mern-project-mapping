@@ -1,10 +1,10 @@
 .register-container {
-    height: 300px;
+    height: 550px;
     width: 250px;
     padding: 20px;
     background-color: white;
     border: 1px solid gray;
-    border-radius: 10px;
+    border-radius: 50px;
     position: absolute;
     top: 0;
     left: 0;
@@ -17,19 +17,47 @@
     justify-content: space-between;
     z-index: 100;
   }
+
+  .register-form label {
+    border: none;
+    color: black;
+    font-size: 13px;
+    font-weight: bold;
+  }
   
   .register-title {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    padding: 20px;
+    transform: scale(0.5);
+    padding: 5px;
     height: 15%;
     width: 100%;
+  }
+
+  .register-container h1 {
+    position: absolute;
+    top: 80px;
   }
   
   .register-title img {
     transform: scale(0.8);
     margin-left: -20px;
+  }
+
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    padding-top: 30px;
+    gap: 1rem;
+    height: 80%;
+    width: 80%;
+  }
+
+  .register-warning {
+    font-size: 9px;
+    color: red;
   }
 
   .register-title span {
@@ -44,10 +72,30 @@
     border: none;
     border-radius: 5px;
     padding: 5px;
-    background-repeat: 5px;
     color: white;
     background-color: black;
     cursor: pointer;
+    height: 35px;
+    min-height: 35px;
+  }
+
+  .register-button:hover {
+    background-color: rgb(126, 125, 125);;
+  }
+
+  .register-cancel {
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    color: white;
+    background-color: gray;
+    cursor: pointer;
+    height: 35px;
+    min-height: 35px;
+  }
+
+  .register-cancel:hover {
+    background-color: rgb(180, 180, 180);;
   }
   
   .register-result {
@@ -73,12 +121,4 @@
     color: firebrick;
     font-size: 12px;
     text-align: center;
-  }
-
-  .register-cancel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 5px;
-    cursor: pointer;
   }

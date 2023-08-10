@@ -14,7 +14,7 @@
   padding: 20px;
   background-color: white;
   border: 1px solid gray;
-  border-radius: 10px;
+  border-radius: 50px;
   position: absolute;
   top: 0;
   left: 0;
@@ -32,9 +32,15 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 20px;
+  transform: scale(0.5);
+  padding: 5px;
   height: 15%;
   width: 100%;
+}
+
+.login-container h1 {
+  position: absolute;
+  top: 70px;
 }
 
 .login-title img {
@@ -90,6 +96,7 @@
   display: flex;
   flex-direction: column;
   justify-self: center;
+  padding-top: 30px;
   gap: 1rem;
   width: 80%;
 }
