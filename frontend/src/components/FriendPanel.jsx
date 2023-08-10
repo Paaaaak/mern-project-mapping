@@ -27,6 +27,7 @@ const FriendPanel = (props) => {
   };
   
   useEffect(async () => {
+    console.log('id list', props.userIdList);
     var uniqueArray = [...new Set(props.userIdList)];
     if (props.userIdList.includes(userId)) {
       const userIdCount = props.userIdList.filter(id => id === userId).length;

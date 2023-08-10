@@ -48,27 +48,27 @@ function App() {
   }
 
   const getFollowings = async () => {
-    try {
-      const res = await axios.get('/users/' + currentUserId + '/followings');
-      const followings = [];
-      res.data.map((data) => {
-        followings.push(data.username);
-      });
-      setFriends(res.data);
-    }
-    catch (error) {
-      console.log(error);
+    if (currentUserId !== null && currentUserId !== 'null') {
+      try {
+        const res = await axios.get('/users/' + currentUserId + '/followings');
+        const followings = [];
+        res.data.map((data) => {
+          followings.push(data.username);
+        });
+        setFriends(res.data);
+      }
+      catch (error) {
+        console.log(error);
+      }
     }
   }
 
   useEffect(async () => {
     const fetchData = async () => {
-      if (currentUserId !== 'null') {
-        // get all pins from database everytime refreshing the page
-        await getPinsByUserId(currentUserId);
-        // get all follow from database everytime refreshing the page
-        await getFollowings();
-      }
+      // get all pins from database everytime refreshing the page
+      await getPinsByUserId(currentUserId);
+      // get all follow from database everytime refreshing the page
+      await getFollowings();
     }
     fetchData();
   }, [currentUserId]);
@@ -145,7 +145,10 @@ function App() {
   const logoutClickHandler = () => {
     updateUser(null, null);
     setShowFriend(false);
+    setUserIdList(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('color');
   };
 
   const updateClickHandler = async (popupInfo) => {
@@ -247,6 +250,7 @@ function App() {
         {currentUser ? '' : (
           <Login
             setShowRegister={setShowRegister}
+            setUserIdList={setUserIdList}
             setColor={setColor}>
           </Login>
         )}

@@ -25,6 +25,8 @@ const Login = (props) => {
       const res = await axios.post('/users/login', loginUser);
       setError(false);
       updateUser(res.data.username, res.data._id);
+      localStorage.setItem('userId', res.data._id);
+      props.setUserIdList([res.data._id]);
       props.setColor(res.data.color);
       localStorage.setItem('color', res.data.color);
     }
