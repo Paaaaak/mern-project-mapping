@@ -1,5 +1,5 @@
 .register-container {
-    height: 550px;
+    height: 600px;
     width: 250px;
     padding: 20px;
     background-color: white;
@@ -49,13 +49,16 @@
     display: flex;
     flex-direction: column;
     justify-self: center;
+    position: absolute;
     padding-top: 30px;
+    top: 120px;
     gap: 1rem;
     height: 80%;
     width: 80%;
   }
 
   .register-warning {
+    margin-top: -12px;
     font-size: 9px;
     color: red;
   }
@@ -71,6 +74,7 @@
   .register-button {
     border: none;
     border-radius: 5px;
+    margin-top: 25px;
     padding: 5px;
     color: white;
     background-color: black;
