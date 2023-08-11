@@ -205,15 +205,9 @@ function App() {
     }
   };
 
-  const handleViewportChange = (newViewport, item) => {
-    console.log(newViewport, item);
-    // setViewport(newViewport);
-    mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], duration: 1000});
+  const handleViewportChange = (newViewport) => {
+    mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], duration: 3000});
   };
-
-  useEffect(() => {
-    console.log('Viewport has been changed!', viewport);
-  }, [viewport]);
 
   return (
     <div className='App'>
@@ -222,8 +216,8 @@ function App() {
         <Geocoder
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
           // 검색결과 클릭 시 실행되는 함수 
-          onSelected={(newViewport, item) => {
-            handleViewportChange(newViewport, item);
+          onSelected={(newViewport) => {
+            handleViewportChange(newViewport);
           }}
           viewport={viewport}>
         </Geocoder>
@@ -265,8 +259,8 @@ function App() {
           </CustomNewPopup>
         )}
         <GeolocateControl position='top-left' trackUserLocation></GeolocateControl>
-        <div className='guide-icon'>
-          <Help onClick={guideClickHandler} style={{color: 'white'}}></Help>
+        <div className='guide-button'>
+          <Help onClick={guideClickHandler} style={{color: 'white', transform: 'scale(1.5)'}}></Help>
         </div>
         {guideClick && (
           <Guide cancelClick={() => setGuideClick(null)}></Guide>

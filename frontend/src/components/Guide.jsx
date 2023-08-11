@@ -38,12 +38,6 @@ const Guide = (props) => {
         </div>
         <label>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium optio, nulla aliquam, tempora itaque inventore ullam odio porro, nesciunt necessitatibus laborum. Fugit obcaecati voluptas, maxime nemo quidem impedit vero? Perferendis?</label>
       </div>
-      {/* <div className='guide'>
-        <div className='guide-icon'>
-          <span><b>Right click and move</b></span>
-          <label>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias debitis eaque qui, voluptatem veritatis nesciunt aliquam iure dicta corporis accusamus dolorum quo ipsam doloremque dolores magni ullam odio, asperiores voluptas.</label>
-        </div>
-      </div> */}
     </div>
   );
 }

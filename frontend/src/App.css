@@ -42,24 +42,31 @@ textarea::placeholder {
     cursor: pointer;
 }
 
-.guide-icon {
+.guide-button {
     position: absolute;
     cursor: pointer;
     padding: 5px;
+    top: 8px;
+    left: 270px;
 }
 
 .map-search-container {
     display: flex;
+    flex-direction: row;
     position: absolute;
-    top: 50px;
+    top: 8px;
+    left: 50px;
     z-index: 1;
-    background: transparent;
+    padding: 5px;
+    background: white;
+    border: 1px solid transparent; /* 테두리 설정 (투명으로 초기화) */
+    border-color: rgba(128, 128, 128, 0.5);
     border-radius: 5px;
-    width: 300px;
+    width: 200px;
 }
 
 .react-geocoder input {
-  background: red;
+  background: transparent;
   font-size: 15px;
   outline: none;
   border: none;
