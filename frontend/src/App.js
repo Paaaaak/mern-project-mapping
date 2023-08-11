@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef, useContext} from 'react';
 import MapGL, {GeolocateControl} from 'react-map-gl';
 import Geocoder from "react-mapbox-gl-geocoder";
 import {Help} from '@material-ui/icons'
+import SearchIcon from '@mui/icons-material/Search';
 import './App.css';
 import axios from 'axios';
 import CustomMarker from './components/CustomMarker';
@@ -206,31 +207,27 @@ function App() {
 
   const handleViewportChange = (newViewport, item) => {
     console.log(newViewport, item);
-    setViewport(newViewport);
-    // if (ready) {
-    //   setResult({ ...result, location: "" });
-    //   setReady(false);
-    // }
-    // console.log(item);
     // setViewport(newViewport);
-    // item.isPanning != true &&
-    //   item.isZooming != true &&
-    //   setResult({
-    //     latitude: newViewport.latitude,
-    //     longitude: newViewport.longitude,
-    //     location: item.place_name
-    //   });
+    mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], duration: 1000});
   };
+
+  useEffect(() => {
+    console.log('Viewport has been changed!', viewport);
+  }, [viewport]);
 
   return (
     <div className='App'>
-      <Geocoder
-        onSelected={(newViewport, item) => {
-          handleViewportChange(newViewport, item);
-        }}
-        viewport={viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}>
-      </Geocoder>
+      <div className='map-search-container'>
+        <SearchIcon></SearchIcon>
+        <Geocoder
+          mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
+          // 검색결과 클릭 시 실행되는 함수 
+          onSelected={(newViewport, item) => {
+            handleViewportChange(newViewport, item);
+          }}
+          viewport={viewport}>
+        </Geocoder>
+      </div>
       <MapGL
         ref={mapRef}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
