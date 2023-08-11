@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef, useContext} from 'react';
-import Map, {GeolocateControl} from 'react-map-gl';
+import MapGL, {GeolocateControl} from 'react-map-gl';
+import Geocoder from "react-mapbox-gl-geocoder";
 import {Help} from '@material-ui/icons'
 import './App.css';
 import axios from 'axios';
@@ -12,6 +13,7 @@ import CustomNewPopup from './components/CustomNewPopup';
 import UserPanel from './components/UserPanel';
 import FriendPanel from './components/FriendPanel';
 import { UserContext } from './context/UserContext';
+import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 
 function App() {
   const localStorage = window.localStorage;
@@ -21,7 +23,7 @@ function App() {
   const [newPlace, setNewPlace] = useState(null);
   const [pins, setPins] = useState([]);
   const mapRef = useRef();
-  const [viewState] = useState({
+  const [viewport, setViewport] = useState({
     longitude: -280.4,
     latitude: 37.8,
     zoom: 7
@@ -202,12 +204,37 @@ function App() {
     }
   };
 
+  const handleViewportChange = (newViewport, item) => {
+    console.log(newViewport, item);
+    setViewport(newViewport);
+    // if (ready) {
+    //   setResult({ ...result, location: "" });
+    //   setReady(false);
+    // }
+    // console.log(item);
+    // setViewport(newViewport);
+    // item.isPanning != true &&
+    //   item.isZooming != true &&
+    //   setResult({
+    //     latitude: newViewport.latitude,
+    //     longitude: newViewport.longitude,
+    //     location: item.place_name
+    //   });
+  };
+
   return (
     <div className='App'>
-      <Map
+      <Geocoder
+        onSelected={(newViewport, item) => {
+          handleViewportChange(newViewport, item);
+        }}
+        viewport={viewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}>
+      </Geocoder>
+      <MapGL
         ref={mapRef}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
-        initialViewState={viewState}
+        initialViewState={viewport}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
         onClick={mapClickHandler}
@@ -215,7 +242,7 @@ function App() {
         {pins.map((pin) => (
           <div key={pin._id}>
             <CustomMarker 
-              viewState={viewState}
+              viewState={viewport}
               onClick={markerClickHandler}
               color={pin.color}
               pin={pin}>
@@ -277,7 +304,7 @@ function App() {
             setPins={setPins}>
           </FriendPanel>
         )}
-      </Map>
+      </MapGL>
     </div>
   );
 }
