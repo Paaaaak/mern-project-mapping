@@ -83,8 +83,19 @@
     min-height: 35px;
   }
 
+  .register-disabled-button {
+    border: 1px solid rgb(126, 125, 125);
+    border-radius: 5px;
+    margin-top: 25px;
+    padding: 5px;
+    color: rgb(126, 125, 125);
+    background-color: white;
+    height: 35px;
+    min-height: 35px;
+  }
+
   .register-button:hover {
-    background-color: rgb(126, 125, 125);;
+    background-color: rgb(126, 125, 125);
   }
 
   .register-cancel {

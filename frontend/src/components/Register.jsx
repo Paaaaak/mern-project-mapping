@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect, useReducer} from 'react';
 import './Register.css';
 import Footprint from '../assets/footprint.png';
 import axios from 'axios';
@@ -7,26 +7,90 @@ import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
 
+const initialState = {
+  username: {
+    value: '',
+    isValid: false
+  },
+  email: {
+    value: '',
+    isValid: false
+  },
+  password: {
+    value: '',
+    isValid: false
+  },
+  confirmPassword: {
+    value: '',
+    isValid: false
+  },
+  isFormValid: false
+};
+
 const Register = (props) => {
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case 'FORM_VALID':
+        let isFormValid = false;
+        if (state.username.isValid && state.email.isValid && state.password.isValid && state.confirmPassword.isValid) {
+          isFormValid = true;
+        } 
+        return {
+          ...state,
+          isFormValid: isFormValid
+        }
+      case 'USERNAME_CHECK':
+        return {
+          ...state,
+          username: {
+            value: action.username,
+            isValid: action.username.trim().length >= 3
+          }
+        }
+      case 'EMAIL_CHECK':
+        return {
+          ...state,
+          email: {
+            value: action.email,
+            isValid: action.email.includes('@')
+          }
+        }
+      case 'PASSWORD_CHECK':
+        return {
+          ...state,
+          password: {
+            value: action.password,
+            isValid: action.password.trim().length >= 6
+          }
+        }
+      case 'CONFIRMPASSWORD_CHECK':
+        return {
+          ...state,
+          confirmPassword: {
+            value: action.confirmPassword,
+            isValid: action.confirmPassword.trim().length >= 6 && state.password.value.trim().length >= 0
+          }
+        }
+      default: 
+        return state;
+    }
+  };
+  
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const nameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-
   const submitHandler = async (event) => {
     event.preventDefault();
     const newUser = {
-      username: nameRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value
+      username: state.username.value,
+      email: state.email.value,
+      password: state.password.value
     };
 
     try {
       const res = await axios.post('/users/register', newUser);
-      console.log(res.data);
       setSuccess(true);
       setError(false);
     }
@@ -43,7 +107,6 @@ const Register = (props) => {
     props.cancelClick();
     setSuccess(false);
     setError(false);
-    console.log('Cancel clicked!');
   };
 
   useEffect(() => {
@@ -52,10 +115,9 @@ const Register = (props) => {
     }
   }, [success]);
 
-  // Username 입력 시 특수문자 및 대문자를 포함하면 경고
-  // Email 입력 시 Email Form과 일치하지 않으면 경고
-  // Password 입력하지 않고 Confirm Password부터 입력 시 경고 및 Password로 Focus
-  // Register 버튼 클릭 시 Username이 중복되는지 체크
+  useEffect(() => {
+    dispatch({type: 'FORM_VALID'});
+  }, [state.username.value, state.email.value, state.password.value, state.confirmPassword.value]);
 
   // Register 성공됐을 경우 Login 페이지로 Redirect
 
@@ -78,31 +140,31 @@ const Register = (props) => {
               <label for='username'>Username</label>
               <div className='input-container'>
                 <SupervisedUserCircleIcon style={{ transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)' }}></SupervisedUserCircleIcon>
-                <input id='username' type='text' placeholder='User name' ref={nameRef}></input>
+                <input id='username' type='text' placeholder='User name' onChange={(e) => dispatch({type: 'USERNAME_CHECK', username: e.target.value})}></input>
               </div>
             </div>
             <div>
               <label for='email'>Email</label>
               <div className='input-container'>
                 <MailOutlineIcon style={{ transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)' }}></MailOutlineIcon>
-                <input type='email' placeholder='Email' ref={emailRef}></input>
+                <input type='email' placeholder='Email' onChange={(e) => dispatch({type: 'EMAIL_CHECK', email: e.target.value})}></input>
               </div>
             </div>
             <div>
               <label for='password'>Password</label>
               <div className='input-container'>
                 <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
-                <input id='password' type='password' placeholder='Type your password' ref={passwordRef}></input>
+                <input id='password' type='password' placeholder='Type your password' onChange={(e) => dispatch({type: 'PASSWORD_CHECK', password: e.target.value})}></input>
               </div>
             </div>
             <div>
               <label for='password-confirm'>Password Confirm</label>
               <div className='input-container'>
                 <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
-                <input id='password-confirm' type='password' placeholder='Confirm your password' ref={passwordRef}></input>
+                <input id='password-confirm' type='password' placeholder='Confirm your password' onChange={(e) => dispatch({type: 'CONFIRMPASSWORD_CHECK', confirmPassword: e.target.value})}></input>
               </div>
             </div>
-            <button className='register-button'>Register</button>
+            <button className={state.isFormValid ? 'register-button' : 'register-disabled-button'} disabled={!state.isFormValid}>Register</button>
             <button className='register-cancel' onClick={cancelClickHandler}>Cancel</button>
             <div className='register-result'>
               {success && <span className='success'>Successfull. You can login now!</span>}

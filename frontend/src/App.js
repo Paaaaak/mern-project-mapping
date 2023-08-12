@@ -212,7 +212,7 @@ function App() {
   return (
     <div className='App'>
       <div className='map-search-container'>
-        <SearchIcon></SearchIcon>
+        <SearchIcon style={{color: 'gray', transform: 'scale(0.8)'}}></SearchIcon>
         <Geocoder
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
           // 검색결과 클릭 시 실행되는 함수 
