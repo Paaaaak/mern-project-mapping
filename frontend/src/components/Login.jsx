@@ -32,7 +32,7 @@ const Login = (props) => {
       props.showWelcomeHandler(true);
       setTimeout(() => {
         props.showWelcomeHandler(false);
-      }, 2000);
+      }, 2500);
     }
     catch (error) {
       console.log(error);
