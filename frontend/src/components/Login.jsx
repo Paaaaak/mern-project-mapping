@@ -1,4 +1,4 @@
-import React, {useState, useRef, useContext} from 'react';
+import React, {useState, useRef, useContext, useEffect} from 'react';
 import './Login.css';
 import Footprint from '../assets/footprint.png';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
@@ -29,6 +29,10 @@ const Login = (props) => {
       props.setUserIdList([res.data._id]);
       props.setColor(res.data.color);
       localStorage.setItem('color', res.data.color);
+      props.showWelcomeHandler(true);
+      setTimeout(() => {
+        props.showWelcomeHandler(false);
+      }, 2000);
     }
     catch (error) {
       console.log(error);

@@ -15,6 +15,7 @@ import UserPanel from './components/UserPanel';
 import FriendPanel from './components/FriendPanel';
 import { UserContext } from './context/UserContext';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
+import Welcome from './components/Welcome';
 
 function App() {
   const localStorage = window.localStorage;
@@ -39,6 +40,7 @@ function App() {
   const [foundUser, setFoundUser] = useState(null);
   const [friends, setFriends] = useState([]);
   const [userIdList, setUserIdList] = useState([localStorage.getItem('userId')]);
+  const [showWelcome, setShowWelcome] = useState(false);
 
   const getPinsByUserId = async (userId) => {
     try {
@@ -209,6 +211,10 @@ function App() {
     mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], duration: 3000});
   };
 
+  const showWelcomeHandler = (success) => {
+    setShowWelcome(success);
+  };
+
   return (
     <div className='App'>
       <div className='map-search-container'>
@@ -248,6 +254,7 @@ function App() {
             )}
           </div>
         ))}
+        <Welcome currentUser={currentUser} showWelcome={showWelcome}></Welcome>
         {newPlace && (
           <CustomNewPopup
             newPlace={newPlace}
@@ -269,6 +276,7 @@ function App() {
           <Login
             setShowRegister={setShowRegister}
             setUserIdList={setUserIdList}
+            showWelcomeHandler={showWelcomeHandler}
             setColor={setColor}>
           </Login>
         )}
