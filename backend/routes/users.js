@@ -148,13 +148,17 @@ router.put('/:userId/visible', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
         const friend = await User.findById(req.body.friendId);
-        console.log(user, friend);
         if (friend) {
-            const res = await user.updateOne({ "$push": { "friendPins": req.body.friendId }});
-            res.status(200).json(res);
+            if (user.friendPins.includes(req.body.friendId)) {
+                res.status(403).json('It already contains the same ID: ' + req.body.friendId);
+            }
+            else {
+                await user.updateOne({ "$push": { "friendPins": req.body.friendId }});
+                res.status(200).json(user);
+            }
         }
         else {
-            return res.status(403).json('Friend is not found!');
+            res.status(403).json('User ID ' + req.body.friendId + ' is not found!');
         }
     }
     catch (error) {
@@ -163,6 +167,26 @@ router.put('/:userId/visible', async (req, res) => {
 });
 
 // delete friends pins
-router.put('/:userId/invisible')
+router.put('/:userId/invisible', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        const friend = await User.findById(req.body.friendId);
+        if (friend) {
+            if (user.friendPins.includes(req.body.friendId)) {
+                await user.updateOne({ "$pull": { "friendPins": req.body.friendId }});
+                res.status(200).json(user);
+            }
+            else {
+                res.status(403).json('It does not contain the following ID: ' + req.body.friendId);
+            }
+        }
+        else {
+            res.status(403).json('User ID ' + req.body.friendId + ' is not found!');
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
 
 module.exports = router;
