@@ -128,13 +128,11 @@ router.put('/:userId/unfollow', async (req, res) => {
 router.get('/:userId/followings', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
-        console.log(user);
         if (user) {
             const followings = [];
             for (let i = 0; i < user.followings.length; i++) {
-                const f1 = await User.findById(user.followings[i]);
-                console.log(f1);
-                followings.push(f1);
+                const following = await User.findById(user.followings[i]);
+                followings.push(following);
             }
             return res.status(200).json(followings);
         }
@@ -144,5 +142,27 @@ router.get('/:userId/followings', async (req, res) => {
         res.status(500).json(error);
     }
 });
+
+// add friends pins
+router.put('/:userId/visible', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        const friend = await User.findById(req.body.friendId);
+        console.log(user, friend);
+        if (friend) {
+            const res = await user.updateOne({ "$push": { "friendPins": req.body.friendId }});
+            res.status(200).json(res);
+        }
+        else {
+            return res.status(403).json('Friend is not found!');
+        }
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});
+
+// delete friends pins
+router.put('/:userId/invisible')
 
 module.exports = router;
