@@ -241,7 +241,7 @@ function App() {
             <CustomMarker 
               viewState={viewport}
               onClick={markerClickHandler}
-              color={pin.color}
+              color={pin.username === currentUser ? color : pin.color}
               pin={pin}>
             </CustomMarker>
             {currentPlaceId === pin._id && (

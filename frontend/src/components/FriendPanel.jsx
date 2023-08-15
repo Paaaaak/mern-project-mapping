@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './FriendPanel.css';
 import {Cancel, PanoramaFishEye} from '@material-ui/icons'
+import SearchIcon from '@mui/icons-material/Search';
 import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -124,7 +125,10 @@ const FriendPanel = (props) => {
     <div className='friend-list-panel'>
       <Cancel className='friend-cancel' onClick={() => props.setShowFriend(false)}></Cancel>
       <form className='friend-form' onSubmit={props.searchFriendSubmitHandler}>
-        <input type='text' minLength={4} placeholder='Type username' onChange={(event) => props.setFindUsername(event.target.value)}></input>
+        <div className='friend-search-container'>
+          <SearchIcon style={{color: 'gray', transform: 'scale(0.8)'}}></SearchIcon>
+          <input type='text' minLength={4} placeholder='Type username' onChange={(event) => props.setFindUsername(event.target.value)}></input>
+        </div>
         <button className='submit-button' type='submit'>Search Friend</button>
       </form>
       <div className='friend-info-container' style={{height: '50px'}}>
