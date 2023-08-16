@@ -232,6 +232,7 @@ function App() {
         ref={mapRef}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         initialViewState={viewport}
+        minZoom={3}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
         onClick={mapClickHandler}
