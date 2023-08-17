@@ -46,6 +46,10 @@ const UserPanel = (props) => {
     setShowUser(false);
   };
 
+  const imageClickHandler = () => {
+    console.log('Image clicked!');
+  }
+
   return (
     <div className='user-panel'>
       <motion.button
@@ -57,6 +61,10 @@ const UserPanel = (props) => {
       </motion.button>
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
+          <div className='info-image' onClick={imageClickHandler}>
+            <img src={User} style={{transform: 'scale(2)'}}></img>
+            <input type='file' style={{display: 'none'}}></input>
+          </div>
           <span>Welcome <b>{currentUser}</b>!</span>
           <div className='info-color'>
             <span>Current pin color: </span>
