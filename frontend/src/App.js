@@ -42,13 +42,17 @@ function App() {
   const [userIdList, setUserIdList] = useState([localStorage.getItem('userId')]);
   const [showWelcome, setShowWelcome] = useState(false);
 
-  const getPinsByUserId = async (userId) => {
+  const getPinsByUserId = async (idList) => {
     try {
-      const res = await axios.get('/pins/' + userId);
+      const req = {
+        userId: idList
+      }
+      const res = await axios.post('/pins/get/pinList', req);
+      console.log('Pin list:', res.data);
       setPins(res.data);
     }
     catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -58,7 +62,10 @@ function App() {
         const res = await axios.get('/users/' + currentUserId + '/followings');
         const followings = [];
         res.data.map((data) => {
-          followings.push(data.username);
+          followings.push({
+            id: data._id,
+            username: data.username
+          });
         });
         setFriends(res.data);
       }
@@ -68,15 +75,21 @@ function App() {
     }
   }
 
+  // 페이지 처음 로드됐을시 실행되는 Hook
   useEffect(async () => {
     const fetchData = async () => {
-      // get all pins from database everytime refreshing the page
-      await getPinsByUserId(currentUserId);
-      // get all follow from database everytime refreshing the page
       await getFollowings();
+      await getPinsByUserId();
     }
     fetchData();
   }, [currentUserId]);
+
+  useEffect(async () => {
+    console.log('Friends changed', friends);
+    const friendsIdList = friends.map((friend) => friend._id);
+    friendsIdList.push(currentUserId);
+    await getPinsByUserId(friendsIdList);
+  }, [friends]);
 
   /* executed when clicking the marker */
   const markerClickHandler = (id, long, lat) => {

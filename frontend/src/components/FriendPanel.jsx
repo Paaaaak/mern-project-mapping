@@ -18,6 +18,7 @@ const FriendPanel = (props) => {
   const visibleClickHandler = (e) => {
     setUserId(e.data.id);
     props.setUserIdList(prev => {
+      // Visible 클릭했을때 이미 존재하는 경우 setUserIdList에서 해당 유저 id 삭제
       if (prev.includes(e.data.id)) {
         return prev.filter(id => id !== e.data.id);
       } 
