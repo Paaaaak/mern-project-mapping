@@ -46,8 +46,12 @@ const UserPanel = (props) => {
     setShowUser(false);
   };
 
-  const imageClickHandler = () => {
-    console.log('Image clicked!');
+  const imageSubmitHandler = () => {
+    console.log('Image saved!');
+  }
+
+  const imageChangeHandler = () => {
+    console.log('Image changed!');
   }
 
   return (
@@ -61,9 +65,15 @@ const UserPanel = (props) => {
       </motion.button>
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
-          <div className='info-image' onClick={imageClickHandler}>
-            <img src={User} style={{transform: 'scale(2)'}}></img>
-            <input type='file' style={{display: 'none'}}></input>
+          <div className='info-image'>
+            {/* <img src={User} style={{transform: 'scale(2)'}}></img> */}
+            <form onSubmit={imageSubmitHandler} method='post' encType='multipart/form-data'>
+              <input type='file' onChange={imageChangeHandler}></input>
+              <div>
+                <input type='submit' value='Save'></input>
+                <input type='button' value='Cancel'></input>
+              </div>
+            </form>
           </div>
           <span>Welcome <b>{currentUser}</b>!</span>
           <div className='info-color'>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './FriendPanel.css';
 import {Cancel, PanoramaFishEye} from '@material-ui/icons'
 import SearchIcon from '@mui/icons-material/Search';
@@ -6,50 +6,12 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 import User from '../assets/user.png';
-import axios from 'axios';
 
 const FriendPanel = (props) => {
   // friends list grid data
   const [rowData, setRowData] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
-  const [userId, setUserId] = useState(null);
   const gridRef = useRef();
-
-  const visibleClickHandler = (e) => {
-    setUserId(e.data.id);
-    props.setUserIdList(prev => {
-      // Visible 클릭했을때 이미 존재하는 경우 setUserIdList에서 해당 유저 id 삭제
-      if (prev.includes(e.data.id)) {
-        return prev.filter(id => id !== e.data.id);
-      } 
-      else {
-        return [...prev, e.data.id];
-      }
-    });
-  };
-  
-  useEffect(async () => {
-    console.log('id list', props.userIdList);
-    var uniqueArray = [...new Set(props.userIdList)];
-    if (props.userIdList.includes(userId)) {
-      const userIdCount = props.userIdList.filter(id => id === userId).length;
-      if (userIdCount >= 2) {
-        uniqueArray = uniqueArray.filter(item => item !== userId);
-      }
-    }
-
-    try {
-      const req = {
-        userId: uniqueArray
-      }
-      const res = await axios.post('/pins/get/pinList', req);
-      console.log(res.data);
-      props.setPins(res.data);
-    }
-    catch (error) {
-      console.log(error);
-    }
-  }, [props.userIdList, userId]);
 
   const unfollowClickHandler = (e) => {
     props.unfollowClickHandler(e.data.id);
@@ -92,6 +54,7 @@ const FriendPanel = (props) => {
     }
   ]);
   
+
   useEffect(() => {
     const followingList = [];
     props.friends.map((friend) => {

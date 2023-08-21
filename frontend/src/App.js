@@ -221,7 +221,7 @@ function App() {
   };
 
   const handleViewportChange = (newViewport) => {
-    mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], duration: 3000});
+    mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], zoom: 10, duration: 3000});
   };
 
   const showWelcomeHandler = (success) => {
