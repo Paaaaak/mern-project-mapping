@@ -82,20 +82,6 @@ const FriendPanel = (props) => {
       cellRenderer: colorCellRenderer
     },
     { 
-      headerName: 'Pin visible', 
-      field: 'visible', 
-      width: 100, 
-      cellRenderer: function(e) {
-        return (
-          <label className="toggle-container">
-            <input type="checkbox" onClick={() => visibleClickHandler(e)}/>
-            <div className="toggle-switch">
-              <div className="toggle-handle"></div>
-            </div>
-          </label>);
-      }
-    },
-    { 
       headerName: 'Following', 
       field: 'following', 
       width: 130, 
