@@ -1,7 +1,7 @@
-import React, {useState, useEffect, useRef, useContext} from 'react';
-import MapGL, {GeolocateControl} from 'react-map-gl';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import MapGL, { GeolocateControl } from 'react-map-gl';
 import Geocoder from "react-mapbox-gl-geocoder";
-import {Help} from '@material-ui/icons'
+import { Help } from '@material-ui/icons'
 import SearchIcon from '@mui/icons-material/Search';
 import './App.css';
 import axios from 'axios';
@@ -16,10 +16,11 @@ import FriendPanel from './components/FriendPanel';
 import { UserContext } from './context/UserContext';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Welcome from './components/Welcome';
+import Loading from './components/Loading';
 
 function App() {
   const localStorage = window.localStorage;
-  const {currentUser, currentUserId, updateUser} = useContext(UserContext);
+  const { currentUser, currentUserId, updateUser } = useContext(UserContext);
   const [color, setColor] = useState(localStorage.getItem('color'));
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
@@ -41,6 +42,7 @@ function App() {
   const [friends, setFriends] = useState([]);
   const [userIdList, setUserIdList] = useState([localStorage.getItem('userId')]);
   const [showWelcome, setShowWelcome] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getPinsByUserId = async (idList) => {
     try {
@@ -94,7 +96,7 @@ function App() {
   /* executed when clicking the marker */
   const markerClickHandler = (id, long, lat) => {
     setCurrentPlaceId(id);
-    mapRef.current?.flyTo({center: [long, lat], duration: 1000});
+    mapRef.current?.flyTo({ center: [long, lat], duration: 1000 });
   };
 
   /* executed when clicking the map */
@@ -140,6 +142,7 @@ function App() {
 
   const searchFriendSubmitHandler = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     try {
       const findingUser = {
         username: findUsername
@@ -158,6 +161,7 @@ function App() {
       alert(error.response.data);
       setFoundUser(false);
     }
+    setIsLoading(false);
   };
 
   const logoutClickHandler = () => {
@@ -182,7 +186,7 @@ function App() {
   const deleteClickHandler = async () => {
     if (!window.confirm('Do you want to delete this pin?')) {
       return;
-    } 
+    }
 
     try {
       const res = await axios.get('/pins/delete/' + currentPlaceId);
@@ -221,7 +225,7 @@ function App() {
   };
 
   const handleViewportChange = (newViewport) => {
-    mapRef.current?.flyTo({center: [newViewport.longitude, newViewport.latitude], zoom: 10, duration: 3000});
+    mapRef.current?.flyTo({ center: [newViewport.longitude, newViewport.latitude], zoom: 10, duration: 3000 });
   };
 
   const showWelcomeHandler = (success) => {
@@ -230,8 +234,9 @@ function App() {
 
   return (
     <div className='App'>
+      {isLoading ? <Loading></Loading> : ''}
       <div className='map-search-container'>
-        <SearchIcon style={{color: 'gray', transform: 'scale(0.8)'}}></SearchIcon>
+        <SearchIcon style={{ color: 'gray', transform: 'scale(0.8)' }}></SearchIcon>
         <Geocoder
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
           // 검색결과 클릭 시 실행되는 함수 
@@ -252,7 +257,7 @@ function App() {
         onContextMenu={mapRightClickHandler}>
         {pins.map((pin) => (
           <div key={pin._id}>
-            <CustomMarker 
+            <CustomMarker
               viewState={viewport}
               onClick={markerClickHandler}
               color={pin.username === currentUser ? color : pin.color}
@@ -281,7 +286,7 @@ function App() {
         )}
         <GeolocateControl position='top-left' trackUserLocation></GeolocateControl>
         <div className='guide-button'>
-          <Help onClick={guideClickHandler} style={{color: 'white', transform: 'scale(1.5)'}}></Help>
+          <Help onClick={guideClickHandler} style={{ color: 'white', transform: 'scale(1.5)' }}></Help>
         </div>
         {guideClick && (
           <Guide cancelClick={() => setGuideClick(null)}></Guide>
@@ -294,6 +299,7 @@ function App() {
             setColor={setColor}>
           </Login>
         )}
+        <Loading></Loading>
         <UserPanel
           logoutClick={logoutClickHandler}
           setShowFriend={setShowFriend}

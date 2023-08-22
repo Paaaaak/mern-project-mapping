@@ -53,7 +53,6 @@ const FriendPanel = (props) => {
       }
     }
   ]);
-  
 
   useEffect(() => {
     const followingList = [];
