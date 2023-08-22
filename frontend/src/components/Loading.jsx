@@ -3,7 +3,7 @@ import { Grid } from 'react-loader-spinner';
 
 const Loading = () => {
   return (
-    <div className='loading-container'>
+    <div>
       <Grid
         color='darkcyan'
         height={50}

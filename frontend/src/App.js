@@ -203,6 +203,7 @@ function App() {
   };
 
   const followClickHandler = async () => {
+    setIsLoading(true);
     try {
       await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
       getFollowings();
@@ -211,9 +212,11 @@ function App() {
     catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const unfollowClickHandler = async (userId) => {
+    setIsLoading(true);
     try {
       await axios.put('/users/' + userId + '/unfollow', { userId: currentUserId });
       getFollowings();
@@ -222,6 +225,7 @@ function App() {
     catch (error) {
       console.log(error);
     }
+    setIsLoading(false);
   };
 
   const handleViewportChange = (newViewport) => {
@@ -234,7 +238,6 @@ function App() {
 
   return (
     <div className='App'>
-      {isLoading ? <Loading></Loading> : ''}
       <div className='map-search-container'>
         <SearchIcon style={{ color: 'gray', transform: 'scale(0.8)' }}></SearchIcon>
         <Geocoder
@@ -246,11 +249,14 @@ function App() {
           viewport={viewport}>
         </Geocoder>
       </div>
+      <div className='loading-container'>  
+        {isLoading && <Loading></Loading>}
+      </div>
       <MapGL
         ref={mapRef}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         initialViewState={viewport}
-        minZoom={3}
+        minZoom={2}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
         mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
         onClick={mapClickHandler}
@@ -299,7 +305,6 @@ function App() {
             setColor={setColor}>
           </Login>
         )}
-        <Loading></Loading>
         <UserPanel
           logoutClick={logoutClickHandler}
           setShowFriend={setShowFriend}
