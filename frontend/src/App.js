@@ -50,7 +50,7 @@ function App() {
         userId: idList
       }
       const res = await axios.post('/pins/get/pinList', req);
-      console.log('Pin list:', res.data);
+      // console.log('Pin list:', res.data);
       setPins(res.data);
     }
     catch (error) {
@@ -87,7 +87,7 @@ function App() {
   }, [currentUserId]);
 
   useEffect(async () => {
-    console.log('Friends changed', friends);
+    // console.log('Friends changed', friends);
     const friendsIdList = friends.map((friend) => friend._id);
     friendsIdList.push(currentUserId);
     await getPinsByUserId(friendsIdList);
@@ -256,9 +256,9 @@ function App() {
         ref={mapRef}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         initialViewState={viewport}
-        minZoom={2}
+        minZoom={2.5}
         style={{ width: '100vw', height: '100vh', overflow: 'hidden' }}
-        mapStyle="mapbox://styles/jaehyeonpaak/clk3lonwv000q01rd0jcu3lsf"
+        mapStyle="mapbox://styles/mapbox/streets-v12"
         onClick={mapClickHandler}
         onContextMenu={mapRightClickHandler}>
         {pins.map((pin) => (

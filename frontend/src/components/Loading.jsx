@@ -5,9 +5,9 @@ const Loading = () => {
   return (
     <div>
       <Grid
-        color='darkcyan'
-        height={50}
-        width={50}>
+        color='rgba(0, 139, 139, 0.4)'
+        height={40}
+        width={40}>
       </Grid>
     </div>
   );

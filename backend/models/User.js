@@ -36,6 +36,9 @@ const UserSchema = new mongoose.Schema(
         friendPins: {
             type: Array,
             default: []
+        },
+        image: {
+            type: String
         }
     },
     { timestamps: true }

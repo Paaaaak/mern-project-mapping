@@ -29,7 +29,7 @@ const UserPanel = (props) => {
       colorRef.current.value = props.color;
       if (currentUserId !== null && currentUserId !== 'null') {
         // 색상 업데이트 axios 호출문 추가
-        console.log('Color to change:', colorRef.current.value);
+        // console.log('Color to change:', colorRef.current.value);
         await axios.put('/users/' + currentUserId, { color: colorRef.current.value });
         await axios.put('/pins/' + currentUserId, { color: colorRef.current.value });
         props.setColor(colorRef.current.value);
