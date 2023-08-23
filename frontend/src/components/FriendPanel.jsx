@@ -31,23 +31,23 @@ const FriendPanel = (props) => {
     { 
       headerName: '', 
       field: 'profile', 
-      width: 70,
+      flex: 0.6,
       cellRenderer: function(e) {
         return (<img src={User} style={{transform: 'scale(1)', border: '1px solid gray', borderRadius: '50%', marginTop: '5px'}}></img>);
       }
     },
     { headerName: 'Id', field: 'id', hide: true},
-    { headerName: 'Name', field: 'name', width: 100 },
+    { headerName: 'Name', field: 'name', flex: 1, },
     { 
       headerName: 'Color', 
       field: 'color', 
-      width: 90, 
+      flex: 1,
       cellRenderer: colorCellRenderer
     },
     { 
       headerName: 'Following', 
       field: 'following', 
-      width: 130, 
+      flex: 1,
       cellRenderer: function(e) {
         return (<button className='unfollow-button' onClick={() => unfollowClickHandler(e)}>Unfollow</button>);
       }

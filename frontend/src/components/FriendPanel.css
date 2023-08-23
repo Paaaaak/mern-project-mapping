@@ -1,6 +1,6 @@
 .friend-list-panel {
     position: absolute;
-    width: 492px;
+    width: 390px;
     height: 500px;
     left: 0;
     right: 0;
@@ -120,38 +120,16 @@
     cursor: pointer;
 }
 
-.toggle-container {
-    display: inline-block;
-    padding: 10px;
-    border-radius: 20px;
-  }
-  
-  .toggle-switch {
-    display: inline-block;
-    width: 40px;
-    height: 20px;
-    background-color: white;
-    border: 1px solid darkcyan;
-    border-radius: 20px;
-    position: relative;
-    cursor: pointer;
-  }
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar {
+    width: 8px;
+}
 
-  .toggle-switch .toggle-handle {
-    width: 18px;
-    height: 18px;
-    background-color: darkcyan;
-    border-radius: 50%;
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    transition: left 0.3s;
-  }
-  
-  input[type="checkbox"] {
-    display: none;
-  }
-  
-  input[type="checkbox"]:checked + .toggle-switch .toggle-handle {
-    left: 21px;
-  }
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar-track {
+    background: transparent;
+}
