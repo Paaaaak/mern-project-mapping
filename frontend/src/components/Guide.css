@@ -2,7 +2,6 @@
     position: absolute;
     width: 350px;
     height: 450px;
-    overflow: auto;
     border: none;
     border-radius: 10px;
     background-color: white;
@@ -15,17 +14,51 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding-top: 20px;
+    padding-top: 10px;
+}
+
+.guide-container {
+    overflow: auto;
+    width: 100%;
+    height: 400px;
+}
+
+.guide-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.guide-container::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: rgba(128, 128, 128, 0.3);
+    border-radius: 10px;
+}
+
+.guide-container::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.guide-top {
+    position: sticky;
+    width: 100%;
+    height: 40px;
+}
+
+.guide-title {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .guide-cancel {
-    z-index: 999;
-    position: absolute;
-    top: 0;
-    right: 0;
+    z-index: 1;
+    position: sticky;
+    float: right;
+    margin-left: 300px;
     padding: 5px;
     cursor: pointer;
-}
+} 
 
 .guide {
     display: flex;
@@ -33,6 +66,10 @@
     & label {
         margin-left: 30px;
         max-width: 250px;
+        color: darkcyan;
+        font-size: 12px;
+        border-bottom: 1px solid rgba(0, 139, 139, 0.3);
+        padding-bottom: 20px;
     }
 }
 

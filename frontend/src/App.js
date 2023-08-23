@@ -17,6 +17,7 @@ import { UserContext } from './context/UserContext';
 import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Welcome from './components/Welcome';
 import Loading from './components/Loading';
+import { motion } from "framer-motion";
 
 function App() {
   const localStorage = window.localStorage;
@@ -291,9 +292,12 @@ function App() {
           </CustomNewPopup>
         )}
         <GeolocateControl position='top-left' trackUserLocation></GeolocateControl>
-        <div className='guide-button'>
+        <motion.div 
+          className='guide-button'
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}>
           <Help onClick={guideClickHandler} style={{ color: 'white', transform: 'scale(1.5)' }}></Help>
-        </div>
+        </motion.div>
         {guideClick && (
           <Guide cancelClick={() => setGuideClick(null)}></Guide>
         )}
