@@ -67,7 +67,8 @@ const UserPanel = (props) => {
         <div className='info-container'>
           <div className='info-image'>
             {/* <img src={User} style={{transform: 'scale(2)'}}></img> */}
-            <form onSubmit={imageSubmitHandler} action='/images/upload' method='post' encType='multipart/form-data'>
+            <form onSubmit={imageSubmitHandler} action='/users/upload' method='post' encType='multipart/form-data'>
+              <input type='text' hidden value={currentUserId} name='userId' readOnly></input>
               <input type='file' onChange={imageChangeHandler} name='image'></input>
               <div>
                 <input type='submit' value='Save'></input>

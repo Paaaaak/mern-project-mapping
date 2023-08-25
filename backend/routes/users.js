@@ -2,6 +2,46 @@ const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 
+/* Image upload */
+const multer = require('multer');
+const fs = require('fs');
+const storage = multer.diskStorage({
+    destination: (req, file, callback) => {
+        callback(null, 'uploads');
+    },
+    filename: (req, file, callback) => {
+        callback(null, file.fieldname + '-' + Date.now());
+    }
+});
+const upload = multer({ storage: storage});
+
+router.post('/upload', upload.single('image'), async (req, res, next) => {
+    try {
+        if (!req.file) {
+            return res.status(400).send('No image uploaded.');
+        }
+        
+        const userId = req.body.userId;
+        const image = {
+            data: fs.readFileSync(req.file.path),
+            contentType: req.file.mimetype
+        };
+        User.findByIdAndUpdate(userId, { $set: { image: image } }, { new: true })
+            .then(updatedUser => {
+                if (!updatedUser) {
+                    return res.status(404).send('User not found!');
+                }
+                return res.status(200).json({ message: 'Image uploaded successfully.', user: updatedUser });
+            })
+            .catch(error => {
+                console.error(error);
+                return res.status(500).send('An error occurred while uploading the image.');
+            });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 // register user
 router.post('/register', async (req, res) => {
     try {
