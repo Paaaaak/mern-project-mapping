@@ -30,7 +30,6 @@ const UserPanel = (props) => {
       colorRef.current.value = props.color;
       if (currentUserId !== null && currentUserId !== 'null') {
         // 색상 업데이트 axios 호출문 추가
-        // console.log('Color to change:', colorRef.current.value);
         await axios.put('/users/' + currentUserId, { color: colorRef.current.value });
         await axios.put('/pins/' + currentUserId, { color: colorRef.current.value });
         props.setColor(colorRef.current.value);
@@ -48,6 +47,7 @@ const UserPanel = (props) => {
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const imageNameRef = useRef(null);
 
   const imageSubmitHandler = (e) => {
     e.preventDefault();
@@ -68,6 +68,7 @@ const UserPanel = (props) => {
   const onDrop = (acceptedFiles) => {
     console.log(acceptedFiles[0]);
     setSelectedImage(acceptedFiles[0]);
+    imageNameRef.current.textContent = acceptedFiles[0].name;
   };
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -91,12 +92,14 @@ const UserPanel = (props) => {
                 <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
                   <input {...getInputProps()} />
                   {isDragActive ? <p>Drop the image file here!</p> : <p>Drag and drop a file <br></br> or click to select.</p>}
+                  {selectedImage && <p ref={imageNameRef} style={{fontWeight: 'bold', color: 'blue'}}></p>}
                 </div>
               </div>
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 className='button save'
+                style={{marginTop: '.5rem'}}
                 type='submit'>
                 Save
               </motion.button>
