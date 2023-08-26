@@ -20,7 +20,6 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
         if (!req.file) {
             return res.status(400).send('No image uploaded.');
         }
-        
         const userId = req.body.userId;
         const image = {
             data: fs.readFileSync(req.file.path),
