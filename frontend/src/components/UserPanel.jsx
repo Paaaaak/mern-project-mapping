@@ -47,6 +47,7 @@ const UserPanel = (props) => {
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
+  const fileRef = useRef();
 
   const imageSubmitHandler = (e) => {
     e.preventDefault();
@@ -57,7 +58,12 @@ const UserPanel = (props) => {
     fetch('/users/upload', { method: 'POST', body: formData })
       .then(res => {
         console.log(res);
+        setSelectedImage(null);
+        fileRef.current.value = null;
       })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   const imageChangeHandler = (e) => {
@@ -79,7 +85,7 @@ const UserPanel = (props) => {
           <div className='info-image'>
             {/* <img src={User} style={{transform: 'scale(2)'}}></img> */}
             <form onSubmit={imageSubmitHandler} encType='multipart/form-data'>
-              <input type='file' onChange={imageChangeHandler} name='image'></input>
+              <input ref={fileRef} type='file' onChange={imageChangeHandler} name='image'></input>
               <div>
                 <input type='submit' value='Save'></input>
                 <input type='button' value='Cancel'></input>
