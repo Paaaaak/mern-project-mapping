@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import User from '../assets/user.png';
 import axios from 'axios';
 import { UserContext } from '../context/UserContext';
+import { useDropzone } from 'react-dropzone';
 
 const UserPanel = (props) => {
   const show = {
@@ -47,29 +48,29 @@ const UserPanel = (props) => {
   };
 
   const [selectedImage, setSelectedImage] = useState(null);
-  const fileRef = useRef();
 
   const imageSubmitHandler = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    console.log('Form data:', currentUserId, selectedImage);
     formData.append('userId', currentUserId);
     formData.append('image', selectedImage);
-    console.log(formData);
     fetch('/users/upload', { method: 'POST', body: formData })
       .then(res => {
         console.log(res);
         setSelectedImage(null);
-        fileRef.current.value = null;
       })
       .catch(error => {
         console.error(error);
       });
   }
 
-  const imageChangeHandler = (e) => {
-    console.log('Image changed!', e.target.files[0]);
-    setSelectedImage(e.target.files[0]);
-  }
+  const onDrop = (acceptedFiles) => {
+    console.log(acceptedFiles[0]);
+    setSelectedImage(acceptedFiles[0]);
+  };
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
     <div className='user-panel'>
@@ -82,17 +83,25 @@ const UserPanel = (props) => {
       </motion.button>
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
+          <span>Welcome <b>{currentUser}</b>!</span>
           <div className='info-image'>
-            {/* <img src={User} style={{transform: 'scale(2)'}}></img> */}
+            <span>Change profile picture:</span>
             <form onSubmit={imageSubmitHandler} encType='multipart/form-data'>
-              <input ref={fileRef} type='file' onChange={imageChangeHandler} name='image'></input>
-              <div>
-                <input type='submit' value='Save'></input>
-                <input type='button' value='Cancel'></input>
+              <div className="file-upload">
+                <div {...getRootProps()} className={`dropzone ${isDragActive ? 'active' : ''}`}>
+                  <input {...getInputProps()} />
+                  {isDragActive ? <p>Drop the image file here!</p> : <p>Drag and drop a file <br></br> or click to select.</p>}
+                </div>
               </div>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className='button save'
+                type='submit'>
+                Save
+              </motion.button>
             </form>
           </div>
-          <span>Welcome <b>{currentUser}</b>!</span>
           <div className='info-color'>
             <span>Current pin color: </span>
             <input type='color' ref={colorRef} onChange={(event) => props.setColor(event.target.value)}></input>
