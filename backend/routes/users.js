@@ -18,7 +18,7 @@ const upload = multer({ storage: storage});
 router.post('/upload', upload.single('image'), async (req, res, next) => {
     try {
         if (!req.file) {
-            return res.status(400).send('No image uploaded.');
+            return res.status(400).json('No image uploaded.');
         }
         const userId = req.body.userId;
         const image = {
@@ -36,7 +36,8 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
                 console.error(error);
                 return res.status(500).send('An error occurred while uploading the image.');
             });
-    } catch (error) {
+    } 
+    catch (error) {
         res.status(500).send(error);
     }
 });
@@ -77,7 +78,8 @@ router.post('/login', async (req, res) => {
         if (!validPassword) {
             return res.status(400).json('Wrong username or password!');
         }
-        res.status(200).json({_id: user._id, username: user.username, color: user.color});
+        console.log('Logged in user:', user);
+        res.status(200).json({_id: user._id, username: user.username, color: user.color, image: user.image.data});
     }
     catch (error) {
         res.status(500).json(error);

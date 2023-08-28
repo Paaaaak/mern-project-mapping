@@ -44,18 +44,7 @@ function App() {
   const [userIdList, setUserIdList] = useState([localStorage.getItem('userId')]);
   const [showWelcome, setShowWelcome] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [profileImage, setProfileImage] = useState(null);
-  // const [blob, setBlob] = useState(null);
-
-  // useEffect(() => {
-  //   if (image) {
-  //     const imageDataArray = new Uint8Array(image.data.data);
-  //     const imageBlob = new Blob([imageDataArray], { type: image.contentType });
-  //     console.log(imageBlob);
-  //     setBlob(imageBlob);
-  //   }
-  // }, [image]);
 
   const getPinsByUserId = async (idList) => {
     try {
@@ -255,7 +244,7 @@ function App() {
             handleViewportChange(newViewport);
           }}
           viewport={viewport}>
-        </Geocoder>
+        </Geocoder> 
       </div>
       <div className='loading-container'>  
         {isLoading && <Loading></Loading>}
