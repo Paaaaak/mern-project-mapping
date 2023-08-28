@@ -45,7 +45,7 @@ function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const [image, setImage] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
   // const [blob, setBlob] = useState(null);
 
   // useEffect(() => {
@@ -175,6 +175,7 @@ function App() {
     updateUser(null, null);
     setShowFriend(false);
     setUserIdList(null);
+    setProfileImage(null);
     localStorage.removeItem('user');
     localStorage.removeItem('userId');
     localStorage.removeItem('color');
@@ -312,7 +313,7 @@ function App() {
             setShowRegister={setShowRegister}
             setUserIdList={setUserIdList}
             showWelcomeHandler={showWelcomeHandler}
-            // setImage={setImage}
+            setProfileImage={setProfileImage}
             setColor={setColor}>
           </Login>
         )}
@@ -320,7 +321,7 @@ function App() {
           logoutClick={logoutClickHandler}
           setShowFriend={setShowFriend}
           setColor={setColor}
-          // blob={blob}
+          profileImage={profileImage}
           color={color}>
         </UserPanel>
         {showRegister && (

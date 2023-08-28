@@ -23,8 +23,12 @@ const Login = (props) => {
 
     try {
       const res = await axios.post('/users/login', loginUser);
-      console.log(res.data);
-      props.setImage(res.data.image);
+      /* 프로필 이미지 처리하는 부분 */
+      if (res.data.image) {
+        const imageDataArray = new Uint8Array(res.data.image.data.data);
+        const imageBlob = new Blob([imageDataArray], { type: res.data.image.contentType });
+        props.setProfileImage(imageBlob);
+      }
       setError(false);
       updateUser(res.data.username, res.data._id);
       localStorage.setItem('userId', res.data._id);

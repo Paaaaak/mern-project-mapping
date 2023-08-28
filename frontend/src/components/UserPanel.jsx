@@ -80,7 +80,9 @@ const UserPanel = (props) => {
         onClick={() => setShowUser(prev => !prev)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}>
-        {/* {props.blob ? (<img src={URL.createObjectURL(props.blob)} alt="Image" className='user-img'/>) : (<img className='user-img' src={User}></img>)} */}
+        {props.profileImage ? 
+          (<img src={URL.createObjectURL(props.profileImage)} alt="Image" className='user-img'/>) : 
+          (<img className='user-img' src={User}></img>)}
       </motion.button>
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
