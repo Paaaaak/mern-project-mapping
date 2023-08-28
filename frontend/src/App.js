@@ -45,6 +45,18 @@ function App() {
   const [showWelcome, setShowWelcome] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  // const [image, setImage] = useState(null);
+  // const [blob, setBlob] = useState(null);
+
+  // useEffect(() => {
+  //   if (image) {
+  //     const imageDataArray = new Uint8Array(image.data.data);
+  //     const imageBlob = new Blob([imageDataArray], { type: image.contentType });
+  //     console.log(imageBlob);
+  //     setBlob(imageBlob);
+  //   }
+  // }, [image]);
+
   const getPinsByUserId = async (idList) => {
     try {
       const req = {
@@ -63,13 +75,7 @@ function App() {
     if (currentUserId !== null && currentUserId !== 'null') {
       try {
         const res = await axios.get('/users/' + currentUserId + '/followings');
-        const followings = [];
-        res.data.map((data) => {
-          followings.push({
-            id: data._id,
-            username: data.username
-          });
-        });
+        // console.log('Friends list:', res.data);
         setFriends(res.data);
       }
       catch (error) {
@@ -306,6 +312,7 @@ function App() {
             setShowRegister={setShowRegister}
             setUserIdList={setUserIdList}
             showWelcomeHandler={showWelcomeHandler}
+            // setImage={setImage}
             setColor={setColor}>
           </Login>
         )}
@@ -313,6 +320,7 @@ function App() {
           logoutClick={logoutClickHandler}
           setShowFriend={setShowFriend}
           setColor={setColor}
+          // blob={blob}
           color={color}>
         </UserPanel>
         {showRegister && (

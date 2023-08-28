@@ -57,7 +57,7 @@ const FriendPanel = (props) => {
   useEffect(() => {
     const followingList = [];
     props.friends.map((friend) => {
-      const rowData = { profile: 'Default', id: friend._id, name: friend.username, color: friend.color };
+      const rowData = { profile: friend.image, id: friend._id, name: friend.username, color: friend.color };
       followingList.push(rowData);
     });
     setRowData(followingList);

@@ -23,6 +23,8 @@ const Login = (props) => {
 
     try {
       const res = await axios.post('/users/login', loginUser);
+      console.log(res.data);
+      props.setImage(res.data.image);
       setError(false);
       updateUser(res.data.username, res.data._id);
       localStorage.setItem('userId', res.data._id);
