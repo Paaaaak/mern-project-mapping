@@ -75,19 +75,17 @@ const UserPanel = (props) => {
 
   return (
     <div className='user-panel'>
-      <motion.button
+      <motion.div
         className='user-button'
         onClick={() => setShowUser(prev => !prev)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}>
-        <div className='image-container'>
-          {props.profileImage ? (
-            <img className='user-img' src={URL.createObjectURL(props.profileImage)} alt="Image"></img>
-          ) : (
-            <img className='user-img' src={User}></img>
-          )}
-        </div>
-      </motion.button>
+        {props.profileImage ? (
+          <img className='user-img' src={URL.createObjectURL(props.profileImage)} alt="Image"></img>
+        ) : (
+          <img className='user-img' src={User}></img>
+        )}
+      </motion.div>
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
           <span>Welcome <b>{currentUser}</b>!</span>
