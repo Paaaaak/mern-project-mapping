@@ -233,18 +233,6 @@ function App() {
     setShowWelcome(success);
   };
 
-
-  const [markerTip, showMarkerTip] = useState(false);
-  
-  // Marker hover event handler
-  const markerHoverHandler = (pin) => {
-    console.log(pin.username);
-  }
-
-  const markerLeaveHandler = () => {
-    console.log('Mouse off marker');
-  }
-
   return (
     <div className='App'>
       <div className='map-search-container'>
@@ -272,9 +260,7 @@ function App() {
         onContextMenu={mapRightClickHandler}>
         {pins.map((pin) => (
           <div 
-            key={pin._id} 
-            onMouseLeave={() => markerLeaveHandler()}
-            onMouseEnter={() => markerHoverHandler(pin)}>
+            key={pin._id}>
             <CustomMarker
               viewState={viewport}
               onClick={markerClickHandler}
