@@ -89,6 +89,16 @@ const UserPanel = (props) => {
       <motion.div className='user-info' animate={showUser ? show : hide}>
         <div className='info-container'>
           <span>Welcome <b>{currentUser}</b>!</span>
+          <div>
+            <span>Remove profile picture:</span>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className='button remove'
+              onClick={null}>
+              Remove profile
+            </motion.button>
+          </div>
           <div className='info-image'>
             <span>Change profile picture:</span>
             <form onSubmit={imageSubmitHandler} encType='multipart/form-data'>

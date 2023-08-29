@@ -15,3 +15,7 @@
     top: 0;
     left: 0;
 }
+
+.mapboxgl-popup-content {
+    background-color: transparent;
+}

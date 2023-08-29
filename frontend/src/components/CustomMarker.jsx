@@ -30,11 +30,11 @@ const CustomMarker = (props) => {
         onMouseEnter={() => markerHoverHandler(props.pin)}>
         {markerTip && (
           <Popup
-          longitude={props.pin.long}
-          latitude={props.pin.lat}
-          closeButton={false}
-          anchor="top">
-            {props.pin.username}
+            longitude={props.pin.long}
+            latitude={props.pin.lat}
+            closeButton={false}
+            anchor="top">
+            <p style={{fontWeight: 'bold'}}>{props.pin.username}</p>
           </Popup>
         )}
         <Room

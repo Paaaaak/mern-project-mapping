@@ -55,6 +55,11 @@ input[type="color"]::-webkit-color-swatch {
     width: 70%;
     background-color: rgb(126, 243, 161);
 }
+
+.remove {
+    width: 70%;
+    background-color: rgb(255, 86, 86);
+}
   
 .logout {
     width: 70%;
@@ -62,7 +67,7 @@ input[type="color"]::-webkit-color-swatch {
 }
 
 .save {
-    width: 70%;
+    width: 140px;
     background-color: rgb(111, 190, 255);
 }
 
