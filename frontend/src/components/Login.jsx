@@ -6,6 +6,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import axios from 'axios';
 import ReactDom from 'react-dom';
 import { UserContext } from '../context/UserContext';
+import Loading from './Loading';
 
 const Login = (props) => {
   const localStorage = window.localStorage;
@@ -13,6 +14,7 @@ const Login = (props) => {
   const nameRef = useRef();
   const passwordRef = useRef();
   const {updateUser} = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -22,6 +24,7 @@ const Login = (props) => {
     };
 
     try {
+      setIsLoading(true);
       const res = await axios.post('/users/login', loginUser);
       /* 프로필 이미지 처리하는 부분 */
       if (res.data.image) {
@@ -35,6 +38,7 @@ const Login = (props) => {
       props.setUserIdList([res.data._id]);
       props.setColor(res.data.color);
       localStorage.setItem('color', res.data.color);
+      setIsLoading(false);
       props.showWelcomeHandler(true);
       setTimeout(() => {
         props.showWelcomeHandler(false);
@@ -59,6 +63,9 @@ const Login = (props) => {
       )}
       {ReactDom.createPortal(
         <div className='login-container'>
+          <div className='loading-container'>
+            {isLoading && <Loading></Loading>}
+          </div>
           <div className='login-title'>
             <img src={Footprint}></img>
             <span>Footprint</span>
