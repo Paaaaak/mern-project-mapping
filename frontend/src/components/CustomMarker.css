@@ -1,21 +1,14 @@
 .mapboxgl-marker {
     position: relative;
-    height: 100px;
 }
 
 .marker-container {
     position: relative;
     display: flex;
     flex-direction: column;
-    height: 200%;
+    overflow: visible;
 }
 
 .marker-tip-container {
     position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.mapboxgl-popup-content {
-    background-color: transparent;
 }

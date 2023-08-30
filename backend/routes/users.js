@@ -7,11 +7,24 @@ const multer = require('multer');
 const fs = require('fs');
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-        callback(null, 'uploads');
+        callback(null, 'profile-images');
     },
     filename: (req, file, callback) => {
-        callback(null, file.fieldname + '-' + Date.now());
-    }
+        callback(null, file.fieldname + '-' + req.body.userId);
+        // e.g. image-64ba2300d16e7fe165610c02
+    },
+    // Filtering file extension
+    filefilter: function (req, file, cb) {
+        var ext = path.extname(file.originalname);
+        if (ext !== ".png" && ext !== ".jpg" && ext !== ".jpeg") {
+            return callback(new Error("You can upload PNG and JPG!"));
+        }
+        callback(null, true);
+    },
+    // Limits size of file to less than 1MB
+    limits: {
+        fileSize: 1024 * 1024,
+    },
 });
 const upload = multer({ storage: storage});
 
@@ -21,11 +34,14 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
             return res.status(400).json('No image uploaded.');
         }
         const userId = req.body.userId;
-        const image = {
-            data: fs.readFileSync(req.file.path),
-            contentType: req.file.mimetype
-        };
-        User.findByIdAndUpdate(userId, { $set: { image: image } }, { new: true })
+        
+        // Generate a unique filename for the uploaded image
+        const filename = 'image-' + userId;
+        // Construct the URL to access the uploaded image
+        const imageUrl = '/profile-images/' + filename; // This path depends on your server configuration
+
+        // Update the user with the image URL
+        User.findByIdAndUpdate(userId, { $set: { profileImageURL: imageUrl } }, { new: true })
             .then(updatedUser => {
                 if (!updatedUser) {
                     return res.status(404).send('User not found!');
@@ -41,6 +57,11 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
         res.status(500).send(error);
     }
 });
+
+// 이미지 이름으로 URL 요청오면 해당 이미지 보여줌
+router.get("/image/:imgName", function (req, res) {
+    res.sendFile(__dirname + "/../profile-images/" + req.params.imgName);
+  });
 
 // register user
 router.post('/register', async (req, res) => {
@@ -78,7 +99,7 @@ router.post('/login', async (req, res) => {
         if (!validPassword) {
             return res.status(400).json('Wrong username or password!');
         }
-        res.status(200).json({_id: user._id, username: user.username, color: user.color, image: user.image.data});
+        res.status(200).json({_id: user._id, username: user.username, color: user.color, profileImageURL: user.profileImageURL});
     }
     catch (error) {
         res.status(500).json(error);

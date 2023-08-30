@@ -81,7 +81,7 @@ const UserPanel = (props) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}>
         {props.profileImage ? (
-          <img className='user-img' src={URL.createObjectURL(props.profileImage)} alt="Image"></img>
+          <img className='user-img' src={'http://localhost:1035' + props.profileImage} alt="Image"></img>
         ) : (
           <img className='user-img' src={User}></img>
         )}

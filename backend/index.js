@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const app = express();
 const pinRoute = require('./routes/pins');
 const userRoute = require('./routes/users');
+const cors = require('cors');
+const path = require('path');
 
 // .env 파일을 불러옴
 dotenv.config();
@@ -26,6 +28,12 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use('/api/pins/', pinRoute);
 app.use('/api/users/', userRoute);
+// CORS 설정
+app.use(cors({
+    origin: 'http://localhost:3000', // 리액트 애플리케이션의 주소
+    credentials: true // 필요한 경우, 인증 관련 설정
+}));
+app.use('/profile-images', express.static(path.join(__dirname, 'profile-images')));
 
 // 포트 번호 1035로 연결
 app.listen(1035, () => {

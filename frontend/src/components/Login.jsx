@@ -27,11 +27,12 @@ const Login = (props) => {
       setIsLoading(true);
       const res = await axios.post('/users/login', loginUser);
       /* 프로필 이미지 처리하는 부분 */
-      if (res.data.image) {
-        const imageDataArray = new Uint8Array(res.data.image.data);
-        const imageBlob = new Blob([imageDataArray], { type: res.data.image.contentType });
-        props.setProfileImage(imageBlob);
-      }
+      // if (res.data.image) {
+      //   const imageDataArray = new Uint8Array(res.data.image.data);
+      //   const imageBlob = new Blob([imageDataArray], { type: res.data.image.contentType });
+      //   props.setProfileImage(imageBlob);
+      // }
+      props.setProfileImage(res.data.profileImageURL);
       setError(false);
       updateUser(res.data.username, res.data._id);
       localStorage.setItem('userId', res.data._id);

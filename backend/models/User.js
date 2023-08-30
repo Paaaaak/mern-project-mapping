@@ -37,9 +37,9 @@ const UserSchema = new mongoose.Schema(
             type: Array,
             default: []
         },
-        image: {
-            data: Buffer,
-            contentType: String
+        profileImageURL: {
+            type: String,
+            require: false
         }
     },
     { timestamps: true }
