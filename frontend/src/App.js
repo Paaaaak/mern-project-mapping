@@ -78,6 +78,13 @@ function App() {
     const fetchData = async () => {
       await getFollowings();
       await getPinsByUserId();
+      // console.log('Current user ID:', currentUserId);
+      if (currentUserId) {
+        setProfileImage('/profile-images/image-' + currentUserId);
+      }
+      else {
+        setProfileImage(null)
+      }
     }
     fetchData();
   }, [currentUserId]);
