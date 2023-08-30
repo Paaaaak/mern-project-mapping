@@ -26,20 +26,24 @@ const FriendPanel = (props) => {
     );
   };
 
+  const profileImageCellRenderer = (params) => {
+    console.log(params.value);
+    return <img className='friend-img' src={!params.value ? User : 'http://localhost:1035' + params.value}></img>;
+  }
+
   // friends list grid columns
   const [columnDefs] = useState([
     { 
       headerName: '', 
       field: 'profile', 
       flex: 0.6,
-      cellRenderer: function(e) {
-        return (<img src={User} style={{transform: 'scale(1)', border: '1px solid gray', borderRadius: '50%', marginTop: '5px'}}></img>);
-      }
+      cellRenderer: profileImageCellRenderer
+
     },
     { headerName: 'Id', field: 'id', hide: true},
     { headerName: 'Name', field: 'name', flex: 1, },
     { 
-      headerName: 'Color', 
+      headerName: 'Pin color', 
       field: 'color', 
       flex: 1,
       cellRenderer: colorCellRenderer
@@ -56,8 +60,9 @@ const FriendPanel = (props) => {
 
   useEffect(() => {
     const followingList = [];
+    console.log(props.friends);
     props.friends.map((friend) => {
-      const rowData = { profile: friend.image, id: friend._id, name: friend.username, color: friend.color };
+      const rowData = { profile: friend.profileImageURL, id: friend._id, name: friend.username, color: friend.color };
       followingList.push(rowData);
     });
     setRowData(followingList);

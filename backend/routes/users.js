@@ -58,11 +58,6 @@ router.post('/upload', upload.single('image'), async (req, res, next) => {
     }
 });
 
-// 이미지 이름으로 URL 요청오면 해당 이미지 보여줌
-router.get("/image/:imgName", function (req, res) {
-    res.sendFile(__dirname + "/../profile-images/" + req.params.imgName);
-  });
-
 // register user
 router.post('/register', async (req, res) => {
     try {

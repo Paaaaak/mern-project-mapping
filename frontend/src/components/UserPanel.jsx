@@ -55,7 +55,7 @@ const UserPanel = (props) => {
     console.log('Form data:', currentUserId, selectedImage);
     formData.append('userId', currentUserId);
     formData.append('image', selectedImage);
-    fetch('/users/upload', { method: 'POST', body: formData })
+    axios.post('/users/upload', formData)
       .then(res => {
         console.log(res);
         setSelectedImage(null);

@@ -82,6 +82,15 @@
     background-color: brown;
 }
 
+.friend-img {
+    transform: scale(0.8);
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    border: 1px solid gray;
+    border-radius: 50%;
+}
+
 .friend-name {
     font-size: 15px;
     font-weight: bold;
