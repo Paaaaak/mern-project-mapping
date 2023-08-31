@@ -85,10 +85,10 @@ const FriendPanel = (props) => {
         </div>
         <button className='submit-button' type='submit'>Search Friend</button>
       </form>
-      <div className='friend-info-container' style={{height: '50px'}}>
+      <div className='friend-info-container' style={{height: '60px'}}>
         {props.foundUser && (
           <div className='friend-info'>
-            <img src={User} style={{transform: 'scale(1)', border: '1px solid gray', borderRadius: '50%', marginTop: '5px'}}></img>
+            <img className='found-friend-img' src={!props.foundUser.profileImageURL ? User : 'http://localhost:1035' + props.foundUser.profileImageURL}></img>
             <span style={{fontSize: '15px', fontWeight: 'bold'}}>{props.foundUser.username}</span>
             <button className={`follow-button ${isFollowing ? 'following' : ''}`} onClick={props.followClickHandler} disabled={isFollowing}>{isFollowing ? 'Following' : 'Follow'}</button>
           </div>

@@ -108,7 +108,7 @@ router.post('/get', async (req, res) => {
         if (!user) {
             return res.status(400).json('Username ' + req.body.username + ' does not exist!');
         }
-        res.status(200).json({_id: user._id, username: user.username});
+        res.status(200).json({_id: user._id, username: user.username, profileImageURL: user.profileImageURL});
     }
     catch (error) {
         res.status(500).json(error);

@@ -24,9 +24,21 @@
     border-radius: 5px;
     align-items: center;
     width: 240px;
+    height: 40px;
     padding: 10px;
     background-color: rgb(224, 224, 224);
-    gap: 1rem;
+    gap: 0.5rem;
+}
+
+.found-friend-img {
+    transform: scale(.4);
+    background-color: white;
+    width: 100px; 
+    height: 100px;
+    margin-left: -30px;
+    object-fit: cover; /* 이미지 비율을 유지하면서 채우도록 설정 */
+    border: 2px solid rgba(128, 128, 128, 0.438);
+    border-radius: 50%;
 }
 
 .friend-cancel {
@@ -87,6 +99,7 @@
     position: absolute;
     width: 45px;
     height: 45px;
+    object-fit: cover; /* 이미지 비율을 유지하면서 채우도록 설정 */
     border: 1px solid gray;
     border-radius: 50%;
 }
