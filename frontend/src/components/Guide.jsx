@@ -6,6 +6,8 @@ import RightClick from '../assets/right-click.png';
 import MouseScrolling from '../assets/mouse-scrolling.png';
 import MyLocation from '../assets/my-location.png';
 import User from '../assets/user.png';
+import Follow from '../assets/follow.png';
+import FriendsList from '../assets/friends-list.png';
 
 const Guide = (props) => {
   const cancelClickHandler = () => {
@@ -30,6 +32,31 @@ const Guide = (props) => {
             ▶ You can use most features with left-click.<br></br>
             ▶ Click a pin and check out what people have reviewed at that location!<br></br>
             ▶ Left click and hold the map, and drag. You can move the camera to any place you want.<br></br>
+          </label>
+        </div>
+        <div className='guide'>
+          <div className='guide-icon' style={{ marginLeft: '10px' }}>
+            <img src={User} style={{ transform: 'scale(0.33)', marginLeft: '-14px' }}/>
+            <span style={{ marginLeft: '-7px' }}><b>User panel button</b></span>
+          </div>
+          <label>
+            ▶ It's user panel! Click on the button in the top right corner.<br></br>
+            ▶ You are able to find some options to set profile picture, check friends list, and logout.<br></br>
+          </label>
+        </div>
+        <div className='guide'>
+          <div className='guide-icon' style={{ marginLeft: '12px' }}>
+            <img src={Follow} style={{ transform: 'scale(0.65)' }} />
+            <span style={{ marginLeft: '8px' }}>
+              <b>Follow friends!</b>
+            </span>
+          </div>
+          <label>
+            ▶ Open the user panel and click 'Friends' button. 
+            You are able to search friends by their user name. 
+            Follow and interact with them to share pins together!<br></br>
+            <img src={FriendsList} style={{ transform: 'scale(1)', marginTop: '10px' }} /><br></br>
+            ▶ Check their pin color! Plus, you can remove their pins on the map by unfollowing. <br></br>
           </label>
         </div>
         <div className='guide'>
@@ -62,16 +89,6 @@ const Guide = (props) => {
           </div>
           <label>
             ▶ Its in the top left corner next to search box! When you click it, the camera will slowly move to where you are right now.<br></br>
-          </label>
-        </div>
-        <div className='guide'>
-          <div className='guide-icon' style={{ marginLeft: '10px' }}>
-            <img src={User} style={{ transform: 'scale(0.65)' }}/>
-            <span style={{ marginLeft: '8px' }}><b>User panel button</b></span>
-          </div>
-          <label>
-            ▶ It's user panel! Click on the button in the top right corner.<br></br>
-            ▶ You are able to find some options to set profile picture, check friends list, and logout.<br></br>
           </label>
         </div>
       </div>
