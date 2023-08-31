@@ -15,6 +15,22 @@
     z-index: 999;
 }
 
+.welcome-logo-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    & span {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        margin-left: -350px;
+    }
+}
+
 .welcome-hidden-container {
     position: absolute;
     top: 0;

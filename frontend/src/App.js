@@ -18,6 +18,7 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Welcome from './components/Welcome';
 import Loading from './components/Loading';
 import { motion } from "framer-motion";
+import FootprintAnimation from './assets/footprint-animation.gif';
 
 function App() {
   const localStorage = window.localStorage;
@@ -265,6 +266,9 @@ function App() {
         mapStyle="mapbox://styles/mapbox/streets-v12"
         onClick={mapClickHandler}
         onContextMenu={mapRightClickHandler}>
+        <div>
+          <img src={FootprintAnimation} alt='animation' style={{transform: 'scale(0.3)'}}></img>
+        </div>
         {pins.map((pin) => (
           <div 
             key={pin._id}>
