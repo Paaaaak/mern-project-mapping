@@ -110,12 +110,13 @@ input[type="color"]::-webkit-color-swatch {
 .user-img {
     transform: scale(1);
     position: absolute;
+    background-color: white;
     width: 100%;
     height: 100%; /* 이미지가 부모의 크기에 맞게 꽉 차도록 설정 */
     object-fit: cover; /* 이미지 비율을 유지하면서 채우도록 설정 */
     margin: auto;
     top: 0;
     left: 0;
-    border: 2px solid white;
+    border: 2px solid rgba(128, 128, 128, 0.438);
     border-radius: 50%;
 }
