@@ -241,6 +241,11 @@ function App() {
     setShowWelcome(success);
   };
 
+  const logoClickHandler = () => {
+    // console.log('Logo clicked!');
+    window.location.reload();
+  };
+
   return (
     <div className='App'>
       <div className='map-search-container'>
@@ -266,8 +271,8 @@ function App() {
         mapStyle="mapbox://styles/mapbox/streets-v12"
         onClick={mapClickHandler}
         onContextMenu={mapRightClickHandler}>
-        <div>
-          <img src={FootprintAnimation} alt='animation' style={{transform: 'scale(0.3)'}}></img>
+        <div className='map-logo' onClick={logoClickHandler}>
+          <img className='map-logo-image' src={FootprintAnimation} alt='animation' style={{transform: 'scale(1)'}}></img>
         </div>
         {pins.map((pin) => (
           <div 
@@ -299,7 +304,11 @@ function App() {
             setRating={setRating}>
           </CustomNewPopup>
         )}
-        <GeolocateControl position='top-left' trackUserLocation></GeolocateControl>
+        <GeolocateControl 
+          position='top-left'
+          style={{marginLeft: '120px'}} 
+          trackUserLocation>
+        </GeolocateControl>
         <motion.div 
           className='guide-button'
           whileHover={{ scale: 1.1 }}

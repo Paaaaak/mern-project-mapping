@@ -17,6 +17,21 @@ textarea::placeholder {
     font-size: 12px;
 }
 
+.map-logo {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: -10px;
+    cursor: pointer;
+}
+
+.map-logo-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 .submit-button {
     border: none;
     padding: 5px;
@@ -46,16 +61,16 @@ textarea::placeholder {
     position: absolute;
     cursor: pointer;
     padding: 5px;
-    top: 8px;
-    left: 270px;
+    top: 6px;
+    left: 373px;
 }
 
 .map-search-container {
     display: flex;
     flex-direction: row;
     position: absolute;
-    top: 7px;
-    left: 50px;
+    top: 6px;
+    left: 157px;
     z-index: 1;
     padding: 5px;
     background: white;
