@@ -300,7 +300,7 @@ function App() {
           className='guide-button'
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}>
-          <Help onClick={guideClickHandler} style={{ color: 'white', transform: 'scale(1.5)' }}></Help>
+          <Help onClick={guideClickHandler} style={{ color: 'white', transform: 'scale(1.2)', backgroundColor: 'rgba(128, 128, 128, 0.5)', borderRadius: '50%' }}></Help>
         </motion.div>
         {guideClick && (
           <Guide cancelClick={() => setGuideClick(null)}></Guide>
