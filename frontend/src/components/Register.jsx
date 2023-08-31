@@ -44,7 +44,7 @@ const Register = (props) => {
           ...state,
           username: {
             value: action.username,
-            isValid: action.username.trim().length >= 3
+            isValid: action.username.trim().length > 3
           }
         }
       case 'EMAIL_CHECK':
