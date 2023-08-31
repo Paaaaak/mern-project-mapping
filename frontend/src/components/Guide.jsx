@@ -55,6 +55,7 @@ const Guide = (props) => {
             ▶ Open the user panel and click 'Friends' button. 
             You are able to search friends by their user name. 
             Follow and interact with them to share pins together!<br></br>
+            (e.g. Search 'admin' and follow. You can see admin's pins on the map and the contents of each of them!)
             <img src={FriendsList} style={{ transform: 'scale(1)', marginTop: '10px' }} /><br></br>
             ▶ Check their pin color! Plus, you can remove their pins on the map by unfollowing. <br></br>
           </label>
