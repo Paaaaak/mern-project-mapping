@@ -248,7 +248,7 @@ function App() {
 
   return (
     <div className='App'>
-      <div className='map-search-container'>
+      <div title='Search location' className='map-search-container'>
         <SearchIcon style={{ color: 'gray', transform: 'scale(0.8)' }}></SearchIcon>
         <Geocoder
           mapboxApiAccessToken={process.env.REACT_APP_MAPBOX}
@@ -271,7 +271,7 @@ function App() {
         mapStyle="mapbox://styles/mapbox/streets-v12"
         onClick={mapClickHandler}
         onContextMenu={mapRightClickHandler}>
-        <div className='map-logo' onClick={logoClickHandler}>
+        <div title="Reload page" className='map-logo' onClick={logoClickHandler}>
           <img className='map-logo-image' src={FootprintAnimation} alt='animation' style={{transform: 'scale(1)'}}></img>
         </div>
         {pins.map((pin) => (
@@ -310,6 +310,7 @@ function App() {
           trackUserLocation>
         </GeolocateControl>
         <motion.div 
+          title='Guide'
           className='guide-button'
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}>

@@ -76,6 +76,7 @@ const UserPanel = (props) => {
   return (
     <div className='user-panel'>
       <motion.div
+        title='User information'
         className='user-button'
         onClick={() => setShowUser(prev => !prev)}
         whileHover={{ scale: 1.1 }}
