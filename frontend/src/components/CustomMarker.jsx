@@ -7,7 +7,7 @@ const CustomMarker = (props) => {
   
   // Marker hover event handler
   const markerHoverHandler = (pin) => {
-    console.log(pin.username);
+    // console.log(pin.username);
     showMarkerTip(true);
   }
 

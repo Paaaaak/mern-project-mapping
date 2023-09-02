@@ -53,7 +53,7 @@ function App() {
         userId: idList
       }
       const res = await axios.post('/pins/get/pinList', req);
-      // console.log('Pin list:', res.data);
+      console.log('ID list:', idList, 'Pin list:', res.data);
       setPins(res.data);
     }
     catch (error) {
@@ -77,8 +77,8 @@ function App() {
   // 페이지 처음 로드됐을시 실행되는 Hook
   useEffect(async () => {
     const fetchData = async () => {
+      console.log('Get followings and pins list.');
       await getFollowings();
-      await getPinsByUserId();
       // console.log('Current user ID:', currentUserId);
       if (currentUserId) {
         setProfileImage('/profile-images/image-' + currentUserId);
