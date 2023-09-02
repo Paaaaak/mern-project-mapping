@@ -336,7 +336,10 @@ function App() {
           color={color}>
         </UserPanel>
         {showRegister && (
-          <Register cancelClick={() => setShowRegister(false)}></Register>
+          <Register 
+            setShowRegister={setShowRegister}
+            cancelClick={() => setShowRegister(false)}>
+          </Register>
         )};
         {showFriend && (
           <FriendPanel

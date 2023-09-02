@@ -130,6 +130,7 @@
     color: forestgreen;
     font-size: 12px;
     text-align: center;
+    font-weight: bold;
   }
 
   .failure {

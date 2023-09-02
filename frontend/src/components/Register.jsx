@@ -6,6 +6,7 @@ import ReactDom from 'react-dom';
 import SupervisedUserCircleIcon from '@mui/icons-material/SupervisedUserCircle';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import LockOpenIcon from '@mui/icons-material/LockOpen';
+import Loading from './Loading';
 
 const initialState = {
   username: {
@@ -80,6 +81,7 @@ const Register = (props) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -111,7 +113,12 @@ const Register = (props) => {
 
   useEffect(() => {
     if (success) {
-      // 성공 이벤트 렌더링 및 로그인 페이지로 리다이렉트
+      setIsLoading(true);
+      setTimeout(() => {
+        setIsLoading(false);
+        // 성공 이벤트 렌더링 및 로그인 페이지로 리다이렉트
+        props.setShowRegister(false);
+      }, [2000])
     }
   }, [success]);
 
@@ -130,6 +137,9 @@ const Register = (props) => {
     <React.Fragment>
       {ReactDom.createPortal(
         <div className='register-container'>
+          <div className='loading-container'>
+            {isLoading && <Loading></Loading>}
+          </div>
           <div className='register-title'>
             <img src={Footprint}></img>
             <span>Footprint</span>
