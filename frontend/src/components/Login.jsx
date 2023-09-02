@@ -43,6 +43,7 @@ const Login = (props) => {
       console.log(error);
       console.log('Error message: ' + error.response.data);
       setError(true);
+      setIsLoading(false);
     }
   };
 
