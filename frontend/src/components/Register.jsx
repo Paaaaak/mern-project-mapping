@@ -69,19 +69,22 @@ const Register = (props) => {
           ...state,
           confirmPassword: {
             value: action.confirmPassword,
-            isValid: action.confirmPassword.trim().length >= 6 && state.password.value.trim().length >= 0
+            isValid: (action.confirmPassword.trim().length >= 6 && state.password.value.trim().length >= 0) 
+              && (action.confirmPassword === state.password.value)
           }
         }
       default: 
         return state;
     }
   };
-  
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const passwordRef = useRef(null);
+  const confirmPasswordRef = useRef(null);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -133,6 +136,32 @@ const Register = (props) => {
   // Write the correct email form including @
   // Username is duplicated 
 
+  useEffect(() => {
+    // 비밀번호 확인란을 먼저 입력할 경우, 비밀번호란을 먼저 채우도록 포커스
+    if (state.confirmPassword.value.trim().length >= 1 && state.password.value.trim().length <= 0) {
+      confirmPasswordRef.current.value = '';
+      setError(true);
+      setErrorMessage('Fill the password first!');
+    }
+
+    // 비밀번호와 비밀번호 확인이 일치하지 않을경우 오류 메세지 
+    if (state.password.value.trim().length >= 6 && state.confirmPassword.value.trim().length >= 1) {
+      if (confirmPasswordRef.current.value != passwordRef.current.value) {
+        setError(true);
+        setErrorMessage('Passwords are not matching!');
+      }
+      else {
+        setError(false);
+        setErrorMessage('');
+      }
+    }
+  }, [state]);
+
+  const confirmPasswordBlurHandler = () => {
+    setError(false);
+    setErrorMessage(null);
+  }
+
   return (
     <React.Fragment>
       {ReactDom.createPortal(
@@ -164,14 +193,20 @@ const Register = (props) => {
               <label for='password'>Password</label>
               <div className='input-container'>
                 <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
-                <input id='password' type='password' placeholder='Type your password' onChange={(e) => dispatch({type: 'PASSWORD_CHECK', password: e.target.value})}></input>
+                <input ref={passwordRef} id='password' type='password' placeholder='Type your password' onChange={(e) => dispatch({type: 'PASSWORD_CHECK', password: e.target.value})}></input>
               </div>
             </div>
             <div>
-              <label for='password-confirm'>Password Confirm</label>
-              <div className='input-container'>
-                <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon>
-                <input id='password-confirm' type='password' placeholder='Confirm your password' onChange={(e) => dispatch({type: 'CONFIRMPASSWORD_CHECK', confirmPassword: e.target.value})}></input>
+              <label for='password-confirm'>Password Confirm</label> 
+              <div className='input-container'> 
+                <LockOpenIcon style={{transform: 'scale(0.8)', marginLeft: '5px', color: 'rgb(126, 125, 125)'}}></LockOpenIcon> 
+                <input 
+                  ref={confirmPasswordRef} 
+                  id='password-confirm' 
+                  type='password' 
+                  placeholder='Confirm your password' 
+                  onChange={(e) => dispatch({type: 'CONFIRMPASSWORD_CHECK', confirmPassword: e.target.value})} 
+                  onBlur={confirmPasswordBlurHandler}></input> 
               </div>
             </div>
             <button className={state.isFormValid ? 'register-button' : 'register-disabled-button'} disabled={!state.isFormValid}>Register</button>
