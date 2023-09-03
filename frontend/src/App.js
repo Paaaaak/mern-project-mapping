@@ -81,7 +81,24 @@ function App() {
       await getFollowings();
       // console.log('Current user ID:', currentUserId);
       if (currentUserId) {
-        setProfileImage('/profile-images/image-' + currentUserId);
+        fetch('http://localhost:1035/profile-images/image-' + currentUserId)
+          .then((res) => {
+            if (res.status === 200) {
+              // 이미지가 존재하는 경우
+              setProfileImage('/profile-images/image-' + currentUserId);
+            } 
+            else if (res.status === 404) {
+              // 이미지가 없는 경우
+              setProfileImage(null);
+            } 
+            else {
+              // 다른 상태 코드를 처리하거나 오류 처리
+              console.error('Server returned an unexpected status code:', res.status);
+            }
+          })
+          .catch((error) => {
+            console.error('An error occurred while fetching the profile image:', error);
+          });
       }
       else {
         setProfileImage(null)

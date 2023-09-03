@@ -26,7 +26,12 @@ const Login = (props) => {
     try {
       setIsLoading(true);
       const res = await axios.post('/users/login', loginUser);
-      props.setProfileImage(res.data.profileImageURL);
+      if (res.data.profileImageURL) {
+        props.setProfileImage(res.data.profileImageURL);
+      }
+      else {
+        props.setProfileImage(null);
+      }
       setError(false);
       updateUser(res.data.username, res.data._id);
       localStorage.setItem('userId', res.data._id);
@@ -82,10 +87,10 @@ const Login = (props) => {
                 <input id='password' type='password' placeholder='Type your password' ref={passwordRef}></input>
               </div>
             </div>
-            <div className='login-rememberme'>
+            {/* <div className='login-rememberme'>
               <input type='checkbox'></input>
               <span>Remember me</span>
-            </div>
+            </div> */}
             <button className='login-button'>Login</button>
           </form>
           <div className='login-register'>
