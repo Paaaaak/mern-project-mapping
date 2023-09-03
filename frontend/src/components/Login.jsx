@@ -82,6 +82,10 @@ const Login = (props) => {
                 <input id='password' type='password' placeholder='Type your password' ref={passwordRef}></input>
               </div>
             </div>
+            <div className='login-rememberme'>
+              <input type='checkbox'></input>
+              <span>Remember me</span>
+            </div>
             <button className='login-button'>Login</button>
           </form>
           <div className='login-register'>
