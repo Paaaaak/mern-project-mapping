@@ -68,7 +68,9 @@ router.post('/register', async (req, res) => {
         const newUser = new User({
             username: req.body.username,
             email: req.body.email,
-            password: hashedPassword
+            password: hashedPassword,
+            // Footprint © is added by default
+            followings: ['64c67c436f8bd303cc470f6a']
         });
         // save user and send response
         const user = await newUser.save();
