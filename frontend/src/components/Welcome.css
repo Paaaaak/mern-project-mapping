@@ -15,22 +15,6 @@
     z-index: 999;
 }
 
-.welcome-logo-container {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 100%;
-    & span {
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        margin: auto;
-        margin-left: -350px;
-    }
-}
-
 .welcome-hidden-container {
     position: absolute;
     top: 0;
@@ -49,6 +33,39 @@
     opacity: 0;
     transition: opacity 1s, visibility 1s, background-color 1s;
     z-index: 999;
+}
+
+.welcome-logo-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    & div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        & img {
+            max-width: 100%; /* 이미지의 최대 너비를 100%로 설정하여 비율 유지 */
+            max-height: 100%; /* 이미지의 최대 높이를 100%로 설정하여 비율 유지 */
+            object-fit: contain; /* 이미지가 컨테이너 내에 맞도록 조절 */
+            position: absolute;
+            margin-top: -250px;
+            margin-left: -30px;
+        }
+        & span {
+            position: absolute;
+        }
+    }
 }
 
 @keyframes firework {
