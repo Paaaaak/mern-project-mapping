@@ -18,7 +18,8 @@ import 'react-map-gl-geocoder/dist/mapbox-gl-geocoder.css'
 import Welcome from './components/Welcome';
 import Loading from './components/Loading';
 import { motion } from "framer-motion";
-import FootprintAnimation from './assets/footprint-animation.gif';
+import FootprintAnimation from './assets/footprint-logo-animation.gif';
+import Footprint from './assets/footprint-animation.png';
 
 function App() {
   const localStorage = window.localStorage;
@@ -263,6 +264,16 @@ function App() {
     window.location.reload();
   };
 
+  const [isLogoHover, setIsLogoHover] = useState(false);
+
+  const logoMouseEnterHandler = () => {
+    setIsLogoHover(true);
+  };
+
+  const logoMouseLeaveHandler = () => {
+    setIsLogoHover(false);
+  }
+
   return (
     <div className='App'>
       <div title='Search location' className='map-search-container'>
@@ -288,8 +299,8 @@ function App() {
         mapStyle="mapbox://styles/mapbox/streets-v12"
         onClick={mapClickHandler}
         onContextMenu={mapRightClickHandler}>
-        <div title="Reload page" className='map-logo' onClick={logoClickHandler}>
-          <img className='map-logo-image' src={FootprintAnimation} alt='animation' style={{transform: 'scale(1)'}}></img>
+        <div title="Reload page" className='map-logo' onClick={logoClickHandler} onMouseEnter={logoMouseEnterHandler} onMouseLeave={logoMouseLeaveHandler}>
+          <img className='map-logo-image' src={isLogoHover ? FootprintAnimation : Footprint} alt='animation' style={{transform: 'scale(1)'}}></img>
         </div>
         {pins.map((pin) => (
           <div 
