@@ -26,7 +26,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 // get all pins by array of user id
-router.post('/get/pinList', async (req, res) => {
+router.post('/api/get/pinList', async (req, res) => {
     try {
         const pins = await Pin.find({ userId: { $in: req.body.userId } });
         res.status(200).json(pins);

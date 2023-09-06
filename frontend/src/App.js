@@ -53,7 +53,7 @@ function App() {
       const req = {
         userId: idList
       }
-      const res = await axios.post('/pins/get/pinList', req);
+      const res = await axios.post('/api/pins/get/pinList', req);
       console.log('ID list:', idList, 'Pin list:', res.data);
       setPins(res.data);
     }
@@ -65,7 +65,7 @@ function App() {
   const getFollowings = async () => {
     if (currentUserId !== null && currentUserId !== 'null') {
       try {
-        const res = await axios.get('/users/' + currentUserId + '/followings');
+        const res = await axios.get('/api/users/' + currentUserId + '/followings');
         // console.log('Friends list:', res.data);
         setFriends(res.data);
       }
@@ -153,7 +153,7 @@ function App() {
 
     try {
       // create new pin
-      const res = await axios.post('/pins', newPin);
+      const res = await axios.post('/api/pins', newPin);
       setPins(prev => [...prev, res.data]);
       setNewPlace(null);
     }
@@ -169,7 +169,7 @@ function App() {
       const findingUser = {
         username: findUsername
       };
-      const res = await axios.post('/users/get', findingUser);
+      const res = await axios.post('/api/users/get', findingUser);
       if (res.data) {
         setFoundUser(res.data);
       }
@@ -198,7 +198,7 @@ function App() {
 
   const updateClickHandler = async (popupInfo) => {
     try {
-      const updatedPopup = await axios.put('/pins/update/' + currentPlaceId, popupInfo);
+      const updatedPopup = await axios.put('/api/pins/update/' + currentPlaceId, popupInfo);
       getPinsByUserId(currentUserId);
     }
     catch (error) {
@@ -212,7 +212,7 @@ function App() {
     }
 
     try {
-      const res = await axios.get('/pins/delete/' + currentPlaceId);
+      const res = await axios.get('/api/pins/delete/' + currentPlaceId);
       console.log('Deleted pin:', res);
       getPinsByUserId(currentUserId);
     }
@@ -228,7 +228,7 @@ function App() {
   const followClickHandler = async () => {
     setIsLoading(true);
     try {
-      await axios.put('/users/' + foundUser._id + '/follow', { userId: currentUserId });
+      await axios.put('/api/users/' + foundUser._id + '/follow', { userId: currentUserId });
       getFollowings();
       setFoundUser(false);
     }
@@ -241,7 +241,7 @@ function App() {
   const unfollowClickHandler = async (userId) => {
     setIsLoading(true);
     try {
-      await axios.put('/users/' + userId + '/unfollow', { userId: currentUserId });
+      await axios.put('/api/users/' + userId + '/unfollow', { userId: currentUserId });
       getFollowings();
       setFoundUser(false);
     }
