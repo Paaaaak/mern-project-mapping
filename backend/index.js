@@ -16,6 +16,7 @@ app.use(express.json());
 
 // Mongo DB 연결
 mongoose.connect(process.env.MONGO_URL, {
+        useCreateIndex: true,
         useNewUrlParser: true,
         useUnifiedTopology: true
     })
