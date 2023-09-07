@@ -30,7 +30,6 @@ app.use('/api/pins/', pinRoute);
 app.use('/api/users/', userRoute);
 // CORS 설정
 app.use(cors({
-    // origin: 'http://localhost:3000', // 리액트 애플리케이션의 주소
     origin: 'http://15.164.216.205', // AWS EC2 Nginx 클라이언트 서버 주소
     credentials: true // 필요한 경우, 인증 관련 설정
 }));

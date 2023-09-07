@@ -82,7 +82,7 @@ function App() {
       await getFollowings();
       // console.log('Current user ID:', currentUserId);
       if (currentUserId) {
-        fetch('http://localhost:1035/profile-images/image-' + currentUserId)
+        fetch('http://15.164.216.205:1035/profile-images/image-' + currentUserId)
           .then((res) => {
             if (res.status === 200) {
               // 이미지가 존재하는 경우
