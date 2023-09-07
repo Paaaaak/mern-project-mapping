@@ -53,5 +53,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://15.164.216.205/:1035/"
+  "proxy": "http://15.164.216.205:1035/"
 }
