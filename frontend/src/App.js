@@ -199,7 +199,9 @@ function App() {
   const updateClickHandler = async (popupInfo) => {
     try {
       const updatedPopup = await axios.put('/api/pins/update/' + currentPlaceId, popupInfo);
-      getPinsByUserId(currentUserId);
+      const friendsIdList = friends.map((friend) => friend._id);
+      friendsIdList.push(currentUserId);
+      getPinsByUserId(friendsIdList);
     }
     catch (error) {
       console.log(error);
@@ -214,7 +216,9 @@ function App() {
     try {
       const res = await axios.get('/api/pins/delete/' + currentPlaceId);
       console.log('Deleted pin:', res);
-      getPinsByUserId(currentUserId);
+      const friendsIdList = friends.map((friend) => friend._id);
+      friendsIdList.push(currentUserId);
+      getPinsByUserId(friendsIdList);
     }
     catch (error) {
       console.log(error);
