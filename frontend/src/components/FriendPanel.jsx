@@ -28,7 +28,7 @@ const FriendPanel = (props) => {
 
   const profileImageCellRenderer = (params) => {
     console.log(params.value);
-    return <img className='friend-img' src={!params.value ? User : 'http://localhost:1035' + params.value}></img>;
+    return <img className='friend-img' src={!params.value ? User : 'http://15.164.216.205:1035' + params.value}></img>;
   }
 
   // friends list grid columns
@@ -88,7 +88,7 @@ const FriendPanel = (props) => {
       <div className='friend-info-container' style={{height: '60px'}}>
         {props.foundUser && (
           <div className='friend-info'>
-            <img className='found-friend-img' src={!props.foundUser.profileImageURL ? User : 'http://localhost:1035' + props.foundUser.profileImageURL}></img>
+            <img className='found-friend-img' src={!props.foundUser.profileImageURL ? User : 'http://15.164.216.205:1035' + props.foundUser.profileImageURL}></img>
             <span style={{fontSize: '15px', fontWeight: 'bold'}}>{props.foundUser.username}</span>
             <button className={`follow-button ${isFollowing ? 'following' : ''}`} onClick={props.followClickHandler} disabled={isFollowing}>{isFollowing ? 'Following' : 'Follow'}</button>
           </div>

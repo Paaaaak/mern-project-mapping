@@ -95,7 +95,7 @@ const Register = (props) => {
     };
 
     try {
-      const res = await axios.post('/users/register', newUser);
+      const res = await axios.post('/api/users/register', newUser);
       setSuccess(true);
       setError(false);
     }

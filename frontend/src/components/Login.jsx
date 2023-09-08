@@ -25,7 +25,7 @@ const Login = (props) => {
 
     try {
       setIsLoading(true);
-      const res = await axios.post('/users/login', loginUser);
+      const res = await axios.post('/api/users/login', loginUser);
       if (res.data.profileImageURL) {
         props.setProfileImage(res.data.profileImageURL);
       }

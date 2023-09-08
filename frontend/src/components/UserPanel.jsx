@@ -30,8 +30,8 @@ const UserPanel = (props) => {
       colorRef.current.value = props.color;
       if (currentUserId !== null && currentUserId !== 'null') {
         // 색상 업데이트 axios 호출문 추가
-        await axios.put('/users/' + currentUserId, { color: colorRef.current.value });
-        await axios.put('/pins/' + currentUserId, { color: colorRef.current.value });
+        await axios.put('/api/users/' + currentUserId, { color: colorRef.current.value });
+        await axios.put('/api/pins/' + currentUserId, { color: colorRef.current.value });
         props.setColor(colorRef.current.value);
       }
     }, 500);
@@ -55,7 +55,7 @@ const UserPanel = (props) => {
     console.log('Form data:', currentUserId, selectedImage);
     formData.append('userId', currentUserId);
     formData.append('image', selectedImage);
-    axios.post('/users/upload', formData)
+    axios.post('/api/users/upload', formData)
       .then(res => {
         console.log(res);
         setSelectedImage(null);
@@ -82,7 +82,7 @@ const UserPanel = (props) => {
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}>
         {props.profileImage ? (
-          <img className='user-img' src={'http://localhost:1035' + props.profileImage} alt="Image"></img>
+          <img className='user-img' src={'http://15.164.216.205:1035' + props.profileImage} alt="Image"></img>
         ) : (
           <img className='user-img' src={User}></img>
         )}
