@@ -169,7 +169,7 @@ function App() {
       const findingUser = {
         username: findUsername
       };
-      const res = await axios.post('/users/get', findingUser);
+      const res = await axios.post('/api/users/get', findingUser);
       if (res.data) {
         setFoundUser(res.data);
       }
