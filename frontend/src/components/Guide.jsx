@@ -29,9 +29,9 @@ const Guide = (props) => {
             </span>
           </div>
           <label>
-            ▶ You can use most features with left-click.<br></br>
-            ▶ Click a pin and check out what people have reviewed at that location!<br></br>
-            ▶ Left click and hold the map, and drag. You can move the camera to any place you want.<br></br>
+            ▶ You can use most features by left-clicking.<br></br>
+            ▶ Left click on a pin to see the reviews for a location.<br></br>
+            ▶ Left click and drag the map to move in any direction.<br></br>
           </label>
         </div>
         <div className='guide'>
@@ -40,8 +40,8 @@ const Guide = (props) => {
             <span style={{ marginLeft: '-7px' }}><b>User panel button</b></span>
           </div>
           <label>
-            ▶ It's user panel! Click on the button in the top right corner.<br></br>
-            ▶ You are able to find some options to set profile picture, check friends list, and logout.<br></br>
+            ▶ Click on the person icon in the top right corner to access the user panel.<br></br>
+            ▶ Here you can set your profile picture, access your friends list, or logout.<br></br>
           </label>
         </div>
         <div className='guide'>
@@ -52,12 +52,11 @@ const Guide = (props) => {
             </span>
           </div>
           <label>
-            ▶ Open the user panel and click 'Friends' button. 
-            You are able to search friends by their user name. 
-            Follow and interact with them to share pins together!<br></br>
+            ▶ From the user panel, select ‘friends’ and search their username.   
+            After pressing ‘follow’ you can share pins and see their reviews of places around the world!<br></br>
             (e.g. Search 'admin' and follow. You can see admin's pins on the map and the contents of each of them!)
             <img src={FriendsList} style={{ transform: 'scale(1)', marginTop: '10px' }} /><br></br>
-            ▶ Check their pin color! Plus, you can remove their pins on the map by unfollowing. <br></br>
+            ▶ If you ever want to unfollow a friend you can press the ‘unfollow’ button from the ‘friends’ panel and their colored pins will disappear from your map. <br></br>
           </label>
         </div>
         <div className='guide'>
@@ -68,8 +67,8 @@ const Guide = (props) => {
             </span>
           </div>
           <label>
-            ▶ Right click the map, hold, and drag to any direction. You can rotate the map.<br></br>
-            ▶ Right click the map where you want to mark the place. You can create new pop up.<br></br>
+            ▶ You can rotate the map by right-clicking and dragging in any direction.<br></br>
+            ▶ Right click to drop a pin on a location and add a review!<br></br>
           </label>
         </div>
         <div className='guide'>
@@ -78,7 +77,7 @@ const Guide = (props) => {
             <span><b>Scroll up and down</b></span>
           </div>
           <label>
-            ▶ Scroll up to zoom in a map, scroll down to zoom out the map.<br></br>
+            ▶ Scroll up to zoom in on a map, and scroll down to zoom out of the map.<br></br>
           </label>
         </div>
         <div className='guide'>
@@ -89,7 +88,7 @@ const Guide = (props) => {
             </span>
           </div>
           <label>
-            ▶ Its in the top left corner next to search box! When you click it, the camera will slowly move to where you are right now.<br></br>
+            ▶ If you press the 'location button' in the top left corner, the map will slowly travel to your current location.<br></br>
           </label>
         </div>
       </div>
