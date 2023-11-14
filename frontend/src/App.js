@@ -76,30 +76,31 @@ function App() {
   }
 
   // 페이지 처음 로드됐을시 실행되는 Hook
-  useEffect(async () => {
+  // useEffect는 async 결과를 처리할 수 있음
+  useEffect(() => {
     const fetchData = async () => {
       console.log('Get followings and pins list.');
       await getFollowings();
       // console.log('Current user ID:', currentUserId);
       if (currentUserId) {
-        fetch('http://15.164.216.205:1035/profile-images/image-' + currentUserId)
-          .then((res) => {
-            if (res.status === 200) {
-              // 이미지가 존재하는 경우
-              setProfileImage('/profile-images/image-' + currentUserId);
-            } 
-            else if (res.status === 404) {
-              // 이미지가 없는 경우
-              setProfileImage(null);
-            } 
-            else {
-              // 다른 상태 코드를 처리하거나 오류 처리
-              console.error('Server returned an unexpected status code:', res.status);
-            }
-          })
-          .catch((error) => {
-            console.error('An error occurred while fetching the profile image:', error);
-          });
+        try {
+          const response = await fetch(`http://15.164.216.205:1035/profile-images/image-${currentUserId}`);
+
+          if (response.status === 200) {
+            // 이미지가 존재하는 경우
+            setProfileImage(`/profile-images/image-${currentUserId}`);
+          } 
+          else if (response.status === 404) {
+            // 이미지가 없는 경우
+            setProfileImage(null);
+          } 
+          else {
+            // 다른 상태 코드를 처리하거나 오류 처리
+            console.error('Server returned an unexpected status code:', response.status);
+          }
+        } catch (error) {
+          console.error('An error occurred while fetching the profile image:', error);
+        }
       }
       else {
         setProfileImage(null)
