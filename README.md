@@ -3,6 +3,8 @@
 http://footprint.boutique/  
 Runs until 2024.02.01!
 
+Demo ID/PW: 00000/123456789
+
 ## Detail   
 An interactive map that allows you to pin the places you have been and share them with friends. This application is based on Mapbox which is a popular platform for creating custom maps and location-based applications provided by Uber. It provides a suite of tools and APIs for developers to integrate mapping and location services into their applications.  
 
