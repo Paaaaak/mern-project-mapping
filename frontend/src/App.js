@@ -76,11 +76,12 @@ function App() {
   }
 
   // 페이지 처음 로드됐을시 실행되는 Hook
-  // useEffect Promise 반환하지 않음. 다만 콜백함수 내부에서 비동기 작업 가능.
+  // useEffect Promise 반환하지 않음.
+  // useEffect 내부에서 직접적으로 async 사용 불가능하므로 비동기 작업을 호출하는 함수를 선언한뒤 호출.
   useEffect(() => {
     const fetchData = async () => {
       console.log('Get followings and pins list.');
-      await getFollowings();
+      getFollowings();
       // console.log('Current user ID:', currentUserId);
       if (currentUserId) {
         try {
@@ -109,15 +110,10 @@ function App() {
     fetchData();
   }, [currentUserId]);
 
-  // useEffect 내부에서 직접적으로 async 사용 불가능하므로 비동기 작업을 호출하는 함수를 선언한뒤 호출.
   useEffect(() => {
-    const fetchData = async () => {
-      // console.log('Friends changed', friends);
-      const friendsIdList = friends.map((friend) => friend._id);
-      friendsIdList.push(currentUserId);
-      await getPinsByUserId(friendsIdList);
-    };
-    fetchData();
+    const friendsIdList = friends.map((friend) => friend._id);
+    friendsIdList.push(currentUserId);
+    getPinsByUserId(friendsIdList);
   }, [friends]);
 
   /* executed when clicking the marker */
